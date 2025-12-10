@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Syndicate - Architecture Proposée</title>
-        <!-- FAVICON -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
     <style>
         * {
@@ -471,17 +470,38 @@
     </style>
 </head>
 <body>
-    <!-- BOUTON SOMMAIRE FLOTTANT -->
-    <button class="sommaire-btn" onclick="toggleSommaire()">📋 Sommaire</button>
+    <header>
+        <button
+            class="sommaire-btn"
+            onclick="toggleSommaire()"
+            aria-controls="sommairePanel"
+            aria-expanded="false"
+        >
+            📋 Sommaire
+        </button>
 
-    <!-- BOUTON PLEIN ÉCRAN FLOTTANT -->
-    <button class="fullscreen-btn" onclick="toggleFullscreen()">🖥️ Plein écran</button>
+        <button
+            class="fullscreen-btn"
+            onclick="toggleFullscreen()"
+            aria-label="Activer le mode plein écran"
+        >
+            🖥️ Plein écran
+        </button>
+    </header>
 
-    <!-- OVERLAY (fond sombre quand sommaire ouvert) -->
-    <div class="overlay" id="overlay" onclick="toggleSommaire()"></div>
+    <div
+        class="overlay"
+        id="overlay"
+        onclick="toggleSommaire()"
+        role="presentation"
+        aria-hidden="true"
+    ></div>
 
-    <!-- PANNEAU SOMMAIRE -->
-    <div class="sommaire-panel" id="sommairePanel">
+    <nav
+        class="sommaire-panel"
+        id="sommairePanel"
+        aria-label="Sommaire de la présentation"
+    >
         <h2>📋 Navigation</h2>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(0)">
             <span class="item-number">1</span>
@@ -525,16 +545,19 @@
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(10)">
             <span class="item-number">11</span>
-            <span class="item-title">🎬 Conclusion</span>
+            <span class="item-title">📌 Traçabilité exigences</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(11)">
             <span class="item-number">12</span>
+            <span class="item-title">🎬 Conclusion</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(12)">
+            <span class="item-number">13</span>
             <span class="item-title">📖 Lexique</span>
         </div>
-    </div>
+    </nav>
 
-    <div class="presentation-container">
-        <!-- SLIDE 1 : TITRE (avec fond violet) -->
+    <main class="presentation-container" role="main">
         <div class="slide title-slide active">
             <h1>🚀 Nova Syndicate</h1>
             <h2>Architecture Proposée</h2>
@@ -559,16 +582,15 @@
             <p style="margin-top: 40px; z-index: 1;">Décembre 2025</p>
         </div>
 
-        <!-- SLIDE 2 : CONTEXTE (fond blanc) -->
         <div class="slide">
-            <span class="slide-number">2 / 12</span>
+            <span class="slide-number">2 / 13</span>
             <h1>📊 Contexte & Problématique</h1>
             
             <h2>🏢 Situation Actuelle</h2>
             <ul>
-                <li><strong>Entreprise en croissance</strong> : €48M CA, 85 employés, 3 sites (Lyon, Marseille, distants)</li>
-                <li><strong>Secteurs sensibles</strong> : Médical, Aérospatial, Défense → exigences réglementaires strictes</li>
-                <li><strong>Infrastructure fragmentée</strong> : Patchwork de systèmes legacy, aucune centralisation</li>
+                <li><strong>Croissance rapide</strong> : 48 M€ de CA, 85 collaborateurs, 3 sites (Lyon, Marseille, télétravail).</li>
+                <li><strong>Secteurs critiques</strong> : médical, aérospatial, défense → obligations fortes en sécurité et conformité.</li>
+                <li><strong>SI fragmenté</strong> : serveurs isolés, pas de domaine, fichiers dispersés, base MySQL non sauvegardée.</li>
             </ul>
 
             <h2>⚠️ 6 Problèmes Critiques Identifiés</h2>
@@ -602,22 +624,21 @@
                     </tr>
                     <tr>
                         <td>❌ Pas de supervision centralisée</td>
-                        <td>Détection tardive des pannes, réactivité faible</td>
+                        <td>Incidents détectés trop tard, pertes de service non maîtrisées</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- SLIDE 3 : OBJECTIFS -->
         <div class="slide">
-            <span class="slide-number">3 / 12</span>
+            <span class="slide-number">3 / 13</span>
             <h1>🎯 Objectifs</h1>
             
             <h2>🎓 Vision Stratégique</h2>
             <ul>
-                <li><strong>Fondations solides</strong> : Infrastructure moderne, scalable, sécurisée</li>
-                <li><strong>Conformité réglementaire</strong> : RGPD, ISO 27001, sectorielles (médical, défense)</li>
-                <li><strong>Haute disponibilité</strong> : Services critiques 24/7, tolérance aux pannes</li>
+                <li><strong>Fondations solides</strong> : infrastructure moderne, virtualisée, prête à accueillir CRM/ERP et nouveaux services.</li>
+                <li><strong>Conformité réglementaire</strong> : base technique alignée avec RGPD, ISO 27001 et exigences sectorielles.</li>
+                <li><strong>Haute disponibilité</strong> : services critiques accessibles 24/7, tolérance aux pannes multi-sites.</li>
             </ul>
 
             <h2>📊 Bénéfices Attendus</h2>
@@ -659,9 +680,8 @@
             </table>
         </div>
 
-        <!-- SLIDE 4 : ARCHITECTURE GLOBALE -->
         <div class="slide">
-            <span class="slide-number">4 / 12</span>
+            <span class="slide-number">4 / 13</span>
             <h1>🏗️ Architecture Globale</h1>
             
             <h2>🎯 6 Services Fondamentaux</h2>
@@ -716,9 +736,8 @@
             </ul>
         </div>
 
-        <!-- SLIDE 5 : ACTIVE DIRECTORY -->
         <div class="slide">
-            <span class="slide-number">5 / 12</span>
+            <span class="slide-number">5 / 13</span>
             <h1>👤 Active Directory (AD DS)</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -741,7 +760,7 @@
                 <tbody>
                     <tr>
                         <td><strong>Domaine</strong></td>
-                        <td>corp.nova-syndicate.fr</td>
+                        <td>novasyndicate.local</td>
                         <td>Namespace unique, évite conflits DNS publics</td>
                     </tr>
                     <tr>
@@ -775,16 +794,15 @@
             </ul>
         </div>
 
-        <!-- SLIDE 6 : HYPER-V (OPTION 1 - MINIMALISTE) -->
         <div class="slide">
-            <span class="slide-number">6 / 12</span>
+            <span class="slide-number">6 / 13</span>
             <h1>🖥️ Hyper-V (Virtualisation)</h1>
 
             <h2>🎯 Objectifs</h2>
             <ul>
                 <li><strong>Virtualisation complète</strong> : Tous les services critiques hébergés sur VMs</li>
                 <li><strong>Provisioning simplifié</strong> : Déploiement nouvelle VM en 15 min (vs semaines serveur physique)</li>
-                <li><strong>Recovery rapide</strong> : Snapshots avant maintenance, restore en < 10 min</li>
+                <li><strong>Recovery rapide</strong> : Snapshots avant maintenance, restore en &lt; 10 min</li>
                 <li><strong>Scalabilité</strong> : Support croissance future (CRM, ERP, ticketing)</li>
             </ul>
 
@@ -880,9 +898,8 @@
             </ul>
         </div>
 
-        <!-- SLIDE 7 : FILE SERVER -->
         <div class="slide">
-            <span class="slide-number">7 / 12</span>
+            <span class="slide-number">7 / 13</span>
             <h1>📁 File Server & Sauvegarde</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -904,7 +921,7 @@
                 <tbody>
                     <tr>
                         <td><strong>DFS Namespace</strong></td>
-                        <td>Point d'accès unique \\corp.nova-syndicate.fr\shares</td>
+                        <td>Point d'accès unique \\\\novasyndicate.local\\shares</td>
                         <td>DFS-N, transparence localisation</td>
                     </tr>
                     <tr>
@@ -935,15 +952,14 @@
             </ul>
         </div>
 
-        <!-- SLIDE 8 : POSTGRESQL -->
         <div class="slide">
-            <span class="slide-number">8 / 12</span>
+            <span class="slide-number">8 / 13</span>
             <h1>🗄️ PostgreSQL (Base de Données)</h1>
             
             <h2>🎯 Objectifs</h2>
             <ul>
                 <li><strong>Fiabilité</strong> : ACID, pas de perte données</li>
-                <li><strong>Performance</strong> : Réponse < 100ms, support 85 users + applications futures</li>
+                <li><strong>Performance</strong> : Réponse &lt; 100ms, support 85 users + applications futures</li>
                 <li><strong>Sauvegarde</strong> : RPO 1h (perte max 1h données)</li>
                 <li><strong>Haute disponibilité</strong> : Basculement Marseille si panne Lyon</li>
             </ul>
@@ -989,15 +1005,14 @@
             <h2>⚡ Caractéristiques Clés</h2>
             <ul>
                 <li><strong>Stockage</strong> : SSD NVMe pour IOPS élevés (bases de données)</li>
-                <li><strong>Failover</strong> : Promotion automatique Standby → Primary en < 2min si panne Lyon</li>
+                <li><strong>Failover</strong> : Promotion automatique Standby → Primary en &lt; 2min si panne Lyon</li>
                 <li><strong>Monitoring</strong> : Prometheus + Grafana (alertes lag réplication, lenteurs)</li>
                 <li><strong>Open-source</strong> : Pas de coût licence, communauté active, conformité exigence PDF</li>
             </ul>
         </div>
 
-        <!-- SLIDE 9 : VPN -->
         <div class="slide">
-            <span class="slide-number">9 / 12</span>
+            <span class="slide-number">9 / 13</span>
             <h1>🔐 VPN (Interconnexion Sécurisée)</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -1045,13 +1060,12 @@
             <ul>
                 <li><strong>Utilisateurs VPN</strong> : 20 agents distants + support 50 utilisateurs simultanés (marge)</li>
                 <li><strong>Bande passante</strong> : 100 Mbps minimum (Lyon-Marseille tunnel IPsec)</li>
-                <li><strong>Latence</strong> : < 30ms Lyon ↔ Marseille acceptable</li>
+                <li><strong>Latence</strong> : &lt; 30ms Lyon ↔ Marseille acceptable</li>
             </ul>
         </div>
 
-        <!-- SLIDE 10 : BCP/DRP -->
         <div class="slide">
-            <span class="slide-number">10 / 12</span>
+            <span class="slide-number">10 / 13</span>
             <h1>🛡️ BCP / DRP (Continuité & Reprise)</h1>
 
             <h2>🎯 Objectifs</h2>
@@ -1115,9 +1129,61 @@
             </ul>
         </div>
 
-        <!-- SLIDE 11 : CONCLUSION -->
         <div class="slide">
-            <span class="slide-number">11 / 12</span>
+            <span class="slide-number">11 / 13</span>
+            <h1>📌 Traçabilité des exigences</h1>
+
+            <h2>🧾 Cahier des charges → Solution</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Exigence</th>
+                        <th>Solution proposée</th>
+                        <th>Slide(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Annuaire centralisé (IAM)</strong></td>
+                        <td>Active Directory, 2 DC (Lyon/Marseille), groupes par rôle, SSO.</td>
+                        <td>👤 Active Directory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Partage de fichiers sécurisé</strong></td>
+                        <td>File Server + DFS Namespace, ACL AD, quotas FSRM, sauvegarde 3‑2‑1.</td>
+                        <td>📁 File Server & Sauvegarde</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Base de données relationnelle</strong></td>
+                        <td>PostgreSQL 16 primaire/standby, réplication streaming, pgBackRest.</td>
+                        <td>🗄️ PostgreSQL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Virtualisation (≥ 4 VMs)</strong></td>
+                        <td>Hyper‑V, 6 VMs (DC, File, PG, App, DC secondaire, PG standby).</td>
+                        <td>🖥️ Hyper‑V</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VPN & accès distants</strong></td>
+                        <td>VPN IPsec IKEv2 Site‑to‑Site + Remote Access (20+ agents).</td>
+                        <td>🔐 VPN</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monitoring</strong></td>
+                        <td>Supervision ressources & services (Prometheus/Grafana, alertes).</td>
+                        <td>🗄️ PostgreSQL + à compléter</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Backup, BCP & DRP</strong></td>
+                        <td>Stratégie 3‑2‑1, RTO/RPO par service, scénarios BCP/DRP, tests.</td>
+                        <td>📁 File Server, 🛡️ BCP/DRP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="slide">
+            <span class="slide-number">12 / 13</span>
             <h1>🎬 Conclusion</h1>
             
             <h2>✅ Livrables</h2>
@@ -1132,10 +1198,10 @@
 
             <h2>🚀 Bénéfices Immédiats</h2>
             <ul style="font-size: 1.1em;">
-                <li><strong>Conformité</strong> : Base solide pour certifications (ISO 27001, HDS)</li>
-                <li><strong>Fiabilité</strong> : Tolérance aux pannes, réplication multi-sites</li>
-                <li><strong>Sécurité</strong> : Authentification forte, chiffrement, audit</li>
-                <li><strong>Scalabilité</strong> : Support croissance (CRM, ERP, ticketing)</li>
+                <li><strong>Conformité</strong> : socle technique compatible avec les futures certifications (ISO 27001, HDS, etc.).</li>
+                <li><strong>Fiabilité</strong> : disparition des SPOF majeurs grâce à la réplication multi-sites et au BCP/DRP.</li>
+                <li><strong>Sécurité</strong> : authentification forte, VPN chiffré, traçabilité des accès et des modifications.</li>
+                <li><strong>Scalabilité</strong> : ajout de nouvelles applications (CRM, ERP, ticketing) en quelques clics via Hyper‑V.</li>
             </ul>
 
             <h2>🔮 Prochaines Étapes</h2>
@@ -1147,9 +1213,8 @@
             </ul>
         </div>
 
-        <!-- SLIDE 12 : LEXIQUE -->
         <div class="slide">
-            <span class="slide-number">12 / 12</span>
+            <span class="slide-number">13 / 13</span>
             <h1>📖 Lexique IT</h1>
             
             <div class="lexique-container">
@@ -1238,7 +1303,7 @@
             </div>
             <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant →</button>
         </div>
-    </div>
+    </main>
 
     <script>
         let currentSlide = 0;
@@ -1297,9 +1362,14 @@
         function toggleSommaire() {
             const panel = document.getElementById('sommairePanel');
             const overlay = document.getElementById('overlay');
-            
-            panel.classList.toggle('open');
+            const btn = document.querySelector('.sommaire-btn');
+
+            const isOpen = panel.classList.toggle('open');
             overlay.classList.toggle('show');
+
+            if (btn) {
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
         }
 
         function toggleFullscreen() {
