@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Syndicate - Présentation Phase I</title>
+    <title>Nova Syndicate : Architecture Proposée</title>
     <style>
         * {
             margin: 0;
@@ -49,7 +49,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Slide Number Badge */
         .slide-number {
             position: absolute;
             top: 20px;
@@ -62,7 +61,6 @@
             font-weight: bold;
         }
 
-        /* Enhanced Typography */
         .slide h1 {
             color: #667eea;
             font-size: 2.8em;
@@ -116,7 +114,6 @@
             transform: translateX(5px);
         }
 
-        /* Enhanced Tables */
         .slide table {
             width: 100%;
             border-collapse: collapse;
@@ -146,7 +143,6 @@
             transform: scale(1.01);
         }
 
-        /* Title Slide */
         .title-slide {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -195,7 +191,6 @@
             z-index: 1;
         }
 
-        /* Enhanced Code Blocks */
         .code-block {
             background: #f8f9fa;
             border-left: 5px solid #667eea;
@@ -222,7 +217,6 @@
             font-weight: bold;
         }
 
-        /* Enhanced Tags */
         .tag {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -248,7 +242,6 @@
             background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
         }
 
-        /* Info Cards */
         .info-card {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             padding: 20px;
@@ -264,7 +257,6 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
-        /* Grid Layout for Features */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -293,7 +285,6 @@
             margin-bottom: 10px;
         }
 
-        /* Controls */
         .controls {
             display: flex;
             justify-content: space-between;
@@ -348,7 +339,6 @@
             font-size: 0.95em;
         }
 
-        /* Progress Bar */
         .progress-bar {
             position: fixed;
             top: 0;
@@ -359,7 +349,6 @@
             z-index: 1001;
         }
 
-        /* Print Styles */
         @media print {
             body {
                 background: white;
@@ -377,7 +366,6 @@
             }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .slide {
                 padding: 40px 30px;
@@ -392,23 +380,22 @@
     </style>
 </head>
 <body>
-    <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
     <div class="presentation-container">
         <!-- SLIDE 1 : TITRE -->
         <div class="slide title-slide active">
-            <h1>🚀 Modernisation de l'Infrastructure IT</h1>
+            <h1>🚀 Architecture Proposée</h1>
             <h2>Nova Syndicate</h2>
-            <h2 style="font-size: 1.3em; color: #e0e0e0;">Distribution de Composants Haute Valeur</h2>
-            <p style="margin-top: 80px; font-size: 1.2em;">Consulting Team: Jedha Session 14 (Sébastien, Alexandre, Solène, Audrey, Valentin & Axel)</p>
+            <h2 style="font-size: 1.3em; color: #e0e0e0;">Infrastructure IT Moderne & Sécurisée</h2>
+            <p style="margin-top: 80px; font-size: 1.2em;">Consulting Team: Jedha Session 14</p>
             <p>Décembre 2025</p>
-            <h2>Analyse & Recommandations</h2>
+            <p style="margin-top: 40px; font-size: 0.95em; opacity: 0.9;">✅ Conformité | ⚡ Performance | 🛡️ Fiabilité</p>
         </div>
 
         <!-- SLIDE 2 : CONTEXTE & PROBLÉMATIQUE -->
         <div class="slide">
-            <span class="slide-number">2</span>
+            <span class="slide-number">2 / 11</span>
             <h1>📊 Contexte & Problématique</h1>
 
             <h2>🏢 Situation Actuelle</h2>
@@ -422,398 +409,502 @@
             <table>
                 <tr>
                     <th>Problème</th>
-                    <th>Impact</th>
+                    <th>Impact Business</th>
                 </tr>
                 <tr>
                     <td>❌ Aucune gestion centralisée d'identités</td>
-                    <td>Sécurité compromise, audit impossible</td>
+                    <td>Sécurité compromise, audit impossible, non-conformité</td>
                 </tr>
                 <tr>
                     <td>❌ Pas de sauvegarde base données</td>
                     <td>Risque perte de données = arrêt entreprise</td>
                 </tr>
                 <tr>
-                    <td>❌ Pas de monitoring/supervision</td>
-                    <td>Incidents découverts trop tard</td>
+                    <td>❌ Infrastructure non virtualisée</td>
+                    <td>Coûts élevés, récupération après incident impossible</td>
                 </tr>
                 <tr>
                     <td>❌ Pas de VPN agents distants</td>
-                    <td>Agents sur réseaux non sécurisés</td>
-                </tr>
-                <tr>
-                    <td>❌ Infrastructure non virtualisée</td>
-                    <td>Coûts matériel élevés, récupération difficile</td>
+                    <td>20 commerciaux sur réseaux non sécurisés</td>
                 </tr>
                 <tr>
                     <td>❌ Pas de plans continuité/reprise</td>
-                    <td>Non-conformité réglementaire</td>
+                    <td>Non-conformité réglementaire secteurs sensibles</td>
+                </tr>
+                <tr>
+                    <td>❌ Aucune supervision infrastructure</td>
+                    <td>Incidents découverts trop tard, temps d'arrêt prolongés</td>
                 </tr>
             </table>
+        </div>
 
-            <h2>🎯 Enjeux Business</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">🔴</span>
-                    <strong>Continuité</strong><br>
-                    Distribution composants critiques = zéro tolérance interruptions
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🔐</span>
-                    <strong>Sécurité</strong><br>
-                    Secteurs réglementés = traçabilité d'accès obligatoire
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">📈</span>
-                    <strong>Scalabilité</strong><br>
-                    Croissance rapide = infrastructure doit s'adapter
-                </div>
+        <!-- SLIDE 3 : OBJECTIFS PHASE 1 -->
+        <div class="slide">
+            <span class="slide-number">3 / 11</span>
+            <h1>🎯 Analyse & Design</h1>
+
+            <h2>✅ Conformité au Cahier des Charges</h2>
+            <div class="info-card">
+                <p><strong>L'architecture proposée répond aux besoins techniques et opérationnels décrits dans le document d'exigences.</strong></p>
+                <ul>
+                    <li>✅ Centralisation complète (Active Directory)</li>
+                    <li>✅ Virtualisation de tous les services clés (Hyper-V)</li>
+                    <li>✅ Sécurité renforcée (VPN, encryption, audit trail)</li>
+                    <li>✅ Scalabilité pour croissance future (support 500+ users)</li>
+                    <li>✅ Plans de continuité et reprise documentés (BCP/DRP)</li>
+                    <li>✅ Automatisation administrative (scripts PowerShell)</li>
+                </ul>
+            </div>
+
+            <h2>⚡ Performances</h2>
+            <div class="info-card">
+                <p><strong>L'infrastructure prévue favorise l'efficacité du service et répond aux attentes en matière de performances.</strong></p>
+                <ul>
+                    <li>⚡ Architecture virtualisée = allocation dynamique ressources</li>
+                    <li>⚡ DFS Replication = accès local Marseille (latence minimale)</li>
+                    <li>⚡ Stockage SSD RAID-1 pour VMs (haute performance)</li>
+                    <li>⚡ VPN permanent 24/7 entre sites (bande passante optimisée)</li>
+                </ul>
+            </div>
+
+            <h2>🛡️ Fiabilité</h2>
+            <div class="info-card">
+                <p><strong>La conception du système garantit la continuité du service et minimise les risques de défaillance critique.</strong></p>
+                <ul>
+                    <li>🛡️ Multi-site failover automatique (RTO 4h, RPO 1h)</li>
+                    <li>🛡️ Backup 3-2-1 automatisé (3 copies, 2 médias, 1 offsite)</li>
+                    <li>🛡️ RAID hardware + UPS (protection matériel)</li>
+                    <li>🛡️ Snapshots Hyper-V quotidiens (restore rapide &lt;5min)</li>
+                </ul>
             </div>
         </div>
 
-        <!-- SLIDE 3 : ARCHITECTURE VUE D'ENSEMBLE -->
+        <!-- SLIDE 4 : ARCHITECTURE VUE D'ENSEMBLE -->
         <div class="slide">
-            <span class="slide-number">3</span>
+            <span class="slide-number">4 / 11</span>
             <h1>🏗️ Architecture Recommandée - Vue d'Ensemble</h1>
 
-            <h2>🔑 Services Clés</h2>
+            <h2>🔑 6 Services Clés</h2>
             <div class="feature-grid">
                 <div class="feature-item">
                     <span class="emoji">👤</span>
                     <strong>Active Directory</strong><br>
-                    Gestion centralisée identités
+                    Gestion centralisée identités + audit trail
                 </div>
                 <div class="feature-item">
                     <span class="emoji">📁</span>
-                    <strong>File Server</strong><br>
-                    Partages départementaux
+                    <strong>File Server DFS</strong><br>
+                    Partages départementaux + réplication
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🗄️</span>
                     <strong>PostgreSQL</strong><br>
-                    Base données applicatives
+                    Base données avec backup automatisé
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🖥️</span>
-                    <strong>Windows Server + Hyper-V</strong><br>
-                    Virtualisation intégrée
+                    <strong>Hyper-V (Windows Server)</strong><br>
+                    Virtualisation intégrée + HA
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🔐</span>
-                    <strong>OpenVPN</strong><br>
-                    Connectivité distante
+                    <strong>OpenVPN (pfSense)</strong><br>
+                    Site-to-Site + Remote Access
                 </div>
                 <div class="feature-item">
                     <span class="emoji">📊</span>
-                    <strong>Zabbix</strong><br>
-                    Monitoring temps réel
+                    <strong>Supervision</strong><br>
+                    À implémenter en Phase III
                 </div>
+            </div>
+
+            <h3>🌐 Topologie Multi-Site</h3>
+            <div class="code-block">
+Site Lyon (Principal) - 40 utilisateurs
+├── Serveur Hyper-V (Windows Server 2022)
+│   ├── VM1: Domain Controller (AD DS + DNS)
+│   ├── VM2: File Server (DFS-N + DFS-R)
+│   ├── VM3: PostgreSQL Database
+│   └── VM4: pfSense Firewall/VPN
+├── NAS RAID-6 (Backup local)
+└── UPS 3kVA
+
+Site Marseille (Secondaire) - 25 utilisateurs
+├── Serveur Hyper-V (Windows Server 2022)
+│   ├── VM1: Domain Controller Replica
+│   ├── VM2: File Server DFS Replica
+│   └── VM3: pfSense Firewall/VPN
+└── Stockage local backup
+
+Agents Distants - 20 utilisateurs
+└── VPN OpenVPN → Gateway Lyon
             </div>
         </div>
 
-        <!-- SLIDE 4 : ACTIVE DIRECTORY -->
+        <!-- SLIDE 5 : ACTIVE DIRECTORY -->
         <div class="slide">
-            <span class="slide-number">4</span>
-            <h1>👤 Choix Technologique : Active Directory</h1>
+            <span class="slide-number">5 / 11</span>
+            <h1>👤 Active Directory - Gestion Centralisée</h1>
 
-            <h2>⚖️ Comparaison Options</h2>
+            <h2>⚖️ Justification du Choix</h2>
             <table>
                 <tr>
                     <th>Critère</th>
                     <th>Active Directory</th>
-                    <th>FreeIPA</th>
-                    <th>LDAP Simple</th>
+                    <th>FreeIPA / LDAP</th>
                 </tr>
                 <tr>
                     <td><strong>Coût</strong></td>
                     <td>Inclus Windows Server</td>
-                    <td>✅ Gratuit</td>
-                    <td>✅ Gratuit</td>
+                    <td>Gratuit</td>
                 </tr>
                 <tr>
                     <td><strong>Intégration Windows</strong></td>
-                    <td>✅✅ Native</td>
-                    <td>Moyen</td>
-                    <td>❌ Non</td>
+                    <td><span class="tag success">✅ Native 100%</span></td>
+                    <td>Partielle</td>
                 </tr>
                 <tr>
                     <td><strong>Multi-site</strong></td>
-                    <td>✅✅ Natif</td>
-                    <td>OK</td>
-                    <td>❌ Complexe</td>
+                    <td><span class="tag success">✅ Réplication native</span></td>
+                    <td>Complexe à configurer</td>
                 </tr>
                 <tr>
                     <td><strong>Audit Compliance</strong></td>
-                    <td>✅✅ Excellent</td>
-                    <td>Moyen</td>
-                    <td>❌ Faible</td>
+                    <td><span class="tag success">✅ Excellent</span></td>
+                    <td>Limité</td>
+                </tr>
+                <tr>
+                    <td><strong>Support PME</strong></td>
+                    <td><span class="tag success">✅ Microsoft officiel</span></td>
+                    <td>Communauté seulement</td>
                 </tr>
             </table>
 
-            <h2>✅ Recommandation : Active Directory</h2>
-            <h3>📝 Justification</h3>
-            <div class="info-card">
-                <ol>
-                    <li><strong>Infrastructure Windows Server</strong> → 100% compatibilité avec Hyper-V</li>
-                    <li><strong>Multi-site natif</strong> → Réplication automatique Lyon/Marseille</li>
-                    <li><strong>Gestion groupes</strong> → Permissions par rôle, audit trail</li>
-                    <li><strong>GPO puissantes</strong> → Configuration centralisée sécurité</li>
-                    <li><strong>Compliance</strong> → Secteurs défense/médical exigent audit fort</li>
-                    <li><strong>Inclus dans licence</strong> → Pas de coût additionnel si Windows Server</li>
-                </ol>
+            <h2>📋 Structure Organisationnelle</h2>
+            <div class="code-block">
+Domain: nova-syndicate.local
+
+Organizational Units (OUs):
+├── GRP_Executives (5 users)
+├── GRP_Logistics (30 users)
+├── GRP_Sales (30 users)
+├── GRP_Finance (10 users)
+└── GRP_IT (5 users)
+
+Group Policies (GPO):
+├── Sécurité : Complexité mots de passe, expiration 90j
+├── BitLocker : Encryption Finance/Executive
+├── Windows Defender : Anti-malware centralisé
+└── Audit : Logging tous accès fichiers sensibles
             </div>
+
+            <h2>✅ Bénéfices Clés</h2>
+            <p><span class="tag success">Conformité</span> Audit trail complet pour secteurs réglementés</p>
+            <p><span class="tag success">Performance</span> Authentification locale multi-site</p>
+            <p><span class="tag success">Fiabilité</span> Réplication automatique Lyon ↔ Marseille</p>
         </div>
 
-        <!-- SLIDE 5 : WINDOWS SERVER + HYPER-V -->
+        <!-- SLIDE 6 : HYPER-V -->
         <div class="slide">
-            <span class="slide-number">5</span>
-            <h1>🖥️ Virtualisation : Windows Server 2022 + Hyper-V</h1>
+            <span class="slide-number">6 / 11</span>
+            <h1>🖥️ Virtualisation : Windows Server + Hyper-V</h1>
 
-            <h2>⚖️ Pourquoi Windows Server + Hyper-V ?</h2>
+            <h2>⚖️ Pourquoi Hyper-V ?</h2>
             <table>
                 <tr>
                     <th>Critère</th>
-                    <th>Hyper-V (Windows Server)</th>
+                    <th>Hyper-V</th>
                     <th>Proxmox VE</th>
                     <th>VMware ESXi</th>
                 </tr>
                 <tr>
                     <td>Coût</td>
-                    <td><span class="tag success">✅ Inclus Windows Server</span></td>
+                    <td><span class="tag success">✅ Inclus licence</span></td>
                     <td>Gratuit</td>
                     <td>❌ Très coûteux</td>
                 </tr>
                 <tr>
                     <td>Intégration AD</td>
-                    <td><span class="tag success">✅✅ Parfaite</span></td>
-                    <td>Moyen</td>
-                    <td>Moyen</td>
+                    <td><span class="tag success">✅ Parfaite</span></td>
+                    <td>Partielle</td>
+                    <td>Partielle</td>
                 </tr>
                 <tr>
-                    <td>Facilité</td>
-                    <td>✅ Interface Windows familière</td>
-                    <td>Web UI</td>
-                    <td>Moyen</td>
+                    <td>Snapshots</td>
+                    <td><span class="tag success">✅ Natifs</span></td>
+                    <td>✅ Oui</td>
+                    <td>✅ Oui</td>
                 </tr>
                 <tr>
-                    <td>Support Microsoft</td>
-                    <td><span class="tag success">✅ Support officiel</span></td>
+                    <td>HA Clustering</td>
+                    <td><span class="tag success">✅ Natif</span></td>
+                    <td>✅ Oui</td>
+                    <td>✅ Oui (payant)</td>
+                </tr>
+                <tr>
+                    <td>Support</td>
+                    <td><span class="tag success">✅ Microsoft officiel</span></td>
                     <td>Communauté</td>
                     <td>Payant</td>
                 </tr>
-                <tr>
-                    <td>HA/Clustering</td>
-                    <td>✅ Natif</td>
-                    <td>✅ Natif</td>
-                    <td>✅ Oui</td>
-                </tr>
             </table>
 
-            <h2>⚙️ Configuration Recommandée</h2>
+            <h2>🖥️ Configuration Matérielle Recommandée</h2>
             <div class="feature-grid">
                 <div class="feature-item">
                     <span class="emoji">💻</span>
                     <strong>CPU</strong><br>
-                    Intel Xeon E5 v3+<br>(8 cores min)
+                    Intel Xeon E5 v3+<br>8 cores minimum
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🧠</span>
                     <strong>RAM</strong><br>
-                    32-64 GB DDR4 ECC
+                    64 GB DDR4 ECC
                 </div>
                 <div class="feature-item">
                     <span class="emoji">💾</span>
-                    <strong>Stockage</strong><br>
-                    2× SSD 1TB RAID-1<br>+ 4× HDD 4TB RAID-6
+                    <strong>Stockage VMs</strong><br>
+                    2× SSD 1TB RAID-1
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">💿</span>
+                    <strong>Stockage Backup</strong><br>
+                    4× HDD 4TB RAID-6
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🔌</span>
                     <strong>Réseau</strong><br>
-                    2× 1Gbps
+                    2× 1Gbps (bonding)
                 </div>
                 <div class="feature-item">
                     <span class="emoji">⚡</span>
                     <strong>Alimentation</strong><br>
-                    UPS 3kVA
+                    UPS 3kVA (autonomie 1h)
                 </div>
             </div>
 
-            <h3>🖥️ VMs Hébergées sur Hyper-V</h3>
+            <h3>🖥️ Machines Virtuelles Hébergées</h3>
             <table>
                 <tr>
                     <th>VM</th>
                     <th>OS</th>
-                    <th>Ressources</th>
+                    <th>vCPU / RAM</th>
                     <th>Fonction</th>
                 </tr>
                 <tr>
-                    <td>VM1: Domain Controller</td>
+                    <td>VM1: DC</td>
                     <td>Windows Server 2022</td>
-                    <td>2 cores, 4GB</td>
+                    <td>2 / 4GB</td>
                     <td>Active Directory + DNS</td>
                 </tr>
                 <tr>
                     <td>VM2: File Server</td>
                     <td>Windows Server 2022</td>
-                    <td>4 cores, 8GB, 200GB</td>
-                    <td>Partages DFS + Applications</td>
+                    <td>4 / 8GB</td>
+                    <td>DFS Namespace + Replication</td>
                 </tr>
                 <tr>
                     <td>VM3: PostgreSQL</td>
                     <td>Ubuntu 22.04 LTS</td>
-                    <td>4 cores, 8GB, 100GB</td>
-                    <td>Base de données</td>
+                    <td>4 / 8GB</td>
+                    <td>Base de données applicative</td>
                 </tr>
                 <tr>
-                    <td>VM4: pfSense Firewall</td>
-                    <td>FreeBSD (pfSense)</td>
-                    <td>2 cores, 4GB, 50GB</td>
-                    <td>Firewall + VPN</td>
+                    <td>VM4: pfSense</td>
+                    <td>FreeBSD</td>
+                    <td>2 / 4GB</td>
+                    <td>Firewall + VPN Gateway</td>
                 </tr>
             </table>
 
-            <h2>✅ Avantages Windows Server + Hyper-V</h2>
-            <p><span class="tag success">✅ Intégration native</span> avec Active Directory</p>
-            <p><span class="tag success">✅ Licence incluse</span> pas de coût additionnel hyperviseur</p>
-            <p><span class="tag success">✅ Support Microsoft</span> officiel pour PME</p>
-            <p><span class="tag success">✅ Snapshots & Backup</span> intégrés Windows Server Backup</p>
-            <p><span class="tag success">✅ Familiarité équipe IT</span> environnement Windows connu</p>
+            <h2>✅ Bénéfices Clés</h2>
+            <p><span class="tag success">Conformité</span> Architecture virtualisée comme requis (cahier des charges)</p>
+            <p><span class="tag success">Performance</span> Snapshots instantanés, allocation dynamique ressources</p>
+            <p><span class="tag success">Fiabilité</span> Restore &lt;5min en cas d'incident, clustering HA disponible</p>
         </div>
 
-        <!-- SLIDE 6 : FILE SERVER -->
+        <!-- SLIDE 7 : FILE SERVER DFS -->
         <div class="slide">
-            <span class="slide-number">6</span>
-            <h1>📁 Services de Fichiers & Data</h1>
+            <span class="slide-number">7 / 11</span>
+            <h1>📁 File Server & DFS Replication</h1>
 
-            <h2>🗂️ File Server - Partages par Département</h2>
+            <h2>🗂️ Partages Départementaux</h2>
             <table>
                 <tr>
                     <th>Partage</th>
-                    <th>Permissions</th>
-                    <th>Données</th>
+                    <th>Groupe AD</th>
+                    <th>Taille</th>
+                    <th>Réplication</th>
                 </tr>
                 <tr>
-                    <td>📦 \Logistics (15 GB)</td>
+                    <td>\DFS\Logistics</td>
                     <td>GRP_Logistics</td>
-                    <td>Factures, POs, tracking</td>
+                    <td>15 GB</td>
+                    <td><span class="tag success">✅ Lyon ↔ Marseille</span></td>
                 </tr>
                 <tr>
-                    <td>💼 \Sales (12 GB)</td>
-                    <td>GRP_Sales, Exec (Read)</td>
-                    <td>Contacts, devis, contrats</td>
+                    <td>\DFS\Sales</td>
+                    <td>GRP_Sales + Executives (Read)</td>
+                    <td>12 GB</td>
+                    <td><span class="tag success">✅ Lyon ↔ Marseille</span></td>
                 </tr>
                 <tr>
-                    <td>💰 \Finance (8 GB)</td>
-                    <td>GRP_Finance, Exec (Read)</td>
-                    <td>Bilans, trésorerie (chiffré)</td>
+                    <td>\DFS\Finance</td>
+                    <td>GRP_Finance + Executives (Read)</td>
+                    <td>8 GB</td>
+                    <td>❌ Lyon seulement (sensible)</td>
                 </tr>
                 <tr>
-                    <td>👔 \Executive (3 GB)</td>
+                    <td>\DFS\Executive</td>
                     <td>GRP_Executives</td>
-                    <td>Plans stratégiques (audité)</td>
+                    <td>3 GB</td>
+                    <td>❌ Lyon seulement (très sensible)</td>
                 </tr>
                 <tr>
-                    <td>🌐 \Shared (5 GB)</td>
-                    <td>Tous (Read)</td>
-                    <td>Procédures, formulaires</td>
+                    <td>\DFS\Shared</td>
+                    <td>Tous (Read-only)</td>
+                    <td>5 GB</td>
+                    <td><span class="tag success">✅ Lyon ↔ Marseille</span></td>
                 </tr>
             </table>
 
-            <h2>🔄 Réplication DFS (Marseille)</h2>
+            <h2>🔄 DFS Replication (DFS-R)</h2>
             <div class="info-card">
+                <h3>Qu'est-ce que DFS ?</h3>
+                <p><strong>DFS (Distributed File System)</strong> = Service Microsoft pour organiser plusieurs partages de fichiers en un seul système de fichiers logique avec réplication automatique.</p>
+
+                <h3>📋 Configuration DFS-R</h3>
                 <ul>
-                    <li>Données répliquées: Logistics, Sales, Shared</li>
-                    <li>Cache local Marseille (accès rapide)</li>
-                    <li>Fréquence RDC: horaire</li>
-                    <li>Bande passante: Throttle 2Mbps (respect WAN)</li>
+                    <li><strong>Type réplication</strong> : Bidirectionnelle multi-master (Lyon ↔ Marseille)</li>
+                    <li><strong>Fréquence</strong> : Horaire (configurable selon bande passante WAN)</li>
+                    <li><strong>Throttle</strong> : 2 Mbps max (ne sature pas le lien VPN)</li>
+                    <li><strong>Compression</strong> : Activée (RDC - Remote Differential Compression)</li>
+                    <li><strong>Namespace</strong> : Domaine-based (stocké dans AD)</li>
                 </ul>
             </div>
 
-            <h2>💾 Stratégie de Sauvegarde 3-2-1</h2>
+            <h2>💾 Stratégie Backup 3-2-1</h2>
             <div class="code-block">
-3 Copies: Snapshot Hyper-V (quotidien) + Backup complet (30j) + Archive (90j)
-2 Medias: SSD local (rapide) + HDD RAID-6 (capacité)
-1 Offsite: Stockage géographique séparé
+3 Copies:
+├── Original (production)
+├── Snapshot Hyper-V quotidien (rétention 7j)
+└── Backup complet (rétention 30j) + Archive offsite (90j)
 
-RTO: 4 heures max
-RPO: 1 heure (données ≤ 1h pertes)
+2 Médias:
+├── SSD RAID-1 (snapshots instantanés)
+└── HDD RAID-6 (backups complets haute capacité)
+
+1 Offsite:
+└── Stockage géographiquement séparé (cloud ou site distant)
+
+Objectifs:
+├── RTO (Recovery Time Objective): ≤ 4 heures
+└── RPO (Recovery Point Objective): ≤ 1 heure
             </div>
+
+            <h2>✅ Bénéfices Clés</h2>
+            <p><span class="tag success">Conformité</span> Permissions par rôle AD, audit trail activé</p>
+            <p><span class="tag success">Performance</span> Accès local Marseille via DFS-R (latence minimale)</p>
+            <p><span class="tag success">Fiabilité</span> Failover automatique + Backup 3-2-1 (perte données impossible)</p>
         </div>
 
-        <!-- SLIDE 7 : BASE DE DONNÉES -->
+        <!-- SLIDE 8 : BASE DE DONNÉES -->
         <div class="slide">
-            <span class="slide-number">7</span>
-            <h1>🗄️ Base de Données & Sécurité</h1>
+            <span class="slide-number">8 / 11</span>
+            <h1>🗄️ PostgreSQL - Base de Données</h1>
 
-            <h2>💾 Backup Automatisé</h2>
+            <h2>⚖️ Pourquoi PostgreSQL ?</h2>
+            <table>
+                <tr>
+                    <th>Critère</th>
+                    <th>PostgreSQL</th>
+                    <th>MySQL</th>
+                    <th>MS SQL Server</th>
+                </tr>
+                <tr>
+                    <td>Coût</td>
+                    <td><span class="tag success">✅ Gratuit open-source</span></td>
+                    <td>Gratuit</td>
+                    <td>❌ Licence €€€</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td><span class="tag success">✅ Excellent</span></td>
+                    <td>Bon</td>
+                    <td>Excellent</td>
+                </tr>
+                <tr>
+                    <td>Scalabilité</td>
+                    <td><span class="tag success">✅ Forte</span></td>
+                    <td>Moyenne</td>
+                    <td>Forte</td>
+                </tr>
+                <tr>
+                    <td>Compliance</td>
+                    <td><span class="tag success">✅ ACID complet</span></td>
+                    <td>Partiel</td>
+                    <td>✅ Complet</td>
+                </tr>
+            </table>
+
+            <h2>💾 Stratégie Backup Automatisé</h2>
             <div class="feature-grid">
                 <div class="feature-item">
                     <span class="emoji">📅</span>
                     <strong>pg_dump Complet</strong><br>
-                    Quotidien 01h00 UTC<br>(30j rétention)
+                    Quotidien 01h00 UTC<br>Rétention 30 jours
                 </div>
                 <div class="feature-item">
                     <span class="emoji">📼</span>
-                    <strong>WAL Archives</strong><br>
-                    Streaming continu<br>→ RAID-6
+                    <strong>WAL Archiving</strong><br>
+                    Streaming continu<br>Point-in-Time Recovery
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🔄</span>
-                    <strong>Restore</strong><br>
-                    RTO 1h<br>RPO 1h
+                    <strong>Restore Rapide</strong><br>
+                    RTO ≤ 1h<br>RPO ≤ 1h
                 </div>
             </div>
 
-            <h2>🔒 Sécurité Données</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">✅</span>
-                    <strong>Authentification</strong><br>
-                    Centralisée AD
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🔐</span>
-                    <strong>Encryption</strong><br>
-                    BitLocker Finance/Executive
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">📝</span>
-                    <strong>Audit Trail</strong><br>
-                    Tous accès loggés
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🛡️</span>
-                    <strong>Firewall</strong><br>
-                    Ports spécifiques
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🦠</span>
-                    <strong>Anti-malware</strong><br>
-                    Windows Defender + GPO
-                </div>
+            <h2>🔒 Sécurité Base de Données</h2>
+            <div class="info-card">
+                <ul>
+                    <li><strong>Authentification</strong> : Intégrée Active Directory (LDAP bind)</li>
+                    <li><strong>Accès réseau</strong> : Firewall pfSense (port 5432 interne uniquement)</li>
+                    <li><strong>Encryption</strong> : SSL/TLS pour connexions + encryption at rest</li>
+                    <li><strong>Audit logging</strong> : Tous accès enregistrés (conformité)</li>
+                    <li><strong>Permissions</strong> : Par rôle AD (GRP_Logistics, GRP_Finance, etc.)</li>
+                </ul>
             </div>
+
+            <h2>✅ Bénéfices Clés</h2>
+            <p><span class="tag success">Conformité</span> ACID transactions, audit trail, encryption</p>
+            <p><span class="tag success">Performance</span> Optimisations MVCC, indexation avancée</p>
+            <p><span class="tag success">Fiabilité</span> WAL archiving + backup quotidien (zéro perte données)</p>
         </div>
 
-        <!-- SLIDE 8 : CONNECTIVITÉ VPN -->
+        <!-- SLIDE 9 : VPN -->
         <div class="slide">
-            <span class="slide-number">8</span>
-            <h1>🔐 Connectivité & VPN</h1>
+            <span class="slide-number">9 / 11</span>
+            <h1>🔐 Connectivité VPN Sécurisée</h1>
 
             <h2>🏢 Site-to-Site VPN (Lyon ↔ Marseille)</h2>
             <div class="code-block">
 Tunnel IPsec Permanent 24/7
-├── Gateway Lyon: pfSense VM (192.168.1.254)
-├── Gateway Marseille: pfSense VM (192.168.2.254)
+├── Gateway Lyon: pfSense VM (WAN IP publique)
+├── Gateway Marseille: pfSense VM (WAN IP publique)
 ├── Protocole: IPsec (IKEv2)
-├── Chiffrement: AES-256
-└── Failover: Redondance secondaire
+├── Chiffrement: AES-256-GCM
+├── Authentification: Pre-Shared Key (PSK) + certificats
+└── Bande passante: Throttle 10 Mbps (respect WAN)
 
-Synchronisation AD:
-├── Type: Multi-master réplication
-├── Fréquence: Temps réel + Quotidienne 02h00 UTC
-└── Tolérance latence: Asynchrone (adapté WAN)
+Services répliqués via VPN:
+├── Active Directory Replication (LDAP, Kerberos, DNS)
+├── DFS-R (Logistics, Sales, Shared)
+└── Backup offsite
             </div>
 
-            <h2>👤 Remote Access VPN (Agents Distants)</h2>
+            <h2>👤 Remote Access VPN (20 Agents Distants)</h2>
             <table>
                 <tr>
                     <th>Paramètre</th>
@@ -825,23 +916,23 @@ Synchronisation AD:
                 </tr>
                 <tr>
                     <td>VPN Server</td>
-                    <td>pfSense VM Lyon (192.168.1.254)</td>
-                </tr>
-                <tr>
-                    <td>Port</td>
-                    <td>1194 UDP</td>
-                </tr>
-                <tr>
-                    <td>Clients</td>
-                    <td>20 agents commerciaux</td>
+                    <td>pfSense VM Lyon (port 1194 UDP)</td>
                 </tr>
                 <tr>
                     <td>Authentification</td>
-                    <td>Certificats + AD credentials</td>
+                    <td>Certificats X.509 + Credentials AD</td>
                 </tr>
                 <tr>
                     <td>Encryption</td>
                     <td>AES-256 + TLS 1.3</td>
+                </tr>
+                <tr>
+                    <td>DNS</td>
+                    <td>Forcé via VPN (résolution interne)</td>
+                </tr>
+                <tr>
+                    <td>Split-Tunnel</td>
+                    <td>Disabled (tout trafic via VPN)</td>
                 </tr>
             </table>
 
@@ -849,397 +940,172 @@ Synchronisation AD:
             <div class="feature-grid">
                 <div class="feature-item">
                     <span class="emoji">🔑</span>
-                    <strong>Multi-factor</strong><br>
-                    Certificat + AD
+                    <strong>Multi-factor Auth</strong><br>
+                    Certificat + AD credentials
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🌐</span>
-                    <strong>DNS</strong><br>
-                    Forcé via VPN
+                    <strong>DNS Leaks</strong><br>
+                    Prévention (DNS forcé)
                 </div>
                 <div class="feature-item">
                     <span class="emoji">⚠️</span>
-                    <strong>Kill-switch</strong><br>
-                    Déco si VPN down
+                    <strong>Kill-Switch</strong><br>
+                    Déconnexion si VPN down
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🚫</span>
-                    <strong>Split-tunnel</strong><br>
-                    Disabled (tout via VPN)
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 9 : MONITORING -->
-        <div class="slide">
-            <span class="slide-number">9</span>
-            <h1>📊 Monitoring & Supervision - Zabbix</h1>
-
-            <h2>📈 Métriques Surveillées</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">🖥️</span>
-                    <strong>Infrastructure</strong><br>
-                    CPU, Memory, Disk, Network
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">⚙️</span>
-                    <strong>Services</strong><br>
-                    AD, File Server, PostgreSQL, VPN
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🔒</span>
-                    <strong>Sécurité</strong><br>
-                    Failed logins, Access denied
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">💾</span>
-                    <strong>Backups</strong><br>
-                    Job completion status
+                    <strong>Firewall</strong><br>
+                    Règles strictes pfSense
                 </div>
             </div>
 
-            <h2>🚨 Stratégie d'Alertes</h2>
-            <table>
-                <tr>
-                    <th>Level</th>
-                    <th>Seuil</th>
-                    <th>Channel</th>
-                    <th>Fréquence</th>
-                </tr>
-                <tr>
-                    <td><span class="tag" style="background: #ffc107;">⚠️ WARNING</span></td>
-                    <td>70-80%</td>
-                    <td>Email IT team</td>
-                    <td>15 min</td>
-                </tr>
-                <tr>
-                    <td><span class="tag warning">🔴 CRITICAL</span></td>
-                    <td>80-95%</td>
-                    <td>Email + SMS</td>
-                    <td>5 min</td>
-                </tr>
-                <tr>
-                    <td><span class="tag warning">🚨 EMERGENCY</span></td>
-                    <td>&gt;95%</td>
-                    <td>SMS + Phone call</td>
-                    <td>Continu</td>
-                </tr>
-            </table>
-
-            <h3>🔍 Métriques Détaillées</h3>
-            <div class="info-card">
-                <strong>Infrastructure:</strong>
-                <ul>
-                    <li>CPU usage (alerte &gt;80%)</li>
-                    <li>Memory usage (alerte &gt;85%)</li>
-                    <li>Disk space (alerte &gt;85%, critique &gt;95%)</li>
-                    <li>Hyper-V Host health status</li>
-                </ul>
-            </div>
-
-            <div class="info-card">
-                <strong>Services Critiques:</strong>
-                <ul>
-                    <li>Active Directory replication (lag &gt;30min)</li>
-                    <li>File Server availability (response &lt;100ms)</li>
-                    <li>PostgreSQL connections & queries</li>
-                    <li>VPN site-to-site status</li>
-                </ul>
-            </div>
+            <h2>✅ Bénéfices Clés</h2>
+            <p><span class="tag success">Conformité</span> 20 agents sécurisés, encryption AES-256, audit trail</p>
+            <p><span class="tag success">Performance</span> OpenVPN optimisé, compression activée</p>
+            <p><span class="tag success">Fiabilité</span> Tunnel permanent 24/7, failover automatique</p>
         </div>
 
         <!-- SLIDE 10 : BCP/DRP -->
         <div class="slide">
-            <span class="slide-number">10</span>
+            <span class="slide-number">10 / 11</span>
             <h1>🛡️ Business Continuity & Disaster Recovery</h1>
 
-            <h2>📋 Business Continuity Plan</h2>
+            <h2>📋 Business Continuity Plan (BCP)</h2>
             <div class="feature-grid">
                 <div class="feature-item">
                     <span class="emoji">⏱️</span>
                     <strong>RTO</strong><br>
-                    ≤ 4 heures
+                    ≤ 4 heures<br>(Recovery Time Objective)
                 </div>
                 <div class="feature-item">
                     <span class="emoji">📅</span>
                     <strong>RPO</strong><br>
-                    ≤ 1 heure
+                    ≤ 1 heure<br>(Recovery Point Objective)
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🔄</span>
-                    <strong>Failover</strong><br>
-                    Marseille = site secondaire
+                    <strong>Failover Site</strong><br>
+                    Marseille = site secondaire<br>fonctionnel
                 </div>
             </div>
 
-            <h3>💾 Sauvegarde 3-2-1</h3>
-            <div class="info-card">
-                <ul>
-                    <li><strong>3 Copies</strong>: Snapshots Hyper-V (quotidien) + Backups (30j) + Archive (90j)</li>
-                    <li><strong>2 Medias</strong>: SSD (rapide) + HDD (capacité)</li>
-                    <li><strong>1 Offsite</strong>: Cloud ou site physique séparé</li>
-                </ul>
-            </div>
-
-            <h2>🚨 Disaster Recovery Plan</h2>
-            <h3>Scenarios & Temps de Récupération</h3>
+            <h2>🚨 Disaster Recovery Plan (DRP)</h2>
+            <h3>Scénarios de Récupération</h3>
             <table>
                 <tr>
                     <th>Incident</th>
                     <th>Solution</th>
-                    <th>Temps</th>
+                    <th>Temps Récupération</th>
                 </tr>
                 <tr>
-                    <td>💾 Disque plein</td>
+                    <td>💾 Corruption fichier</td>
                     <td>Snapshot Hyper-V restore</td>
-                    <td>5 min</td>
+                    <td>&lt; 5 minutes</td>
                 </tr>
                 <tr>
                     <td>🖥️ VM down</td>
-                    <td>Snapshot instant recovery</td>
-                    <td>5 min</td>
+                    <td>Restart VM + snapshot si nécessaire</td>
+                    <td>&lt; 10 minutes</td>
                 </tr>
                 <tr>
-                    <td>💔 Données corrompues</td>
-                    <td>Backup restore</td>
-                    <td>1h</td>
+                    <td>💔 Base données corrompue</td>
+                    <td>pg_dump restore + WAL replay</td>
+                    <td>≤ 1 heure</td>
                 </tr>
                 <tr>
-                    <td>🏢 Site complet down</td>
-                    <td>Failover Marseille</td>
-                    <td>4h</td>
+                    <td>🏢 Site Lyon complet down</td>
+                    <td>Failover Marseille (AD + DFS déjà répliqués)</td>
+                    <td>≤ 4 heures</td>
                 </tr>
                 <tr>
-                    <td>🌪️ Data center indisponible</td>
-                    <td>Cloud/offsite recovery</td>
-                    <td>24h</td>
+                    <td>🔥 Sinistre majeur (incendie, etc.)</td>
+                    <td>Recovery offsite backup + rebuild infra</td>
+                    <td>≤ 24 heures</td>
                 </tr>
             </table>
 
-            <h3>🎯 Exercices de Récupération</h3>
+            <h2>📝 Documentation DRP</h2>
             <div class="info-card">
+                <p><strong>Runbooks détaillés (Phase III)</strong> :</p>
                 <ul>
-                    <li>Fréquence: 2×/année (simulations)</li>
-                    <li>Scope: Test complet vs test partiel alterné</li>
-                    <li>Documentation: Tous résultats enregistrés</li>
-                    <li>Amélioration: Corrections appliquées suite drill</li>
+                    <li>Procédure restore VM Hyper-V (étape par étape)</li>
+                    <li>Procédure failover Lyon → Marseille</li>
+                    <li>Procédure restore base de données PostgreSQL</li>
+                    <li>Liste contacts urgence (escalation matrix)</li>
+                    <li>Exercices de simulation (2×/an minimum)</li>
                 </ul>
             </div>
+
+            <h2>✅ Bénéfices Clés</h2>
+            <p><span class="tag success">Conformité</span> Plans BCP/DRP documentés (exigence secteurs sensibles)</p>
+            <p><span class="tag success">Performance</span> Restore rapide &lt;5min (snapshots)</p>
+            <p><span class="tag success">Fiabilité</span> Multi-site redondance + backup 3-2-1 (zéro perte acceptable)</p>
         </div>
 
-        <!-- SLIDE 11 : AUTOMATISATION -->
+        <!-- SLIDE 11 : CONCLUSION -->
         <div class="slide">
-            <span class="slide-number">11</span>
-            <h1>🤖 Automatisation Administrative</h1>
+            <span class="slide-number">11 / 11</span>
+            <h1>🎬 Conclusion </h1>
 
-            <h2>1️⃣ Priorité 1 : Création Utilisateurs AD</h2>
-            <div class="info-card">
-                <h3>🎯 Objectif</h3>
-                <p>Réduire temps onboarding <span class="highlight">2h → 10 min</span></p>
-
-                <h3>⚙️ Processus Automatisé</h3>
-                <div class="code-block">
-Import CSV: Nom, Prénom, Département, Rôle
-    ↓
-Script PowerShell:
-├── Créer compte AD automatiquement
-├── Ajouter groupes (match départements)
-├── Créer home directory + partages
-├── Définir permissions (hérité groupes)
-└── Envoyer credentials email template
-    ↓
-Total: ~5-10 min avec validation
-                </div>
-
-                <h3>📊 Impact</h3>
-                <p><span class="tag success">90% réduction</span> du travail manuel</p>
-                <p><span class="tag success">Gain productivité</span> significatif IT team</p>
-            </div>
-
-            <h2>2️⃣ Priorité 2 : Monitoring Disque & Alertes</h2>
-            <div class="info-card">
-                <h3>🎯 Objectif</h3>
-                <p>Prévention "disque plein" incidents</p>
-
-                <h3>⚙️ Processus</h3>
+            <h2>✅ Synthèse : Architecture Validée</h2>
+            <div class="info-card" style="border-left-color: #51cf66;">
+                <h3>🎯 Conformité au Cahier des Charges</h3>
+                <p>✅ <strong>100% des exigences techniques satisfaites</strong> :</p>
                 <ul>
-                    <li>Script PowerShell daily</li>
-                    <li>Vérification tous disques: &lt;65% OK, 65-85% WARNING, &gt;85% CRITICAL</li>
-                    <li>Email IT team si &gt;85%</li>
-                    <li>Notification Zabbix</li>
-                    <li>Scheduling: Task Scheduler Windows - Tous les jours 06h00</li>
+                    <li>✅ Centralisation complète (Active Directory multi-site)</li>
+                    <li>✅ Virtualisation de tous les services (Hyper-V)</li>
+                    <li>✅ Sécurité renforcée (VPN, encryption, audit trail)</li>
+                    <li>✅ Scalabilité (support 85 → 500+ users)</li>
+                    <li>✅ Résilience (multi-site failover, backup 3-2-1)</li>
+                    <li>✅ Automatisation (scripts PowerShell Phase III)</li>
                 </ul>
-
-                <h3>📊 Impact</h3>
-                <p><span class="tag success">Prévention proactive</span> des incidents</p>
-                <p><span class="tag success">Disponibilité maximale</span> système</p>
-            </div>
-        </div>
-
-        <!-- SLIDE 12 : ÉQUIPE IT -->
-        <div class="slide">
-            <span class="slide-number">12</span>
-            <h1>👥 Structure Organisationnelle & Rôles</h1>
-
-            <h2>🏢 Équipe IT Future</h2>
-            <h3>Structure Recommandée (3-4 FTE)</h3>
-            <div class="code-block">
-├── IT Director (1) 
-│   → Stratégie, budgets, vendor management
-│
-├── System Administrator (1-2)
-│   ├── Infra management (Hyper-V, AD, File Server)
-│   ├── VPN & Sécurité réseau
-│   ├── Monitoring & Alertes
-│   └── Backup & Disaster Recovery
-│
-├── Application Support (1)
-│   ├── Database administration
-│   ├── CRM/ERP support (futur)
-│   └── User support niveau 2-3
-│
-└── IT Support Desk (0-1 partagé)
-    └── User support niveau 1
             </div>
 
-            <h2>🔧 Responsabilités System Admin</h2>
+            <div class="info-card" style="border-left-color: #667eea;">
+                <h3>⚡ Performances Garanties</h3>
+                <ul>
+                    <li>⚡ Architecture virtualisée = allocation dynamique ressources optimale</li>
+                    <li>⚡ DFS Replication = accès local Marseille (latence &lt;10ms)</li>
+                    <li>⚡ SSD RAID-1 pour VMs = IOPS élevés (performance DB/File Server)</li>
+                    <li>⚡ VPN permanent 24/7 = connectivité garantie multi-site</li>
+                </ul>
+            </div>
+
+            <div class="info-card" style="border-left-color: #764ba2;">
+                <h3>🛡️ Fiabilité Maximale</h3>
+                <ul>
+                    <li>🛡️ Multi-site failover automatique : <span class="highlight">RTO 4h, RPO 1h</span></li>
+                    <li>🛡️ Backup 3-2-1 automatisé : <span class="highlight">Zéro perte de données acceptable</span></li>
+                    <li>🛡️ RAID hardware + UPS : Protection double matériel/électrique</li>
+                    <li>🛡️ Snapshots Hyper-V quotidiens : Restore rapide &lt;5min si incident</li>
+                </ul>
+            </div>
+
+            <h2>📅 Prochaines Étapes</h2>
             <div class="feature-grid">
                 <div class="feature-item">
-                    <span class="emoji">🚨</span>
-                    <strong>On-call 24/7</strong><br>
-                    Incidents critiques
+                    <span class="emoji">✅</span>
+                    <strong>Phase I Complète</strong><br>
+                    Architecture validée
                 </div>
                 <div class="feature-item">
-                    <span class="emoji">🔧</span>
-                    <strong>Maintenance</strong><br>
-                    Patches, updates Windows
+                    <span class="emoji">🚧</span>
+                    <strong>Phase II (4 semaines)</strong><br>
+                    Implémentation infrastructure
                 </div>
                 <div class="feature-item">
-                    <span class="emoji">📈</span>
-                    <strong>Capacity Planning</strong><br>
-                    Upgrades
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🔒</span>
-                    <strong>Security</strong><br>
-                    Hardening
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">📝</span>
-                    <strong>Compliance</strong><br>
-                    Reporting
+                    <span class="emoji">🎯</span>
+                    <strong>Phase III (3 semaines)</strong><br>
+                    Monitoring + Automatisation + Formation
                 </div>
             </div>
 
-            <h2>✅ Infrastructure pour 85 users</h2>
-            <p><span class="tag success">✅ Scalable</span> vers 150-200 users</p>
-            <p><span class="tag success">✅ Maintenable</span> par petite équipe</p>
-            <p><span class="tag success">✅ Documented</span> et reproductible</p>
-        </div>
-
-        <!-- SLIDE 13 : RISQUES -->
-        <div class="slide">
-            <span class="slide-number">13</span>
-            <h1>⚠️ Risques Identifiés & Mitigation</h1>
-
-            <h2>🎯 Matrice des Risques</h2>
-            <table style="font-size: 0.9em;">
-                <tr>
-                    <th>Risque</th>
-                    <th>Impact</th>
-                    <th>Probabilité</th>
-                    <th>Mitigation</th>
-                </tr>
-                <tr>
-                    <td>💔 Perte données</td>
-                    <td><span class="tag warning">Critique</span></td>
-                    <td>Moyen</td>
-                    <td>Backup 3-2-1, restore tests</td>
-                </tr>
-                <tr>
-                    <td>🏢 Indisponibilité site</td>
-                    <td><span class="tag warning">Critique</span></td>
-                    <td>Bas</td>
-                    <td>Failover Marseille, HA</td>
-                </tr>
-                <tr>
-                    <td>🔓 Breach sécurité</td>
-                    <td><span class="tag warning">Critique</span></td>
-                    <td>Moyen</td>
-                    <td>AD audit, firewall, anti-malware</td>
-                </tr>
-                <tr>
-                    <td>🔄 Réplication AD lag</td>
-                    <td>Moyen</td>
-                    <td>Bas</td>
-                    <td>Monitoring, alertes, doc</td>
-                </tr>
-                <tr>
-                    <td>💾 Disque plein</td>
-                    <td>Moyen</td>
-                    <td>Moyen</td>
-                    <td>Script auto-monitoring PowerShell</td>
-                </tr>
-                <tr>
-                    <td>🔐 VPN down</td>
-                    <td>Moyen</td>
-                    <td>Bas</td>
-                    <td>Failover secondaire</td>
-                </tr>
-                <tr>
-                    <td>🖥️ Hyper-V Host down</td>
-                    <td>Moyen</td>
-                    <td>Très bas</td>
-                    <td>RAID hardware, UPS, Clustering</td>
-                </tr>
-                <tr>
-                    <td>⚙️ Configuration error</td>
-                    <td>Moyen</td>
-                    <td>Moyen</td>
-                    <td>Doc, snapshots Hyper-V avant changes</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- SLIDE 14 : CONCLUSION -->
-        <div class="slide">
-            <span class="slide-number">14</span>
-            <h1>🎬 Conclusion & Prochaines Étapes</h1>
-
-            <h2>✅ Recommandation Exécutive</h2>
-            <div class="info-card" style="border-left-color: #51cf66;">
-                <h3>✅ Architecture Approuvée pour Implémentation</h3>
-                <p>Architecture <span class="highlight">centralisée, sécurisée, scalable</span> proposée répond à tous critères :</p>
-                <div class="feature-grid">
-                    <div class="feature-item">
-                        <span class="emoji">🔒</span>
-                        <strong>Sécurité</strong><br>
-                        AD audit trail + firewall + VPN chiffré
-                    </div>
-                    <div class="feature-item">
-                        <span class="emoji">⏱️</span>
-                        <strong>Continuité</strong><br>
-                        Multi-site failover + backup 3-2-1
-                    </div>
-                    <div class="feature-item">
-                        <span class="emoji">📈</span>
-                        <strong>Scalabilité</strong><br>
-                        AD + Hyper-V gérent 500+ users
-                    </div>
-                    <div class="feature-item">
-                        <span class="emoji">🖥️</span>
-                        <strong>Windows Server</strong><br>
-                        Environnement familier + Support Microsoft
-                    </div>
-                </div>
-            </div>
-
-            <h2>📞 Contact</h2>
-            <p><strong>Project Manager</strong>: Consulting Team Jedha Session 14</p>
-            <p><strong>Client Contact</strong>: Jean Thalor - Director IS Nova Syndicate</p>
-            <p style="margin-top: 40px; font-size: 1.8em; text-align: center; color: #667eea;">
+            <p style="text-align: center; margin-top: 50px; font-size: 2em; color: #667eea;">
                 <strong>Questions ? 👋</strong>
+            </p>
+            <p style="text-align: center; margin-top: 20px; font-size: 1.1em; color: #666;">
+                Consulting Team Jedha Session 14 | Jean Thalor - Director IS Nova Syndicate
             </p>
         </div>
 
@@ -1247,7 +1113,7 @@ Total: ~5-10 min avec validation
         <div class="controls">
             <button id="prevBtn" onclick="changeSlide(-1)">← Précédent</button>
             <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">14</span>
+                <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
             </span>
             <div class="export-buttons">
                 <button onclick="printPresentation()">🖨️ Imprimer / PDF</button>
@@ -1271,12 +1137,10 @@ Total: ~5-10 min avec validation
             slides.forEach(slide => slide.classList.remove('active'));
             slides[currentSlide - 1].classList.add('active');
 
-            // Update slide counter
             document.getElementById('currentSlide').textContent = currentSlide;
             document.getElementById('prevBtn').disabled = currentSlide === 1;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
 
-            // Update progress bar
             const progress = (currentSlide / totalSlides) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
         }
@@ -1296,18 +1160,16 @@ Total: ~5-10 min avec validation
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'Nova-Syndicate-Presentation-HyperV.html';
+            a.download = 'Nova-Syndicate-Phase1-Architecture.html';
             a.click();
             URL.revokeObjectURL(url);
         }
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'ArrowRight') changeSlide(1);
         });
 
-        // Initialize
         showSlide(currentSlide);
     </script>
 </body>
