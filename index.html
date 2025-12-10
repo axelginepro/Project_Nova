@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Syndicate : Architecture Proposée</title>
+    <title>Nova Syndicate - Phase I : Architecture Proposée</title>
     <style>
         * {
             margin: 0;
@@ -28,8 +28,10 @@
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             overflow: hidden;
+            position: relative;
         }
 
+        /* SLIDES NORMALES (fond blanc) */
         .slide {
             display: none;
             padding: 60px 80px;
@@ -42,6 +44,67 @@
 
         .slide.active {
             display: block;
+        }
+
+        /* SLIDE TITRE UNIQUEMENT (fond violet) */
+        .slide.title-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.title-slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide.title-slide::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -200px;
+            right: -150px;
+        }
+
+        .slide.title-slide::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -100px;
+        }
+
+        .slide.title-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            color: white;
+            border: none;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .slide.title-slide h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #f0f0f0;
+            z-index: 1;
+        }
+
+        .slide.title-slide p {
+            font-size: 1.1em;
+            color: #e0e0e0;
+            z-index: 1;
         }
 
         @keyframes fadeIn {
@@ -74,330 +137,470 @@
 
         .slide h2 {
             color: #764ba2;
-            font-size: 1.8em;
-            margin-top: 35px;
-            margin-bottom: 20px;
+            font-size: 2em;
+            margin: 30px 0 20px 0;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .slide h3 {
-            color: #667eea;
-            font-size: 1.4em;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #555;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
         }
 
-        .slide p {
-            font-size: 1.1em;
-            line-height: 1.8;
-            margin-bottom: 15px;
+        .slide ul {
+            list-style: none;
+            padding-left: 0;
         }
 
-        .slide ul, .slide ol {
-            margin-left: 40px;
-            margin-bottom: 20px;
+        .slide ul li {
+            padding: 12px 0;
+            font-size: 1.15em;
+            line-height: 1.6;
+            border-bottom: 1px solid #eee;
         }
 
-        .slide li {
-            font-size: 1.05em;
-            line-height: 1.9;
-            margin-bottom: 12px;
-            transition: transform 0.2s;
+        .slide ul li:last-child {
+            border-bottom: none;
         }
 
-        .slide li:hover {
-            transform: translateX(5px);
-        }
-
-        .slide table {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.95em;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .slide table th {
+        th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 15px;
             text-align: left;
-            font-weight: 600;
-        }
-
-        .slide table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e0e0e0;
-            transition: background 0.3s;
-        }
-
-        .slide table tr:hover {
-            background: #f0f4ff;
-            transform: scale(1.01);
-        }
-
-        .title-slide {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            display: flex !important;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .title-slide::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        .title-slide h1 {
-            color: white;
-            border: none;
-            font-size: 3.5em;
-            z-index: 1;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-        }
-
-        .title-slide h2 {
-            color: #e0e0e0;
-            font-size: 1.8em;
-            margin-top: 20px;
-            z-index: 1;
-        }
-
-        .title-slide p {
-            color: #e0e0e0;
             font-size: 1.1em;
-            margin-top: 40px;
-            z-index: 1;
         }
 
-        .code-block {
-            background: #f8f9fa;
-            border-left: 5px solid #667eea;
-            padding: 20px;
-            margin: 20px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            overflow-x: auto;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 1.05em;
         }
 
-        .code-block:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, #fff3cd 0%, #ffeaa7 100%);
-            padding: 3px 8px;
-            border-radius: 4px;
-            color: #764ba2;
-            font-weight: bold;
-        }
-
-        .tag {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 20px;
-            margin: 5px;
-            font-size: 0.9em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-
-        .tag:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .tag.warning {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-        }
-
-        .tag.success {
-            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
-        }
-
-        .info-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            border-left: 5px solid #667eea;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .info-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .feature-item {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #e0e0e0;
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .feature-item:hover {
-            border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-        }
-
-        .feature-item .emoji {
-            font-size: 2.5em;
-            display: block;
-            margin-bottom: 10px;
+        tr:hover {
+            background-color: #f8f9ff;
         }
 
         .controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-top: 2px solid #ddd;
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-top: 2px solid #e0e0e0;
         }
 
         button {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 12px 30px;
+            font-size: 1em;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
             font-weight: 600;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        .nav-btn {
+            background: #667eea;
+            color: white;
         }
 
-        button:disabled {
+        .nav-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
-            box-shadow: none;
-        }
-
-        .slide-counter {
-            font-size: 1.2em;
-            color: #667eea;
-            font-weight: bold;
-            background: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .export-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .export-buttons button {
-            padding: 10px 18px;
-            font-size: 0.95em;
         }
 
         .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.4s ease;
+            border-radius: 10px;
+        }
+
+        /* BOUTON SOMMAIRE */
+        .sommaire-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sommaire-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        /* PANNEAU SOMMAIRE */
+        .sommaire-panel {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: left 0.4s ease;
+            overflow-y: auto;
+            padding: 80px 20px 20px 20px;
+        }
+
+        .sommaire-panel.open {
+            left: 0;
+        }
+
+        .sommaire-panel h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .sommaire-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sommaire-item:hover {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba235 100%);
+            transform: translateX(10px);
+            box-shadow: 0 3px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .sommaire-item.active-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .sommaire-item .item-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .sommaire-item.active-item .item-number {
+            background: white;
+            color: #667eea;
+        }
+
+        .sommaire-item .item-title {
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        /* OVERLAY */
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s;
-            z-index: 1001;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
         }
 
-        @media print {
-            body {
-                background: white;
-            }
-            .controls, .progress-bar {
-                display: none;
-            }
-            .slide {
-                display: block !important;
-                page-break-after: always;
-                min-height: 100vh;
-            }
-            .slide-number {
-                display: none;
-            }
+        .overlay.show {
+            display: block;
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 20px;
+            right: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .slide.title-slide .fullscreen-btn {
+            display: block;
+        }
+
+        .slide:not(.title-slide) .fullscreen-btn {
+            display: none;
         }
 
         @media (max-width: 768px) {
             .slide {
                 padding: 40px 30px;
+                min-height: 500px;
             }
+
             .slide h1 {
                 font-size: 2em;
             }
-            .feature-grid {
-                grid-template-columns: 1fr;
+
+            .controls {
+                flex-direction: column;
+                gap: 15px;
             }
+
+            .progress-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .sommaire-btn {
+                top: 15px;
+                left: 15px;
+                padding: 10px 20px;
+            }
+
+            .sommaire-panel {
+                width: 280px;
+                left: -280px;
+            }
+        }
+
+        .lexique-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .lexique-category {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .lexique-category h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .lexique-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lexique-category ul li {
+            padding: 5px 0;
+            font-size: 0.95em;
+            border: none;
+        }
+
+        .sommaire-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
+    <!-- BOUTON SOMMAIRE FLOTTANT -->
+    <button class="sommaire-btn" onclick="toggleSommaire()">📋 Sommaire</button>
+
+    <!-- OVERLAY (fond sombre quand sommaire ouvert) -->
+    <div class="overlay" id="overlay" onclick="toggleSommaire()"></div>
+
+    <!-- PANNEAU SOMMAIRE -->
+    <div class="sommaire-panel" id="sommairePanel">
+        <h2>📋 Navigation</h2>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(0)">
+            <span class="item-number">1</span>
+            <span class="item-title">🚀 Titre</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(1)">
+            <span class="item-number">2</span>
+            <span class="item-title">📋 Sommaire</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(2)">
+            <span class="item-number">3</span>
+            <span class="item-title">📊 Contexte</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(3)">
+            <span class="item-number">4</span>
+            <span class="item-title">🎯 Objectifs</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(4)">
+            <span class="item-number">5</span>
+            <span class="item-title">🏗️ Architecture Globale</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(5)">
+            <span class="item-number">6</span>
+            <span class="item-title">👤 Active Directory</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(6)">
+            <span class="item-number">7</span>
+            <span class="item-title">🖥️ Hyper-V</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(7)">
+            <span class="item-number">8</span>
+            <span class="item-title">📁 File Server</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(8)">
+            <span class="item-number">9</span>
+            <span class="item-title">🗄️ PostgreSQL</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(9)">
+            <span class="item-number">10</span>
+            <span class="item-title">🔐 VPN</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(10)">
+            <span class="item-number">11</span>
+            <span class="item-title">🛡️ BCP/DRP</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(11)">
+            <span class="item-number">12</span>
+            <span class="item-title">🎬 Conclusion</span>
+        </div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(12)">
+            <span class="item-number">13</span>
+            <span class="item-title">📖 Lexique</span>
+        </div>
+    </div>
 
     <div class="presentation-container">
-        <!-- SLIDE 1 : TITRE -->
+        <!-- SLIDE 1 : TITRE (avec fond violet) -->
         <div class="slide title-slide active">
+            <button class="fullscreen-btn" onclick="toggleFullscreen()">🖥️ Plein écran</button>
             <h1>🚀 Architecture Proposée</h1>
             <h2>Nova Syndicate</h2>
             <h2 style="font-size: 1.3em; color: #e0e0e0;">Infrastructure IT Moderne & Sécurisée</h2>
-            <p style="margin-top: 80px; font-size: 1.2em;">Consulting Team: Jedha Session 14</p>
-            <p>Décembre 2025</p>
-            <p style="margin-top: 40px; font-size: 0.95em; opacity: 0.9;">✅ Conformité | ⚡ Performance | 🛡️ Fiabilité</p>
+            
+            <div style="margin-top: 60px; z-index: 1;">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">Consulting Team: Jedha Session 14</p>
+                <table style="margin: 0 auto; width: auto; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <tr>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Alexandre</td>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Sébastien</td>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Solène</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Audrey</td>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Valentin</td>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Axel</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <p style="margin-top: 40px; z-index: 1;">Décembre 2025</p>
+            <p style="margin-top: 20px; font-size: 0.95em; z-index: 1;">✅ Conformité | ⚡ Performance | 💎 Fiabilité</p>
         </div>
 
-        <!-- SLIDE 2 : CONTEXTE & PROBLÉMATIQUE -->
+        <!-- SLIDE 2 : SOMMAIRE -->
         <div class="slide">
-            <span class="slide-number">2 / 11</span>
-            <h1>📊 Contexte & Problématique</h1>
+            <span class="slide-number">2 / 13</span>
+            <h1>📋 Sommaire</h1>
+            <div class="sommaire-grid">
+                <div class="sommaire-item" onclick="goToSlide(2)" style="cursor: pointer;">
+                    <h3>📊 Contexte</h3>
+                    <p>Situation actuelle & problématiques</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(3)" style="cursor: pointer;">
+                    <h3>🎯 Objectifs</h3>
+                    <p>Vision & bénéfices attendus</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(4)" style="cursor: pointer;">
+                    <h3>🏗️ Architecture Globale</h3>
+                    <p>Vue d'ensemble des services</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(5)" style="cursor: pointer;">
+                    <h3>👤 Active Directory</h3>
+                    <p>Gestion des identités</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(6)" style="cursor: pointer;">
+                    <h3>🖥️ Hyper-V</h3>
+                    <p>Virtualisation & haute disponibilité</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(7)" style="cursor: pointer;">
+                    <h3>📁 File Server</h3>
+                    <p>Stockage & sauvegarde</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(8)" style="cursor: pointer;">
+                    <h3>🗄️ PostgreSQL</h3>
+                    <p>Base de données</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(9)" style="cursor: pointer;">
+                    <h3>🔐 VPN</h3>
+                    <p>Interconnexion sécurisée</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(10)" style="cursor: pointer;">
+                    <h3>🛡️ BCP/DRP</h3>
+                    <p>Continuité & reprise</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(11)" style="cursor: pointer;">
+                    <h3>🎬 Conclusion</h3>
+                    <p>Synthèse & prochaines étapes</p>
+                </div>
+                <div class="sommaire-item" onclick="goToSlide(12)" style="cursor: pointer;">
+                    <h3>📖 Lexique</h3>
+                    <p>Acronymes & définitions</p>
+                </div>
+            </div>
+        </div>
 
+        <!-- SLIDE 3 : CONTEXTE (fond blanc) -->
+        <div class="slide">
+            <span class="slide-number">3 / 13</span>
+            <h1>📊 Contexte & Problématique</h1>
+            
             <h2>🏢 Situation Actuelle</h2>
             <ul>
                 <li><strong>Entreprise en croissance</strong> : €48M CA, 85 employés, 3 sites (Lyon, Marseille, distants)</li>
@@ -407,770 +610,710 @@
 
             <h2>⚠️ 6 Problèmes Critiques Identifiés</h2>
             <table>
-                <tr>
-                    <th>Problème</th>
-                    <th>Impact Business</th>
-                </tr>
-                <tr>
-                    <td>❌ Aucune gestion centralisée d'identités</td>
-                    <td>Sécurité compromise, audit impossible, non-conformité</td>
-                </tr>
-                <tr>
-                    <td>❌ Pas de sauvegarde base données</td>
-                    <td>Risque perte de données = arrêt entreprise</td>
-                </tr>
-                <tr>
-                    <td>❌ Infrastructure non virtualisée</td>
-                    <td>Coûts élevés, récupération après incident impossible</td>
-                </tr>
-                <tr>
-                    <td>❌ Pas de VPN agents distants</td>
-                    <td>20 commerciaux sur réseaux non sécurisés</td>
-                </tr>
-                <tr>
-                    <td>❌ Pas de plans continuité/reprise</td>
-                    <td>Non-conformité réglementaire secteurs sensibles</td>
-                </tr>
-                <tr>
-                    <td>❌ Aucune supervision infrastructure</td>
-                    <td>Incidents découverts trop tard, temps d'arrêt prolongés</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Problème</th>
+                        <th>Impact Business</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>❌ Aucune gestion centralisée d'identités</td>
+                        <td>Sécurité compromise, audit impossible, non-conformité</td>
+                    </tr>
+                    <tr>
+                        <td>❌ Pas de sauvegarde base données</td>
+                        <td>Risque perte de données = arrêt entreprise</td>
+                    </tr>
+                    <tr>
+                        <td>❌ Infrastructure non redondante</td>
+                        <td>SPOF (Single Point of Failure) → perte CA potentielle</td>
+                    </tr>
+                    <tr>
+                        <td>❌ Connexion inter-sites non sécurisée</td>
+                        <td>Exposition données sensibles, non-conformité RGPD</td>
+                    </tr>
+                    <tr>
+                        <td>❌ Aucun plan de continuité (BCP/DRP)</td>
+                        <td>Vulnérabilité face aux incidents (cyber, incendie, panne)</td>
+                    </tr>
+                    <tr>
+                        <td>❌ Pas de supervision centralisée</td>
+                        <td>Détection tardive des pannes, réactivité faible</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
-        <!-- SLIDE 3 : OBJECTIFS PHASE 1 -->
+        <!-- SLIDE 4 : OBJECTIFS -->
         <div class="slide">
-            <span class="slide-number">3 / 11</span>
-            <h1>🎯 Analyse & Design</h1>
+            <span class="slide-number">4 / 13</span>
+            <h1>🎯 Objectifs de la Phase I</h1>
+            
+            <h2>🎓 Vision Stratégique</h2>
+            <ul>
+                <li><strong>Fondations solides</strong> : Infrastructure moderne, scalable, sécurisée</li>
+                <li><strong>Conformité réglementaire</strong> : RGPD, ISO 27001, sectorielles (médical, défense)</li>
+                <li><strong>Haute disponibilité</strong> : Services critiques 24/7, tolérance aux pannes</li>
+            </ul>
 
-            <h2>✅ Conformité au Cahier des Charges</h2>
-            <div class="info-card">
-                <p><strong>L'architecture proposée répond aux besoins techniques et opérationnels décrits dans le document d'exigences.</strong></p>
-                <ul>
-                    <li>✅ Centralisation complète (Active Directory)</li>
-                    <li>✅ Virtualisation de tous les services clés (Hyper-V)</li>
-                    <li>✅ Sécurité renforcée (VPN, encryption, audit trail)</li>
-                    <li>✅ Scalabilité pour croissance future (support 500+ users)</li>
-                    <li>✅ Plans de continuité et reprise documentés (BCP/DRP)</li>
-                    <li>✅ Automatisation administrative (scripts PowerShell)</li>
-                </ul>
-            </div>
-
-            <h2>⚡ Performances</h2>
-            <div class="info-card">
-                <p><strong>L'infrastructure prévue favorise l'efficacité du service et répond aux attentes en matière de performances.</strong></p>
-                <ul>
-                    <li>⚡ Architecture virtualisée = allocation dynamique ressources</li>
-                    <li>⚡ DFS Replication = accès local Marseille (latence minimale)</li>
-                    <li>⚡ Stockage SSD RAID-1 pour VMs (haute performance)</li>
-                    <li>⚡ VPN permanent 24/7 entre sites (bande passante optimisée)</li>
-                </ul>
-            </div>
-
-            <h2>🛡️ Fiabilité</h2>
-            <div class="info-card">
-                <p><strong>La conception du système garantit la continuité du service et minimise les risques de défaillance critique.</strong></p>
-                <ul>
-                    <li>🛡️ Multi-site failover automatique (RTO 4h, RPO 1h)</li>
-                    <li>🛡️ Backup 3-2-1 automatisé (3 copies, 2 médias, 1 offsite)</li>
-                    <li>🛡️ RAID hardware + UPS (protection matériel)</li>
-                    <li>🛡️ Snapshots Hyper-V quotidiens (restore rapide &lt;5min)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- SLIDE 4 : ARCHITECTURE VUE D'ENSEMBLE -->
-        <div class="slide">
-            <span class="slide-number">4 / 11</span>
-            <h1>🏗️ Architecture Recommandée - Vue d'Ensemble</h1>
-
-            <h2>🔑 6 Services Clés</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">👤</span>
-                    <strong>Active Directory</strong><br>
-                    Gestion centralisée identités + audit trail
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">📁</span>
-                    <strong>File Server DFS</strong><br>
-                    Partages départementaux + réplication
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🗄️</span>
-                    <strong>PostgreSQL</strong><br>
-                    Base données avec backup automatisé
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🖥️</span>
-                    <strong>Hyper-V (Windows Server)</strong><br>
-                    Virtualisation intégrée + HA
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🔐</span>
-                    <strong>OpenVPN (pfSense)</strong><br>
-                    Site-to-Site + Remote Access
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">📊</span>
-                    <strong>Supervision</strong><br>
-                    À implémenter en Phase III
-                </div>
-            </div>
-
-            <h3>🌐 Topologie Multi-Site</h3>
-            <div class="code-block">
-Site Lyon (Principal) - 40 utilisateurs
-├── Serveur Hyper-V (Windows Server 2022)
-│   ├── VM1: Domain Controller (AD DS + DNS)
-│   ├── VM2: File Server (DFS-N + DFS-R)
-│   ├── VM3: PostgreSQL Database
-│   └── VM4: pfSense Firewall/VPN
-├── NAS RAID-6 (Backup local)
-└── UPS 3kVA
-
-Site Marseille (Secondaire) - 25 utilisateurs
-├── Serveur Hyper-V (Windows Server 2022)
-│   ├── VM1: Domain Controller Replica
-│   ├── VM2: File Server DFS Replica
-│   └── VM3: pfSense Firewall/VPN
-└── Stockage local backup
-
-Agents Distants - 20 utilisateurs
-└── VPN OpenVPN → Gateway Lyon
-            </div>
-        </div>
-
-        <!-- SLIDE 5 : ACTIVE DIRECTORY -->
-        <div class="slide">
-            <span class="slide-number">5 / 11</span>
-            <h1>👤 Active Directory - Gestion Centralisée</h1>
-
-            <h2>⚖️ Justification du Choix</h2>
+            <h2>📊 Bénéfices Attendus</h2>
             <table>
-                <tr>
-                    <th>Critère</th>
-                    <th>Active Directory</th>
-                    <th>FreeIPA / LDAP</th>
-                </tr>
-                <tr>
-                    <td><strong>Coût</strong></td>
-                    <td>Inclus Windows Server</td>
-                    <td>Gratuit</td>
-                </tr>
-                <tr>
-                    <td><strong>Intégration Windows</strong></td>
-                    <td><span class="tag success">✅ Native 100%</span></td>
-                    <td>Partielle</td>
-                </tr>
-                <tr>
-                    <td><strong>Multi-site</strong></td>
-                    <td><span class="tag success">✅ Réplication native</span></td>
-                    <td>Complexe à configurer</td>
-                </tr>
-                <tr>
-                    <td><strong>Audit Compliance</strong></td>
-                    <td><span class="tag success">✅ Excellent</span></td>
-                    <td>Limité</td>
-                </tr>
-                <tr>
-                    <td><strong>Support PME</strong></td>
-                    <td><span class="tag success">✅ Microsoft officiel</span></td>
-                    <td>Communauté seulement</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Dimension</th>
+                        <th>Avant</th>
+                        <th>Après Phase I</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🔐 Sécurité</strong></td>
+                        <td>Accès non contrôlés</td>
+                        <td>SSO, MFA, audit centralisé</td>
+                    </tr>
+                    <tr>
+                        <td><strong>💾 Sauvegarde</strong></td>
+                        <td>Aucune (DB critique)</td>
+                        <td>Stratégie 3-2-1, RPO 1h</td>
+                    </tr>
+                    <tr>
+                        <td><strong>⚡ Disponibilité</strong></td>
+                        <td>SPOF multiples</td>
+                        <td>Cluster HA, RTO 4h</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🌐 Connectivité</strong></td>
+                        <td>VPN obsolètes</td>
+                        <td>IPsec IKEv2, chiffrement AES-256</td>
+                    </tr>
+                    <tr>
+                        <td><strong>📈 Scalabilité</strong></td>
+                        <td>Infrastructure figée</td>
+                        <td>Virtualisation Hyper-V, ajout rapide</td>
+                    </tr>
+                </tbody>
             </table>
-
-            <h2>📋 Structure Organisationnelle</h2>
-            <div class="code-block">
-Domain: nova-syndicate.local
-
-Organizational Units (OUs):
-├── GRP_Executives (5 users)
-├── GRP_Logistics (30 users)
-├── GRP_Sales (30 users)
-├── GRP_Finance (10 users)
-└── GRP_IT (5 users)
-
-Group Policies (GPO):
-├── Sécurité : Complexité mots de passe, expiration 90j
-├── BitLocker : Encryption Finance/Executive
-├── Windows Defender : Anti-malware centralisé
-└── Audit : Logging tous accès fichiers sensibles
-            </div>
-
-            <h2>✅ Bénéfices Clés</h2>
-            <p><span class="tag success">Conformité</span> Audit trail complet pour secteurs réglementés</p>
-            <p><span class="tag success">Performance</span> Authentification locale multi-site</p>
-            <p><span class="tag success">Fiabilité</span> Réplication automatique Lyon ↔ Marseille</p>
         </div>
 
-        <!-- SLIDE 6 : HYPER-V -->
+        <!-- SLIDE 5 : ARCHITECTURE GLOBALE -->
         <div class="slide">
-            <span class="slide-number">6 / 11</span>
-            <h1>🖥️ Virtualisation : Windows Server + Hyper-V</h1>
-
-            <h2>⚖️ Pourquoi Hyper-V ?</h2>
+            <span class="slide-number">5 / 13</span>
+            <h1>🏗️ Architecture Globale - Phase I</h1>
+            
+            <h2>🎯 6 Services Fondamentaux</h2>
             <table>
-                <tr>
-                    <th>Critère</th>
-                    <th>Hyper-V</th>
-                    <th>Proxmox VE</th>
-                    <th>VMware ESXi</th>
-                </tr>
-                <tr>
-                    <td>Coût</td>
-                    <td><span class="tag success">✅ Inclus licence</span></td>
-                    <td>Gratuit</td>
-                    <td>❌ Très coûteux</td>
-                </tr>
-                <tr>
-                    <td>Intégration AD</td>
-                    <td><span class="tag success">✅ Parfaite</span></td>
-                    <td>Partielle</td>
-                    <td>Partielle</td>
-                </tr>
-                <tr>
-                    <td>Snapshots</td>
-                    <td><span class="tag success">✅ Natifs</span></td>
-                    <td>✅ Oui</td>
-                    <td>✅ Oui</td>
-                </tr>
-                <tr>
-                    <td>HA Clustering</td>
-                    <td><span class="tag success">✅ Natif</span></td>
-                    <td>✅ Oui</td>
-                    <td>✅ Oui (payant)</td>
-                </tr>
-                <tr>
-                    <td>Support</td>
-                    <td><span class="tag success">✅ Microsoft officiel</span></td>
-                    <td>Communauté</td>
-                    <td>Payant</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Service</th>
+                        <th style="width: 40%;">Rôle</th>
+                        <th style="width: 35%;">Technologies Clés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>👤 Active Directory</strong></td>
+                        <td>Authentification centralisée, gestion identités/droits</td>
+                        <td>Windows Server 2022, GPO, DNS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🖥️ Hyper-V Cluster</strong></td>
+                        <td>Virtualisation, haute disponibilité, migration à chaud</td>
+                        <td>Windows Server 2022, Storage Spaces Direct</td>
+                    </tr>
+                    <tr>
+                        <td><strong>📁 File Server</strong></td>
+                        <td>Stockage partagé, DFS réplication, backups</td>
+                        <td>DFS-R, Veeam Backup, stratégie 3-2-1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🗄️ PostgreSQL</strong></td>
+                        <td>Base de données production, réplication streaming</td>
+                        <td>PostgreSQL 16, pgBackRest, monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🔐 VPN</strong></td>
+                        <td>Site-to-Site + Remote Access sécurisés</td>
+                        <td>IPsec IKEv2, pfSense, AES-256-GCM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🛡️ BCP/DRP</strong></td>
+                        <td>Continuité service, plan reprise activité</td>
+                        <td>RTO 4h, RPO 1h, site de secours</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <h2>🖥️ Configuration Matérielle Recommandée</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">💻</span>
-                    <strong>CPU</strong><br>
-                    Intel Xeon E5 v3+<br>8 cores minimum
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🧠</span>
-                    <strong>RAM</strong><br>
-                    64 GB DDR4 ECC
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">💾</span>
-                    <strong>Stockage VMs</strong><br>
-                    2× SSD 1TB RAID-1
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">💿</span>
-                    <strong>Stockage Backup</strong><br>
-                    4× HDD 4TB RAID-6
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🔌</span>
-                    <strong>Réseau</strong><br>
-                    2× 1Gbps (bonding)
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">⚡</span>
-                    <strong>Alimentation</strong><br>
-                    UPS 3kVA (autonomie 1h)
-                </div>
-            </div>
-
-            <h3>🖥️ Machines Virtuelles Hébergées</h3>
-            <table>
-                <tr>
-                    <th>VM</th>
-                    <th>OS</th>
-                    <th>vCPU / RAM</th>
-                    <th>Fonction</th>
-                </tr>
-                <tr>
-                    <td>VM1: DC</td>
-                    <td>Windows Server 2022</td>
-                    <td>2 / 4GB</td>
-                    <td>Active Directory + DNS</td>
-                </tr>
-                <tr>
-                    <td>VM2: File Server</td>
-                    <td>Windows Server 2022</td>
-                    <td>4 / 8GB</td>
-                    <td>DFS Namespace + Replication</td>
-                </tr>
-                <tr>
-                    <td>VM3: PostgreSQL</td>
-                    <td>Ubuntu 22.04 LTS</td>
-                    <td>4 / 8GB</td>
-                    <td>Base de données applicative</td>
-                </tr>
-                <tr>
-                    <td>VM4: pfSense</td>
-                    <td>FreeBSD</td>
-                    <td>2 / 4GB</td>
-                    <td>Firewall + VPN Gateway</td>
-                </tr>
-            </table>
-
-            <h2>✅ Bénéfices Clés</h2>
-            <p><span class="tag success">Conformité</span> Architecture virtualisée comme requis (cahier des charges)</p>
-            <p><span class="tag success">Performance</span> Snapshots instantanés, allocation dynamique ressources</p>
-            <p><span class="tag success">Fiabilité</span> Restore &lt;5min en cas d'incident, clustering HA disponible</p>
+            <h2>🌐 Topologie Réseau</h2>
+            <ul style="font-size: 1.05em;">
+                <li><strong>Lyon (HQ)</strong> : DC principal, Hyper-V cluster 3 nœuds, File Server principal</li>
+                <li><strong>Marseille</strong> : DC secondaire, File Server répliqué, PostgreSQL standby</li>
+                <li><strong>Sites distants</strong> : Accès VPN Remote Access, cache local DFS</li>
+                <li><strong>Interconnexions</strong> : VPN Site-to-Site IPsec AES-256 entre Lyon ↔ Marseille</li>
+            </ul>
         </div>
 
-        <!-- SLIDE 7 : FILE SERVER DFS -->
+        <!-- SLIDE 6 : ACTIVE DIRECTORY -->
         <div class="slide">
-            <span class="slide-number">7 / 11</span>
-            <h1>📁 File Server & DFS Replication</h1>
+            <span class="slide-number">6 / 13</span>
+            <h1>👤 Active Directory (AD DS)</h1>
+            
+            <h2>🎯 Objectifs</h2>
+            <ul>
+                <li><strong>Authentification unique (SSO)</strong> : 1 identifiant pour tous les services</li>
+                <li><strong>Gestion centralisée</strong> : Users, computers, GPO depuis console unique</li>
+                <li><strong>Sécurité renforcée</strong> : MFA, politique mots de passe, audit</li>
+                <li><strong>Conformité</strong> : Traçabilité accès (ISO 27001, RGPD)</li>
+            </ul>
 
-            <h2>🗂️ Partages Départementaux</h2>
+            <h2>🏗️ Architecture Proposée</h2>
             <table>
-                <tr>
-                    <th>Partage</th>
-                    <th>Groupe AD</th>
-                    <th>Taille</th>
-                    <th>Réplication</th>
-                </tr>
-                <tr>
-                    <td>\DFS\Logistics</td>
-                    <td>GRP_Logistics</td>
-                    <td>15 GB</td>
-                    <td><span class="tag success">✅ Lyon ↔ Marseille</span></td>
-                </tr>
-                <tr>
-                    <td>\DFS\Sales</td>
-                    <td>GRP_Sales + Executives (Read)</td>
-                    <td>12 GB</td>
-                    <td><span class="tag success">✅ Lyon ↔ Marseille</span></td>
-                </tr>
-                <tr>
-                    <td>\DFS\Finance</td>
-                    <td>GRP_Finance + Executives (Read)</td>
-                    <td>8 GB</td>
-                    <td>❌ Lyon seulement (sensible)</td>
-                </tr>
-                <tr>
-                    <td>\DFS\Executive</td>
-                    <td>GRP_Executives</td>
-                    <td>3 GB</td>
-                    <td>❌ Lyon seulement (très sensible)</td>
-                </tr>
-                <tr>
-                    <td>\DFS\Shared</td>
-                    <td>Tous (Read-only)</td>
-                    <td>5 GB</td>
-                    <td><span class="tag success">✅ Lyon ↔ Marseille</span></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Configuration</th>
+                        <th>Justification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Domaine</strong></td>
+                        <td>novasyndicate.local</td>
+                        <td>Namespace unique, évite conflits DNS publics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Domain Controllers</strong></td>
+                        <td>2 DC (Lyon + Marseille)</td>
+                        <td>Redondance, tolérance panne site principal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Niveau fonctionnel</strong></td>
+                        <td>Windows Server 2022</td>
+                        <td>Fonctionnalités récentes (MFA, Kerberos AES)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DNS</strong></td>
+                        <td>Intégré AD, réplication auto</td>
+                        <td>Simplification, cohérence données</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sauvegarde</strong></td>
+                        <td>System State daily + export GPO</td>
+                        <td>Récupération rapide en cas corruption</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <h2>🔄 DFS Replication (DFS-R)</h2>
-            <div class="info-card">
-                <h3>Qu'est-ce que DFS ?</h3>
-                <p><strong>DFS (Distributed File System)</strong> = Service Microsoft pour organiser plusieurs partages de fichiers en un seul système de fichiers logique avec réplication automatique.</p>
-
-                <h3>📋 Configuration DFS-R</h3>
-                <ul>
-                    <li><strong>Type réplication</strong> : Bidirectionnelle multi-master (Lyon ↔ Marseille)</li>
-                    <li><strong>Fréquence</strong> : Horaire (configurable selon bande passante WAN)</li>
-                    <li><strong>Throttle</strong> : 2 Mbps max (ne sature pas le lien VPN)</li>
-                    <li><strong>Compression</strong> : Activée (RDC - Remote Differential Compression)</li>
-                    <li><strong>Namespace</strong> : Domaine-based (stocké dans AD)</li>
-                </ul>
-            </div>
-
-            <h2>💾 Stratégie Backup 3-2-1</h2>
-            <div class="code-block">
-3 Copies:
-├── Original (production)
-├── Snapshot Hyper-V quotidien (rétention 7j)
-└── Backup complet (rétention 30j) + Archive offsite (90j)
-
-2 Médias:
-├── SSD RAID-1 (snapshots instantanés)
-└── HDD RAID-6 (backups complets haute capacité)
-
-1 Offsite:
-└── Stockage géographiquement séparé (cloud ou site distant)
-
-Objectifs:
-├── RTO (Recovery Time Objective): ≤ 4 heures
-└── RPO (Recovery Point Objective): ≤ 1 heure
-            </div>
-
-            <h2>✅ Bénéfices Clés</h2>
-            <p><span class="tag success">Conformité</span> Permissions par rôle AD, audit trail activé</p>
-            <p><span class="tag success">Performance</span> Accès local Marseille via DFS-R (latence minimale)</p>
-            <p><span class="tag success">Fiabilité</span> Failover automatique + Backup 3-2-1 (perte données impossible)</p>
+            <h2>🔐 Sécurisation</h2>
+            <ul>
+                <li><strong>GPO standards</strong> : Politique mots de passe complexe, verrouillage compte, screensaver</li>
+                <li><strong>Séparation privilèges</strong> : Comptes admin dédiés, pas d'usage quotidien</li>
+                <li><strong>Audit</strong> : Logs centralisés (login, modif droits, création compte)</li>
+            </ul>
         </div>
 
-        <!-- SLIDE 8 : BASE DE DONNÉES -->
+        <!-- SLIDE 7 : HYPER-V -->
         <div class="slide">
-            <span class="slide-number">8 / 11</span>
-            <h1>🗄️ PostgreSQL - Base de Données</h1>
+            <span class="slide-number">7 / 13</span>
+            <h1>🖥️ Hyper-V Cluster (Virtualisation)</h1>
+            
+            <h2>🎯 Objectifs</h2>
+            <ul>
+                <li><strong>Consolidation</strong> : Réduction serveurs physiques, économies (électricité, espace, maintenance)</li>
+                <li><strong>Haute disponibilité (HA)</strong> : Tolérance panne matérielle, migration VM à chaud</li>
+                <li><strong>Flexibilité</strong> : Déploiement rapide nouvelles VM, snapshots, clonage</li>
+            </ul>
 
-            <h2>⚖️ Pourquoi PostgreSQL ?</h2>
+            <h2>🏗️ Configuration Cluster</h2>
             <table>
-                <tr>
-                    <th>Critère</th>
-                    <th>PostgreSQL</th>
-                    <th>MySQL</th>
-                    <th>MS SQL Server</th>
-                </tr>
-                <tr>
-                    <td>Coût</td>
-                    <td><span class="tag success">✅ Gratuit open-source</span></td>
-                    <td>Gratuit</td>
-                    <td>❌ Licence €€€</td>
-                </tr>
-                <tr>
-                    <td>Performance</td>
-                    <td><span class="tag success">✅ Excellent</span></td>
-                    <td>Bon</td>
-                    <td>Excellent</td>
-                </tr>
-                <tr>
-                    <td>Scalabilité</td>
-                    <td><span class="tag success">✅ Forte</span></td>
-                    <td>Moyenne</td>
-                    <td>Forte</td>
-                </tr>
-                <tr>
-                    <td>Compliance</td>
-                    <td><span class="tag success">✅ ACID complet</span></td>
-                    <td>Partiel</td>
-                    <td>✅ Complet</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Paramètre</th>
+                        <th>Valeur</th>
+                        <th>Justification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nœuds</strong></td>
+                        <td>3 serveurs physiques</td>
+                        <td>Quorum majorité (panne 1 nœud = cluster up)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stockage</strong></td>
+                        <td>Storage Spaces Direct (S2D)</td>
+                        <td>SAN software-defined, réplication 3 copies</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Réseau</strong></td>
+                        <td>2x 10 Gbps (management + live migration)</td>
+                        <td>Bande passante migration VM sans impact users</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quorum</strong></td>
+                        <td>File Share Witness (Marseille)</td>
+                        <td>Vote externe évite split-brain</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <h2>💾 Stratégie Backup Automatisé</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">📅</span>
-                    <strong>pg_dump Complet</strong><br>
-                    Quotidien 01h00 UTC<br>Rétention 30 jours
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">📼</span>
-                    <strong>WAL Archiving</strong><br>
-                    Streaming continu<br>Point-in-Time Recovery
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🔄</span>
-                    <strong>Restore Rapide</strong><br>
-                    RTO ≤ 1h<br>RPO ≤ 1h
-                </div>
-            </div>
-
-            <h2>🔒 Sécurité Base de Données</h2>
-            <div class="info-card">
-                <ul>
-                    <li><strong>Authentification</strong> : Intégrée Active Directory (LDAP bind)</li>
-                    <li><strong>Accès réseau</strong> : Firewall pfSense (port 5432 interne uniquement)</li>
-                    <li><strong>Encryption</strong> : SSL/TLS pour connexions + encryption at rest</li>
-                    <li><strong>Audit logging</strong> : Tous accès enregistrés (conformité)</li>
-                    <li><strong>Permissions</strong> : Par rôle AD (GRP_Logistics, GRP_Finance, etc.)</li>
-                </ul>
-            </div>
-
-            <h2>✅ Bénéfices Clés</h2>
-            <p><span class="tag success">Conformité</span> ACID transactions, audit trail, encryption</p>
-            <p><span class="tag success">Performance</span> Optimisations MVCC, indexation avancée</p>
-            <p><span class="tag success">Fiabilité</span> WAL archiving + backup quotidien (zéro perte données)</p>
+            <h2>💡 Capacité Initiale</h2>
+            <ul>
+                <li><strong>CPU</strong> : 96 vCPU total (32/nœud)</li>
+                <li><strong>RAM</strong> : 384 GB total (128 GB/nœud)</li>
+                <li><strong>Stockage</strong> : 20 TB utilisable (après RAID et réplication)</li>
+                <li><strong>VMs hébergées</strong> : ~25 VM (mix small/medium/large)</li>
+            </ul>
         </div>
 
-        <!-- SLIDE 9 : VPN -->
+        <!-- SLIDE 8 : FILE SERVER -->
         <div class="slide">
-            <span class="slide-number">9 / 11</span>
-            <h1>🔐 Connectivité VPN Sécurisée</h1>
+            <span class="slide-number">8 / 13</span>
+            <h1>📁 File Server & Sauvegarde</h1>
+            
+            <h2>🎯 Objectifs</h2>
+            <ul>
+                <li><strong>Centralisation</strong> : Fin des fichiers éparpillés, namespace unique</li>
+                <li><strong>Disponibilité</strong> : Réplication Lyon ↔ Marseille, accès même si site down</li>
+                <li><strong>Sauvegarde robuste</strong> : Protection ransomware, corruption, erreur humaine</li>
+            </ul>
 
-            <h2>🏢 Site-to-Site VPN (Lyon ↔ Marseille)</h2>
-            <div class="code-block">
-Tunnel IPsec Permanent 24/7
-├── Gateway Lyon: pfSense VM (WAN IP publique)
-├── Gateway Marseille: pfSense VM (WAN IP publique)
-├── Protocole: IPsec (IKEv2)
-├── Chiffrement: AES-256-GCM
-├── Authentification: Pre-Shared Key (PSK) + certificats
-└── Bande passante: Throttle 10 Mbps (respect WAN)
-
-Services répliqués via VPN:
-├── Active Directory Replication (LDAP, Kerberos, DNS)
-├── DFS-R (Logistics, Sales, Shared)
-└── Backup offsite
-            </div>
-
-            <h2>👤 Remote Access VPN (20 Agents Distants)</h2>
+            <h2>🏗️ Architecture DFS</h2>
             <table>
-                <tr>
-                    <th>Paramètre</th>
-                    <th>Configuration</th>
-                </tr>
-                <tr>
-                    <td>Protocole</td>
-                    <td>OpenVPN (SSL/TLS) via pfSense</td>
-                </tr>
-                <tr>
-                    <td>VPN Server</td>
-                    <td>pfSense VM Lyon (port 1194 UDP)</td>
-                </tr>
-                <tr>
-                    <td>Authentification</td>
-                    <td>Certificats X.509 + Credentials AD</td>
-                </tr>
-                <tr>
-                    <td>Encryption</td>
-                    <td>AES-256 + TLS 1.3</td>
-                </tr>
-                <tr>
-                    <td>DNS</td>
-                    <td>Forcé via VPN (résolution interne)</td>
-                </tr>
-                <tr>
-                    <td>Split-Tunnel</td>
-                    <td>Disabled (tout trafic via VPN)</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Rôle</th>
+                        <th>Technologie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>DFS Namespace</strong></td>
+                        <td>Point d'accès unique \\novasyndicate.local\shares</td>
+                        <td>DFS-N, transparence localisation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DFS Réplication</strong></td>
+                        <td>Synchro bidirectionnelle Lyon ↔ Marseille</td>
+                        <td>DFS-R, RDC (compression delta)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quotas</strong></td>
+                        <td>Limitation espace par département</td>
+                        <td>FSRM (File Server Resource Manager)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Permissions</strong></td>
+                        <td>Droits AD (groupes de sécurité)</td>
+                        <td>ACL NTFS, héritage</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <h2>🛡️ Sécurité VPN</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">🔑</span>
-                    <strong>Multi-factor Auth</strong><br>
-                    Certificat + AD credentials
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🌐</span>
-                    <strong>DNS Leaks</strong><br>
-                    Prévention (DNS forcé)
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">⚠️</span>
-                    <strong>Kill-Switch</strong><br>
-                    Déconnexion si VPN down
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🚫</span>
-                    <strong>Firewall</strong><br>
-                    Règles strictes pfSense
-                </div>
-            </div>
-
-            <h2>✅ Bénéfices Clés</h2>
-            <p><span class="tag success">Conformité</span> 20 agents sécurisés, encryption AES-256, audit trail</p>
-            <p><span class="tag success">Performance</span> OpenVPN optimisé, compression activée</p>
-            <p><span class="tag success">Fiabilité</span> Tunnel permanent 24/7, failover automatique</p>
+            <h2>💾 Stratégie Sauvegarde 3-2-1</h2>
+            <ul>
+                <li><strong>3 copies</strong> : Données prod + backup local + backup distant</li>
+                <li><strong>2 supports</strong> : Disque (rapide) + bande LTO-9 (archivage)</li>
+                <li><strong>1 copie off-site</strong> : Marseille (évite sinistre Lyon)</li>
+                <li><strong>Rétention</strong> : 7 daily, 4 weekly, 12 monthly</li>
+                <li><strong>Tests restore</strong> : Mensuel, vérifie intégrité backups</li>
+            </ul>
         </div>
 
-        <!-- SLIDE 10 : BCP/DRP -->
+        <!-- SLIDE 9 : POSTGRESQL -->
         <div class="slide">
-            <span class="slide-number">10 / 11</span>
-            <h1>🛡️ Business Continuity & Disaster Recovery</h1>
+            <span class="slide-number">9 / 13</span>
+            <h1>🗄️ PostgreSQL (Base de Données)</h1>
+            
+            <h2>🎯 Objectifs</h2>
+            <ul>
+                <li><strong>Fiabilité</strong> : ACID, pas de perte données</li>
+                <li><strong>Performance</strong> : Réponse < 100ms, support 500+ users simultanés</li>
+                <li><strong>Sauvegarde</strong> : RPO 1h (perte max 1h données)</li>
+                <li><strong>Haute disponibilité</strong> : Basculement auto si panne primaire</li>
+            </ul>
 
-            <h2>📋 Business Continuity Plan (BCP)</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">⏱️</span>
-                    <strong>RTO</strong><br>
-                    ≤ 4 heures<br>(Recovery Time Objective)
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">📅</span>
-                    <strong>RPO</strong><br>
-                    ≤ 1 heure<br>(Recovery Point Objective)
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🔄</span>
-                    <strong>Failover Site</strong><br>
-                    Marseille = site secondaire<br>fonctionnel
-                </div>
-            </div>
-
-            <h2>🚨 Disaster Recovery Plan (DRP)</h2>
-            <h3>Scénarios de Récupération</h3>
+            <h2>🏗️ Architecture</h2>
             <table>
-                <tr>
-                    <th>Incident</th>
-                    <th>Solution</th>
-                    <th>Temps Récupération</th>
-                </tr>
-                <tr>
-                    <td>💾 Corruption fichier</td>
-                    <td>Snapshot Hyper-V restore</td>
-                    <td>&lt; 5 minutes</td>
-                </tr>
-                <tr>
-                    <td>🖥️ VM down</td>
-                    <td>Restart VM + snapshot si nécessaire</td>
-                    <td>&lt; 10 minutes</td>
-                </tr>
-                <tr>
-                    <td>💔 Base données corrompue</td>
-                    <td>pg_dump restore + WAL replay</td>
-                    <td>≤ 1 heure</td>
-                </tr>
-                <tr>
-                    <td>🏢 Site Lyon complet down</td>
-                    <td>Failover Marseille (AD + DFS déjà répliqués)</td>
-                    <td>≤ 4 heures</td>
-                </tr>
-                <tr>
-                    <td>🔥 Sinistre majeur (incendie, etc.)</td>
-                    <td>Recovery offsite backup + rebuild infra</td>
-                    <td>≤ 24 heures</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Configuration</th>
+                        <th>Justification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Version</strong></td>
+                        <td>PostgreSQL 16</td>
+                        <td>Dernière stable, perf optimales, sécurité</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primaire</strong></td>
+                        <td>VM Lyon (8 vCPU, 32 GB RAM)</td>
+                        <td>Serveur production, écritures/lectures</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standby</strong></td>
+                        <td>VM Marseille (8 vCPU, 32 GB RAM)</td>
+                        <td>Réplication streaming, lecture seule</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Réplication</strong></td>
+                        <td>Streaming asynchrone</td>
+                        <td>Latence faible, balance perf/dispo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Backup</strong></td>
+                        <td>pgBackRest (full weekly, incr daily)</td>
+                        <td>PITR (Point-In-Time Recovery)</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <h2>📝 Documentation DRP</h2>
-            <div class="info-card">
-                <p><strong>Runbooks détaillés (Phase III)</strong> :</p>
-                <ul>
-                    <li>Procédure restore VM Hyper-V (étape par étape)</li>
-                    <li>Procédure failover Lyon → Marseille</li>
-                    <li>Procédure restore base de données PostgreSQL</li>
-                    <li>Liste contacts urgence (escalation matrix)</li>
-                    <li>Exercices de simulation (2×/an minimum)</li>
-                </ul>
-            </div>
-
-            <h2>✅ Bénéfices Clés</h2>
-            <p><span class="tag success">Conformité</span> Plans BCP/DRP documentés (exigence secteurs sensibles)</p>
-            <p><span class="tag success">Performance</span> Restore rapide &lt;5min (snapshots)</p>
-            <p><span class="tag success">Fiabilité</span> Multi-site redondance + backup 3-2-1 (zéro perte acceptable)</p>
+            <h2>⚡ Performance & Tuning</h2>
+            <ul>
+                <li><strong>Stockage</strong> : SSD NVMe (IOPS élevés)</li>
+                <li><strong>Connexions</strong> : Pgpool-II (load balancing lectures)</li>
+                <li><strong>Monitoring</strong> : Prometheus + Grafana (alertes lenteurs)</li>
+                <li><strong>Vacuum</strong> : Auto-vacuum configuré (évite bloat)</li>
+            </ul>
         </div>
 
-        <!-- SLIDE 11 : CONCLUSION -->
+        <!-- SLIDE 10 : VPN -->
         <div class="slide">
-            <span class="slide-number">11 / 11</span>
-            <h1>🎬 Conclusion </h1>
+            <span class="slide-number">10 / 13</span>
+            <h1>🔐 VPN (Interconnexion Sécurisée)</h1>
+            
+            <h2>🎯 Objectifs</h2>
+            <ul>
+                <li><strong>Site-to-Site</strong> : Lyon ↔ Marseille transparent (comme LAN unique)</li>
+                <li><strong>Remote Access</strong> : Employés distants accèdent ressources internes</li>
+                <li><strong>Chiffrement fort</strong> : Protection données sensibles (conformité secteurs régulés)</li>
+            </ul>
 
-            <h2>✅ Synthèse : Architecture Validée</h2>
-            <div class="info-card" style="border-left-color: #51cf66;">
-                <h3>🎯 Conformité au Cahier des Charges</h3>
-                <p>✅ <strong>100% des exigences techniques satisfaites</strong> :</p>
-                <ul>
-                    <li>✅ Centralisation complète (Active Directory multi-site)</li>
-                    <li>✅ Virtualisation de tous les services (Hyper-V)</li>
-                    <li>✅ Sécurité renforcée (VPN, encryption, audit trail)</li>
-                    <li>✅ Scalabilité (support 85 → 500+ users)</li>
-                    <li>✅ Résilience (multi-site failover, backup 3-2-1)</li>
-                    <li>✅ Automatisation (scripts PowerShell Phase III)</li>
-                </ul>
-            </div>
+            <h2>🏗️ Architecture VPN</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Protocole</th>
+                        <th>Chiffrement</th>
+                        <th>Authentification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Site-to-Site</strong></td>
+                        <td>IPsec IKEv2</td>
+                        <td>AES-256-GCM</td>
+                        <td>Certificats + PSK</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Remote Access</strong></td>
+                        <td>IKEv2/IPsec</td>
+                        <td>AES-256-GCM</td>
+                        <td>AD (SSO) + MFA</td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <div class="info-card" style="border-left-color: #667eea;">
-                <h3>⚡ Performances Garanties</h3>
-                <ul>
-                    <li>⚡ Architecture virtualisée = allocation dynamique ressources optimale</li>
-                    <li>⚡ DFS Replication = accès local Marseille (latence &lt;10ms)</li>
-                    <li>⚡ SSD RAID-1 pour VMs = IOPS élevés (performance DB/File Server)</li>
-                    <li>⚡ VPN permanent 24/7 = connectivité garantie multi-site</li>
-                </ul>
-            </div>
+            <h2>🛡️ Sécurisation</h2>
+            <ul>
+                <li><strong>Firewalls</strong> : pfSense (open-source, auditable)</li>
+                <li><strong>Perfect Forward Secrecy (PFS)</strong> : Renouvellement clés auto</li>
+                <li><strong>Split tunneling désactivé</strong> : Tout trafic passe par VPN</li>
+                <li><strong>Logs centralisés</strong> : Audit connexions (qui, quand, IP source)</li>
+            </ul>
 
-            <div class="info-card" style="border-left-color: #764ba2;">
-                <h3>🛡️ Fiabilité Maximale</h3>
-                <ul>
-                    <li>🛡️ Multi-site failover automatique : <span class="highlight">RTO 4h, RPO 1h</span></li>
-                    <li>🛡️ Backup 3-2-1 automatisé : <span class="highlight">Zéro perte de données acceptable</span></li>
-                    <li>🛡️ RAID hardware + UPS : Protection double matériel/électrique</li>
-                    <li>🛡️ Snapshots Hyper-V quotidiens : Restore rapide &lt;5min si incident</li>
-                </ul>
-            </div>
-
-            <h2>📅 Prochaines Étapes</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <span class="emoji">✅</span>
-                    <strong>Phase I Complète</strong><br>
-                    Architecture validée
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🚧</span>
-                    <strong>Phase II (4 semaines)</strong><br>
-                    Implémentation infrastructure
-                </div>
-                <div class="feature-item">
-                    <span class="emoji">🎯</span>
-                    <strong>Phase III (3 semaines)</strong><br>
-                    Monitoring + Automatisation + Formation
-                </div>
-            </div>
-
-            <p style="text-align: center; margin-top: 50px; font-size: 2em; color: #667eea;">
-                <strong>Questions ? 👋</strong>
-            </p>
-            <p style="text-align: center; margin-top: 20px; font-size: 1.1em; color: #666;">
-                Consulting Team Jedha Session 14 | Jean Thalor - Director IS Nova Syndicate
-            </p>
+            <h2>📊 Dimensionnement</h2>
+            <ul>
+                <li><strong>Bande passante</strong> : 1 Gbps Lyon-Marseille (tunnel IPsec)</li>
+                <li><strong>Utilisateurs VPN</strong> : Jusqu'à 50 simultanés</li>
+                <li><strong>Latence</strong> : < 20ms Lyon ↔ Marseille</li>
+            </ul>
         </div>
 
-        <!-- CONTROLS -->
+        <!-- SLIDE 11 : BCP/DRP -->
+        <div class="slide">
+            <span class="slide-number">11 / 13</span>
+            <h1>🛡️ BCP / DRP (Continuité & Reprise)</h1>
+            
+            <h2>🎯 Objectifs</h2>
+            <ul>
+                <li><strong>Business Continuity Plan (BCP)</strong> : Maintien services critiques pendant incident</li>
+                <li><strong>Disaster Recovery Plan (DRP)</strong> : Restauration complète après sinistre majeur</li>
+                <li><strong>RTO/RPO garantis</strong> : Engagements contractuels mesurables</li>
+            </ul>
+
+            <h2>📊 Indicateurs Clés</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>RTO (Recovery Time)</th>
+                        <th>RPO (Recovery Point)</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Active Directory</strong></td>
+                        <td>30 min</td>
+                        <td>15 min</td>
+                        <td>2 DC répliqués, backup System State</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PostgreSQL</strong></td>
+                        <td>1h</td>
+                        <td>1h</td>
+                        <td>Streaming replication + pgBackRest</td>
+                    </tr>
+                    <tr>
+                        <td><strong>File Server</strong></td>
+                        <td>2h</td>
+                        <td>4h</td>
+                        <td>DFS-R + Veeam Backup</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hyper-V VMs</strong></td>
+                        <td>4h</td>
+                        <td>24h</td>
+                        <td>Live migration + backup daily</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>🔥 Scénarios Couverts</h2>
+            <ul>
+                <li><strong>Panne matérielle</strong> : HA cluster (migration auto VM)</li>
+                <li><strong>Ransomware</strong> : Backups immutables (Veeam hardened repo)</li>
+                <li><strong>Sinistre site Lyon</strong> : Bascule Marseille (DC, PostgreSQL standby, DFS)</li>
+                <li><strong>Corruption données</strong> : Restore PITR (PostgreSQL) ou snapshot (fichiers)</li>
+            </ul>
+
+            <h2>✅ Tests & Procédures</h2>
+            <ul>
+                <li><strong>Tests trimestriels</strong> : Simulation panne, chrono RTO/RPO</li>
+                <li><strong>Runbooks documentés</strong> : Procédures step-by-step par scénario</li>
+                <li><strong>Formation équipe</strong> : Drill exercises, rôles définis</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 12 : CONCLUSION -->
+        <div class="slide">
+            <span class="slide-number">12 / 13</span>
+            <h1>🎬 Conclusion Phase I</h1>
+            
+            <h2>✅ Livrables Phase I</h2>
+            <ul style="font-size: 1.15em; line-height: 2;">
+                <li>🏗️ Infrastructure moderne & virtualisée (Hyper-V Cluster)</li>
+                <li>👤 Active Directory fonctionnel (SSO, GPO, 2 DC)</li>
+                <li>📁 Stockage centralisé sécurisé (DFS, stratégie 3-2-1)</li>
+                <li>🗄️ Base de données haute disponibilité (PostgreSQL répliqué)</li>
+                <li>🔐 Interconnexion sécurisée (VPN Site-to-Site + Remote Access)</li>
+                <li>🛡️ Plan BCP/DRP opérationnel (RTO 4h, RPO 1h)</li>
+            </ul>
+
+            <h2>🚀 Bénéfices Immédiats</h2>
+            <ul style="font-size: 1.1em;">
+                <li><strong>Conformité</strong> : Base solide pour certifications (ISO 27001, HDS)</li>
+                <li><strong>Fiabilité</strong> : Tolérance aux pannes, fin SPOF critiques</li>
+                <li><strong>Sécurité</strong> : Authentification forte, chiffrement, audit</li>
+                <li><strong>Scalabilité</strong> : Ajout capacités rapide (VM, stockage)</li>
+            </ul>
+
+            <h2>🔮 Prochaines Étapes (Phase II)</h2>
+            <ul>
+                <li>🔍 <strong>Monitoring avancé</strong> : Prometheus/Grafana, alertes proactives</li>
+                <li>🌐 <strong>Services applicatifs</strong> : Mail Exchange, SharePoint, ERP</li>
+                <li>🎓 <strong>Formation équipe</strong> : Hyper-V, PostgreSQL, pfSense</li>
+                <li>📜 <strong>Documentation</strong> : Architecture, runbooks, procédures</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 13 : LEXIQUE -->
+        <div class="slide">
+            <span class="slide-number">13 / 13</span>
+            <h1>📖 Lexique IT</h1>
+            
+            <div class="lexique-container">
+                <div class="lexique-category">
+                    <h3>🏗️ Infrastructure</h3>
+                    <ul>
+                        <li><strong>VM</strong> : Virtual Machine (serveur virtualisé)</li>
+                        <li><strong>vCPU</strong> : Virtual CPU (processeur virtuel)</li>
+                        <li><strong>HA</strong> : High Availability (haute disponibilité)</li>
+                        <li><strong>SPOF</strong> : Single Point of Failure</li>
+                        <li><strong>S2D</strong> : Storage Spaces Direct</li>
+                    </ul>
+                </div>
+
+                <div class="lexique-category">
+                    <h3>👤 Active Directory</h3>
+                    <ul>
+                        <li><strong>AD DS</strong> : Active Directory Domain Services</li>
+                        <li><strong>DC</strong> : Domain Controller</li>
+                        <li><strong>GPO</strong> : Group Policy Object</li>
+                        <li><strong>SSO</strong> : Single Sign-On</li>
+                        <li><strong>MFA</strong> : Multi-Factor Authentication</li>
+                        <li><strong>OU</strong> : Organizational Unit</li>
+                    </ul>
+                </div>
+
+                <div class="lexique-category">
+                    <h3>📁 Fichiers</h3>
+                    <ul>
+                        <li><strong>DFS</strong> : Distributed File System</li>
+                        <li><strong>DFS-N</strong> : DFS Namespace</li>
+                        <li><strong>DFS-R</strong> : DFS Replication</li>
+                        <li><strong>RDC</strong> : Remote Differential Compression</li>
+                        <li><strong>FSRM</strong> : File Server Resource Manager</li>
+                    </ul>
+                </div>
+
+                <div class="lexique-category">
+                    <h3>🗄️ Base de données</h3>
+                    <ul>
+                        <li><strong>ACID</strong> : Atomicity, Consistency, Isolation, Durability</li>
+                        <li><strong>WAL</strong> : Write-Ahead Logging</li>
+                        <li><strong>PITR</strong> : Point-In-Time Recovery</li>
+                        <li><strong>MVCC</strong> : Multi-Version Concurrency Control</li>
+                    </ul>
+                </div>
+
+                <div class="lexique-category">
+                    <h3>🔐 Réseau & Sécurité</h3>
+                    <ul>
+                        <li><strong>VPN</strong> : Virtual Private Network</li>
+                        <li><strong>IPsec</strong> : Internet Protocol Security</li>
+                        <li><strong>IKEv2</strong> : Internet Key Exchange v2</li>
+                        <li><strong>AES-256</strong> : Advanced Encryption Standard 256-bit</li>
+                        <li><strong>PFS</strong> : Perfect Forward Secrecy</li>
+                        <li><strong>PSK</strong> : Pre-Shared Key</li>
+                    </ul>
+                </div>
+
+                <div class="lexique-category">
+                    <h3>🛡️ Continuité</h3>
+                    <ul>
+                        <li><strong>BCP</strong> : Business Continuity Plan</li>
+                        <li><strong>DRP</strong> : Disaster Recovery Plan</li>
+                        <li><strong>RTO</strong> : Recovery Time Objective</li>
+                        <li><strong>RPO</strong> : Recovery Point Objective</li>
+                        <li><strong>3-2-1</strong> : Règle sauvegarde (3 copies, 2 supports, 1 off-site)</li>
+                    </ul>
+                </div>
+
+                <div class="lexique-category">
+                    <h3>🏢 Général</h3>
+                    <ul>
+                        <li><strong>CA</strong> : Chiffre d'Affaires</li>
+                        <li><strong>HQ</strong> : Headquarters (siège social)</li>
+                        <li><strong>TCO</strong> : Total Cost of Ownership</li>
+                        <li><strong>RGPD</strong> : Règlement Général Protection Données</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="controls">
-            <button id="prevBtn" onclick="changeSlide(-1)">← Précédent</button>
-            <span class="slide-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
-            </span>
-            <div class="export-buttons">
-                <button onclick="printPresentation()">🖨️ Imprimer / PDF</button>
-                <button onclick="downloadHTML()">💾 Télécharger HTML</button>
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Précédent</button>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
             </div>
-            <button id="nextBtn" onclick="changeSlide(1)">Suivant →</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant →</button>
         </div>
     </div>
 
     <script>
-        let currentSlide = 1;
-        const totalSlides = document.querySelectorAll('.slide').length;
-        document.getElementById('totalSlides').textContent = totalSlides;
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const sommaireItems = document.querySelectorAll('.sommaire-panel .sommaire-item');
 
         function showSlide(n) {
-            const slides = document.querySelectorAll('.slide');
-
-            if (n > totalSlides) { currentSlide = totalSlides; }
-            if (n < 1) { currentSlide = 1; }
-
             slides.forEach(slide => slide.classList.remove('active'));
-            slides[currentSlide - 1].classList.add('active');
-
-            document.getElementById('currentSlide').textContent = currentSlide;
-            document.getElementById('prevBtn').disabled = currentSlide === 1;
-            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
-
-            const progress = (currentSlide / totalSlides) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
+            
+            if (n >= totalSlides) currentSlide = totalSlides - 1;
+            if (n < 0) currentSlide = 0;
+            
+            slides[currentSlide].classList.add('active');
+            updateControls();
+            updateProgress();
+            updateSommaireHighlight();
         }
 
-        function changeSlide(n) {
-            currentSlide += n;
+        function changeSlide(direction) {
+            currentSlide += direction;
             showSlide(currentSlide);
         }
 
-        function printPresentation() {
-            window.print();
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            showSlide(currentSlide);
         }
 
-        function downloadHTML() {
-            const html = document.documentElement.outerHTML;
-            const blob = new Blob([html], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Nova-Syndicate-Phase1-Architecture.html';
-            a.click();
-            URL.revokeObjectURL(url);
+        function goToSlideFromSommaire(slideIndex) {
+            currentSlide = slideIndex;
+            showSlide(currentSlide);
+            toggleSommaire(); // Ferme le sommaire après navigation
         }
 
+        function updateControls() {
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function updateSommaireHighlight() {
+            sommaireItems.forEach((item, index) => {
+                if (index === currentSlide) {
+                    item.classList.add('active-item');
+                } else {
+                    item.classList.remove('active-item');
+                }
+            });
+        }
+
+        function toggleSommaire() {
+            const panel = document.getElementById('sommairePanel');
+            const overlay = document.getElementById('overlay');
+            
+            panel.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Navigation clavier
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+            if (e.key === 'Escape') {
+                const panel = document.getElementById('sommairePanel');
+                const overlay = document.getElementById('overlay');
+                if (panel.classList.contains('open')) {
+                    panel.classList.remove('open');
+                    overlay.classList.remove('show');
+                }
+            }
         });
 
-        showSlide(currentSlide);
+        // Initialisation
+        showSlide(0);
     </script>
 </body>
 </html>
