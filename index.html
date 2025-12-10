@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Syndicate - Présentation</title>
+    <title>Nova Syndicate - Présentation Phase I</title>
     <style>
         * {
             margin: 0;
@@ -72,10 +72,6 @@
             display: flex;
             align-items: center;
             gap: 15px;
-        }
-
-        .slide h1::before {
-            font-size: 1.2em;
         }
 
         .slide h2 {
@@ -218,35 +214,6 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
-        /* Diagram Container */
-        .diagram-container {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 12px;
-            margin: 25px 0;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .diagram-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-        }
-
-        .diagram-container img:hover {
-            transform: scale(1.02);
-        }
-
-        .diagram-caption {
-            margin-top: 15px;
-            font-style: italic;
-            color: #666;
-            font-size: 0.95em;
-        }
-
         .highlight {
             background: linear-gradient(120deg, #fff3cd 0%, #ffeaa7 100%);
             padding: 3px 8px;
@@ -381,83 +348,6 @@
             font-size: 0.95em;
         }
 
-        /* Fullscreen Mode */
-        .fullscreen-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(102, 126, 234, 0.9);
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .fullscreen-btn:hover {
-            background: rgba(118, 75, 162, 0.9);
-        }
-
-        /* Table of Contents */
-        .toc {
-            position: fixed;
-            left: -300px;
-            top: 0;
-            bottom: 0;
-            width: 300px;
-            background: white;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            overflow-y: auto;
-            transition: left 0.3s;
-            z-index: 999;
-        }
-
-        .toc.active {
-            left: 0;
-        }
-
-        .toc-toggle {
-            position: fixed;
-            left: 20px;
-            top: 20px;
-            z-index: 1000;
-            background: rgba(102, 126, 234, 0.9);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .toc-toggle:hover {
-            background: rgba(118, 75, 162, 0.9);
-        }
-
-        .toc h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .toc ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .toc li {
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.2s;
-            margin-bottom: 5px;
-        }
-
-        .toc li:hover {
-            background: #f0f4ff;
-            transform: translateX(5px);
-        }
-
         /* Progress Bar */
         .progress-bar {
             position: fixed;
@@ -474,7 +364,7 @@
             body {
                 background: white;
             }
-            .controls, .fullscreen-btn, .toc-toggle, .progress-bar {
+            .controls, .progress-bar {
                 display: none;
             }
             .slide {
@@ -504,18 +394,6 @@
 <body>
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
-
-    <!-- TOC Toggle -->
-    <div class="toc-toggle" onclick="toggleTOC()">📋 Sommaire</div>
-
-    <!-- Fullscreen Toggle -->
-    <div class="fullscreen-btn" onclick="toggleFullscreen()">🖵 Plein écran</div>
-
-    <!-- Table of Contents -->
-    <div class="toc" id="toc">
-        <h3>📋 Table des Matières</h3>
-        <ul id="tocList"></ul>
-    </div>
 
     <div class="presentation-container">
         <!-- SLIDE 1 : TITRE -->
@@ -592,7 +470,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 3 : ARCHITECTURE VUE D'ENSEMBLE - WITH IMAGE -->
+        <!-- SLIDE 3 : ARCHITECTURE VUE D'ENSEMBLE -->
         <div class="slide">
             <span class="slide-number">3</span>
             <h1>🏗️ Architecture Recommandée - Vue d'Ensemble</h1>
@@ -616,8 +494,8 @@
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🖥️</span>
-                    <strong>Proxmox VE</strong><br>
-                    Hyperviseur gratuit
+                    <strong>Windows Server + Hyper-V</strong><br>
+                    Virtualisation intégrée
                 </div>
                 <div class="feature-item">
                     <span class="emoji">🔐</span>
@@ -647,7 +525,7 @@
                 </tr>
                 <tr>
                     <td><strong>Coût</strong></td>
-                    <td>€1500-2000</td>
+                    <td>Inclus Windows Server</td>
                     <td>✅ Gratuit</td>
                     <td>✅ Gratuit</td>
                 </tr>
@@ -675,52 +553,58 @@
             <h3>📝 Justification</h3>
             <div class="info-card">
                 <ol>
-                    <li><strong>Infrastructure Windows existante</strong> → 100% compatibilité</li>
+                    <li><strong>Infrastructure Windows Server</strong> → 100% compatibilité avec Hyper-V</li>
                     <li><strong>Multi-site natif</strong> → Réplication automatique Lyon/Marseille</li>
                     <li><strong>Gestion groupes</strong> → Permissions par rôle, audit trail</li>
                     <li><strong>GPO puissantes</strong> → Configuration centralisée sécurité</li>
                     <li><strong>Compliance</strong> → Secteurs défense/médical exigent audit fort</li>
-                    <li><strong>TCO acceptable</strong> → ~€1500-2000 pour infrastructure 5 ans</li>
+                    <li><strong>Inclus dans licence</strong> → Pas de coût additionnel si Windows Server</li>
                 </ol>
             </div>
         </div>
 
-        <!-- SLIDE 5 : PROXMOX VE -->
+        <!-- SLIDE 5 : WINDOWS SERVER + HYPER-V -->
         <div class="slide">
             <span class="slide-number">5</span>
-            <h1>🖥️ Virtualisation : Proxmox VE</h1>
+            <h1>🖥️ Virtualisation : Windows Server 2022 + Hyper-V</h1>
 
-            <h2>⚖️ Pourquoi Proxmox VE ?</h2>
+            <h2>⚖️ Pourquoi Windows Server + Hyper-V ?</h2>
             <table>
                 <tr>
                     <th>Critère</th>
+                    <th>Hyper-V (Windows Server)</th>
                     <th>Proxmox VE</th>
-                    <th>Hyper-V</th>
                     <th>VMware ESXi</th>
                 </tr>
                 <tr>
                     <td>Coût</td>
-                    <td><span class="tag success">✅ Gratuit</span></td>
-                    <td>Inclus Server</td>
+                    <td><span class="tag success">✅ Inclus Windows Server</span></td>
+                    <td>Gratuit</td>
                     <td>❌ Très coûteux</td>
                 </tr>
                 <tr>
-                    <td>Facilité</td>
-                    <td>✅ Web UI simple</td>
-                    <td>Complexe</td>
+                    <td>Intégration AD</td>
+                    <td><span class="tag success">✅✅ Parfaite</span></td>
                     <td>Moyen</td>
+                    <td>Moyen</td>
+                </tr>
+                <tr>
+                    <td>Facilité</td>
+                    <td>✅ Interface Windows familière</td>
+                    <td>Web UI</td>
+                    <td>Moyen</td>
+                </tr>
+                <tr>
+                    <td>Support Microsoft</td>
+                    <td><span class="tag success">✅ Support officiel</span></td>
+                    <td>Communauté</td>
+                    <td>Payant</td>
                 </tr>
                 <tr>
                     <td>HA/Clustering</td>
                     <td>✅ Natif</td>
+                    <td>✅ Natif</td>
                     <td>✅ Oui</td>
-                    <td>✅ Oui</td>
-                </tr>
-                <tr>
-                    <td>Support PME</td>
-                    <td>✅ Communauté</td>
-                    <td>Moyen</td>
-                    <td>❌ Coûteux</td>
                 </tr>
             </table>
 
@@ -753,39 +637,46 @@
                 </div>
             </div>
 
-            <h3>🖥️ VMs Hébergées</h3>
+            <h3>🖥️ VMs Hébergées sur Hyper-V</h3>
             <table>
                 <tr>
                     <th>VM</th>
+                    <th>OS</th>
                     <th>Ressources</th>
                     <th>Fonction</th>
                 </tr>
                 <tr>
                     <td>VM1: Domain Controller</td>
+                    <td>Windows Server 2022</td>
                     <td>2 cores, 4GB</td>
-                    <td>Gestion identités</td>
+                    <td>Active Directory + DNS</td>
                 </tr>
                 <tr>
                     <td>VM2: File Server</td>
+                    <td>Windows Server 2022</td>
                     <td>4 cores, 8GB, 200GB</td>
-                    <td>Partages départements</td>
+                    <td>Partages DFS + Applications</td>
                 </tr>
                 <tr>
                     <td>VM3: PostgreSQL</td>
+                    <td>Ubuntu 22.04 LTS</td>
                     <td>4 cores, 8GB, 100GB</td>
-                    <td>Base données</td>
+                    <td>Base de données</td>
                 </tr>
                 <tr>
-                    <td>VM4: App Server</td>
+                    <td>VM4: pfSense Firewall</td>
+                    <td>FreeBSD (pfSense)</td>
                     <td>2 cores, 4GB, 50GB</td>
-                    <td>Applications futures</td>
-                </tr>
-                <tr>
-                    <td>VM5: Zabbix</td>
-                    <td>2 cores, 4GB, 100GB</td>
-                    <td>Monitoring</td>
+                    <td>Firewall + VPN</td>
                 </tr>
             </table>
+
+            <h2>✅ Avantages Windows Server + Hyper-V</h2>
+            <p><span class="tag success">✅ Intégration native</span> avec Active Directory</p>
+            <p><span class="tag success">✅ Licence incluse</span> pas de coût additionnel hyperviseur</p>
+            <p><span class="tag success">✅ Support Microsoft</span> officiel pour PME</p>
+            <p><span class="tag success">✅ Snapshots & Backup</span> intégrés Windows Server Backup</p>
+            <p><span class="tag success">✅ Familiarité équipe IT</span> environnement Windows connu</p>
         </div>
 
         <!-- SLIDE 6 : FILE SERVER -->
@@ -839,7 +730,7 @@
 
             <h2>💾 Stratégie de Sauvegarde 3-2-1</h2>
             <div class="code-block">
-3 Copies: Snapshot (6h) + Backup complet (30j) + Archive (90j)
+3 Copies: Snapshot Hyper-V (quotidien) + Backup complet (30j) + Archive (90j)
 2 Medias: SSD local (rapide) + HDD RAID-6 (capacité)
 1 Offsite: Stockage géographique séparé
 
@@ -908,6 +799,19 @@ RPO: 1 heure (données ≤ 1h pertes)
             <h1>🔐 Connectivité & VPN</h1>
 
             <h2>🏢 Site-to-Site VPN (Lyon ↔ Marseille)</h2>
+            <div class="code-block">
+Tunnel IPsec Permanent 24/7
+├── Gateway Lyon: pfSense VM (192.168.1.254)
+├── Gateway Marseille: pfSense VM (192.168.2.254)
+├── Protocole: IPsec (IKEv2)
+├── Chiffrement: AES-256
+└── Failover: Redondance secondaire
+
+Synchronisation AD:
+├── Type: Multi-master réplication
+├── Fréquence: Temps réel + Quotidienne 02h00 UTC
+└── Tolérance latence: Asynchrone (adapté WAN)
+            </div>
 
             <h2>👤 Remote Access VPN (Agents Distants)</h2>
             <table>
@@ -917,11 +821,11 @@ RPO: 1 heure (données ≤ 1h pertes)
                 </tr>
                 <tr>
                     <td>Protocole</td>
-                    <td>OpenVPN (SSL/TLS)</td>
+                    <td>OpenVPN (SSL/TLS) via pfSense</td>
                 </tr>
                 <tr>
                     <td>VPN Server</td>
-                    <td>Gateway Lyon (192.168.1.254)</td>
+                    <td>pfSense VM Lyon (192.168.1.254)</td>
                 </tr>
                 <tr>
                     <td>Port</td>
@@ -1030,7 +934,7 @@ RPO: 1 heure (données ≤ 1h pertes)
                     <li>CPU usage (alerte &gt;80%)</li>
                     <li>Memory usage (alerte &gt;85%)</li>
                     <li>Disk space (alerte &gt;85%, critique &gt;95%)</li>
-                    <li>Network interfaces status</li>
+                    <li>Hyper-V Host health status</li>
                 </ul>
             </div>
 
@@ -1072,7 +976,7 @@ RPO: 1 heure (données ≤ 1h pertes)
             <h3>💾 Sauvegarde 3-2-1</h3>
             <div class="info-card">
                 <ul>
-                    <li><strong>3 Copies</strong>: Snapshots (6h) + Backups (30j) + Archive (90j)</li>
+                    <li><strong>3 Copies</strong>: Snapshots Hyper-V (quotidien) + Backups (30j) + Archive (90j)</li>
                     <li><strong>2 Medias</strong>: SSD (rapide) + HDD (capacité)</li>
                     <li><strong>1 Offsite</strong>: Cloud ou site physique séparé</li>
                 </ul>
@@ -1088,7 +992,7 @@ RPO: 1 heure (données ≤ 1h pertes)
                 </tr>
                 <tr>
                     <td>💾 Disque plein</td>
-                    <td>Snapshot restore</td>
+                    <td>Snapshot Hyper-V restore</td>
                     <td>5 min</td>
                 </tr>
                 <tr>
@@ -1160,11 +1064,11 @@ Total: ~5-10 min avec validation
 
                 <h3>⚙️ Processus</h3>
                 <ul>
-                    <li>Script daily (bash/Python)</li>
+                    <li>Script PowerShell daily</li>
                     <li>Vérification tous disques: &lt;65% OK, 65-85% WARNING, &gt;85% CRITICAL</li>
                     <li>Email IT team si &gt;85%</li>
                     <li>Notification Zabbix</li>
-                    <li>Scheduling: Tous les jours 06h00</li>
+                    <li>Scheduling: Task Scheduler Windows - Tous les jours 06h00</li>
                 </ul>
 
                 <h3>📊 Impact</h3>
@@ -1185,7 +1089,7 @@ Total: ~5-10 min avec validation
 │   → Stratégie, budgets, vendor management
 │
 ├── System Administrator (1-2)
-│   ├── Infra management (Proxmox, AD, File Server)
+│   ├── Infra management (Hyper-V, AD, File Server)
 │   ├── VPN & Sécurité réseau
 │   ├── Monitoring & Alertes
 │   └── Backup & Disaster Recovery
@@ -1209,7 +1113,7 @@ Total: ~5-10 min avec validation
                 <div class="feature-item">
                     <span class="emoji">🔧</span>
                     <strong>Maintenance</strong><br>
-                    Patches, updates
+                    Patches, updates Windows
                 </div>
                 <div class="feature-item">
                     <span class="emoji">📈</span>
@@ -1275,7 +1179,7 @@ Total: ~5-10 min avec validation
                     <td>💾 Disque plein</td>
                     <td>Moyen</td>
                     <td>Moyen</td>
-                    <td>Script auto-monitoring</td>
+                    <td>Script auto-monitoring PowerShell</td>
                 </tr>
                 <tr>
                     <td>🔐 VPN down</td>
@@ -1284,16 +1188,16 @@ Total: ~5-10 min avec validation
                     <td>Failover secondaire</td>
                 </tr>
                 <tr>
-                    <td>🖥️ Hyperviseur down</td>
+                    <td>🖥️ Hyper-V Host down</td>
                     <td>Moyen</td>
                     <td>Très bas</td>
-                    <td>RAID hardware, UPS</td>
+                    <td>RAID hardware, UPS, Clustering</td>
                 </tr>
                 <tr>
                     <td>⚙️ Configuration error</td>
                     <td>Moyen</td>
                     <td>Moyen</td>
-                    <td>Doc, snapshots avant changes</td>
+                    <td>Doc, snapshots Hyper-V avant changes</td>
                 </tr>
             </table>
         </div>
@@ -1321,18 +1225,18 @@ Total: ~5-10 min avec validation
                     <div class="feature-item">
                         <span class="emoji">📈</span>
                         <strong>Scalabilité</strong><br>
-                        AD + Proxmox gérent 500+ users
+                        AD + Hyper-V gérent 500+ users
                     </div>
                     <div class="feature-item">
-                        <span class="emoji">💰</span>
-                        <strong>Budget</strong><br>
-                        €30-47k acceptable PME €48M CA
+                        <span class="emoji">🖥️</span>
+                        <strong>Windows Server</strong><br>
+                        Environnement familier + Support Microsoft
                     </div>
                 </div>
             </div>
-            
+
             <h2>📞 Contact</h2>
-            <p><strong>Project Manager</strong>: Consulting Team Jedha</p>
+            <p><strong>Project Manager</strong>: Consulting Team Jedha Session 14</p>
             <p><strong>Client Contact</strong>: Jean Thalor - Director IS Nova Syndicate</p>
             <p style="margin-top: 40px; font-size: 1.8em; text-align: center; color: #667eea;">
                 <strong>Questions ? 👋</strong>
@@ -1358,27 +1262,6 @@ Total: ~5-10 min avec validation
         const totalSlides = document.querySelectorAll('.slide').length;
         document.getElementById('totalSlides').textContent = totalSlides;
 
-        // Generate Table of Contents
-        function generateTOC() {
-            const slides = document.querySelectorAll('.slide');
-            const tocList = document.getElementById('tocList');
-            tocList.innerHTML = '';
-
-            slides.forEach((slide, index) => {
-                const h1 = slide.querySelector('h1');
-                if (h1) {
-                    const li = document.createElement('li');
-                    li.textContent = `${index + 1}. ${h1.textContent}`;
-                    li.onclick = () => {
-                        currentSlide = index + 1;
-                        showSlide(currentSlide);
-                        toggleTOC();
-                    };
-                    tocList.appendChild(li);
-                }
-            });
-        }
-
         function showSlide(n) {
             const slides = document.querySelectorAll('.slide');
 
@@ -1403,21 +1286,6 @@ Total: ~5-10 min avec validation
             showSlide(currentSlide);
         }
 
-        function toggleTOC() {
-            const toc = document.getElementById('toc');
-            toc.classList.toggle('active');
-        }
-
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        }
-
         function printPresentation() {
             window.print();
         }
@@ -1428,7 +1296,7 @@ Total: ~5-10 min avec validation
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'Nova-Syndicate-Phase1-Presentation-Premium.html';
+            a.download = 'Nova-Syndicate-Presentation-HyperV.html';
             a.click();
             URL.revokeObjectURL(url);
         }
@@ -1437,16 +1305,9 @@ Total: ~5-10 min avec validation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') changeSlide(-1);
             if (e.key === 'ArrowRight') changeSlide(1);
-            if (e.key === 'Escape') {
-                const toc = document.getElementById('toc');
-                if (toc.classList.contains('active')) {
-                    toc.classList.remove('active');
-                }
-            }
         });
 
         // Initialize
-        generateTOC();
         showSlide(currentSlide);
     </script>
 </body>
