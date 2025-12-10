@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Syndicate - Présentation Phase I (Version Premium)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .presentation-container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            padding: 60px 80px;
+            min-height: 650px;
+            background: white;
+            color: #333;
+            animation: fadeIn 0.6s ease-in-out;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Slide Number Badge */
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        /* Enhanced Typography */
+        .slide h1 {
+            color: #667eea;
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slide h1::before {
+            font-size: 1.2em;
+        }
+
+        .slide h2 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slide h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .slide p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .slide ul, .slide ol {
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            font-size: 1.05em;
+            line-height: 1.9;
+            margin-bottom: 12px;
+            transition: transform 0.2s;
+        }
+
+        .slide li:hover {
+            transform: translateX(5px);
+        }
+
+        /* Enhanced Tables */
+        .slide table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .slide table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .slide table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.3s;
+        }
+
+        .slide table tr:hover {
+            background: #f0f4ff;
+            transform: scale(1.01);
+        }
+
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .title-slide h1 {
+            color: white;
+            border: none;
+            font-size: 3.5em;
+            z-index: 1;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .title-slide h2 {
+            color: #e0e0e0;
+            font-size: 1.8em;
+            margin-top: 20px;
+            z-index: 1;
+        }
+
+        .title-slide p {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            margin-top: 40px;
+            z-index: 1;
+        }
+
+        /* Enhanced Code Blocks */
+        .code-block {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .code-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Diagram Container */
+        .diagram-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .diagram-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .diagram-caption {
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fff3cd 0%, #ffeaa7 100%);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #764ba2;
+            font-weight: bold;
+        }
+
+        /* Enhanced Tags */
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .tag.warning {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+
+        .tag.success {
+            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Grid Layout for Features */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-item:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-item .emoji {
+            font-size: 2.5em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 2px solid #ddd;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .slide-counter {
+            font-size: 1.2em;
+            color: #667eea;
+            font-weight: bold;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .export-buttons button {
+            padding: 10px 18px;
+            font-size: 0.95em;
+        }
+
+        /* Fullscreen Mode */
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(102, 126, 234, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(118, 75, 162, 0.9);
+        }
+
+        /* Table of Contents */
+        .toc {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            bottom: 0;
+            width: 300px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            overflow-y: auto;
+            transition: left 0.3s;
+            z-index: 999;
+        }
+
+        .toc.active {
+            left: 0;
+        }
+
+        .toc-toggle {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 1000;
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toc-toggle:hover {
+            background: rgba(118, 75, 162, 0.9);
+        }
+
+        .toc h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .toc li {
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.2s;
+            margin-bottom: 5px;
+        }
+
+        .toc li:hover {
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            z-index: 1001;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .controls, .fullscreen-btn, .toc-toggle, .progress-bar {
+                display: none;
+            }
+            .slide {
+                display: block !important;
+                page-break-after: always;
+                min-height: 100vh;
+            }
+            .slide-number {
+                display: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+            }
+            .slide h1 {
+                font-size: 2em;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- TOC Toggle -->
+    <div class="toc-toggle" onclick="toggleTOC()">📋 Sommaire</div>
+
+    <!-- Fullscreen Toggle -->
+    <div class="fullscreen-btn" onclick="toggleFullscreen()">🖵 Plein écran</div>
+
+    <!-- Table of Contents -->
+    <div class="toc" id="toc">
+        <h3>📋 Table des Matières</h3>
+        <ul id="tocList"></ul>
+    </div>
+
+    <div class="presentation-container">
+        <!-- SLIDE 1 : TITRE -->
+        <div class="slide title-slide active">
+            <h1>🚀 Modernisation de l'Infrastructure IT</h1>
+            <h2>Nova Syndicate</h2>
+            <h2 style="font-size: 1.3em; color: #e0e0e0;">Distribution de Composants Haute Valeur</h2>
+            <p style="margin-top: 80px; font-size: 1.2em;">Consulting Team: Jedha Session 14 (Sébastien, Alexandre, Solène, Audrey, Valentin & Axel)</p>
+            <p>Décembre 2025</p>
+            <h1 style="margin-top: 40px; font-size: 0.9em; opacity: 0.8;">Phase I - Analyse & Recommandations</h1>
+        </div>
+
+        <!-- SLIDE 2 : CONTEXTE & PROBLÉMATIQUE -->
+        <div class="slide">
+            <span class="slide-number">2 / 18</span>
+            <h1>📊 Contexte & Problématique</h1>
+
+            <h2>🏢 Situation Actuelle</h2>
+            <ul>
+                <li><strong>Entreprise en croissance</strong> : €48M CA, 85 employés, 3 sites (Lyon, Marseille, distants)</li>
+                <li><strong>Secteurs sensibles</strong> : Médical, Aérospatial, Défense → exigences réglementaires strictes</li>
+                <li><strong>Infrastructure fragmentée</strong> : Patchwork de systèmes legacy, aucune centralisation</li>
+            </ul>
+
+            <h2>⚠️ 6 Problèmes Critiques Identifiés</h2>
+            <table>
+                <tr>
+                    <th>Problème</th>
+                    <th>Impact</th>
+                </tr>
+                <tr>
+                    <td>❌ Aucune gestion centralisée d'identités</td>
+                    <td>Sécurité compromise, audit impossible</td>
+                </tr>
+                <tr>
+                    <td>❌ Pas de sauvegarde base données</td>
+                    <td>Risque perte de données = arrêt entreprise</td>
+                </tr>
+                <tr>
+                    <td>❌ Pas de monitoring/supervision</td>
+                    <td>Incidents découverts trop tard</td>
+                </tr>
+                <tr>
+                    <td>❌ Pas de VPN agents distants</td>
+                    <td>Agents sur réseaux non sécurisés</td>
+                </tr>
+                <tr>
+                    <td>❌ Infrastructure non virtualisée</td>
+                    <td>Coûts matériel élevés, récupération difficile</td>
+                </tr>
+                <tr>
+                    <td>❌ Pas de plans continuité/reprise</td>
+                    <td>Non-conformité réglementaire</td>
+                </tr>
+            </table>
+
+            <h2>🎯 Enjeux Business</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">🔴</span>
+                    <strong>Continuité</strong><br>
+                    Distribution composants critiques = zéro tolérance interruptions
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔐</span>
+                    <strong>Sécurité</strong><br>
+                    Secteurs réglementés = traçabilité d'accès obligatoire
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">📈</span>
+                    <strong>Scalabilité</strong><br>
+                    Croissance rapide = infrastructure doit s'adapter
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4 : ARCHITECTURE VUE D'ENSEMBLE - WITH IMAGE -->
+        <div class="slide">
+            <span class="slide-number">4 / 18</span>
+            <h1>🏗️ Architecture Recommandée - Vue d'Ensemble</h1>
+
+            <h2>🔑 Services Clés</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">👤</span>
+                    <strong>Active Directory</strong><br>
+                    Gestion centralisée identités
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">📁</span>
+                    <strong>File Server</strong><br>
+                    Partages départementaux
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🗄️</span>
+                    <strong>PostgreSQL</strong><br>
+                    Base données applicatives
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🖥️</span>
+                    <strong>Proxmox VE</strong><br>
+                    Hyperviseur gratuit
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔐</span>
+                    <strong>OpenVPN</strong><br>
+                    Connectivité distante
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">📊</span>
+                    <strong>Zabbix</strong><br>
+                    Monitoring temps réel
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5 : ACTIVE DIRECTORY -->
+        <div class="slide">
+            <span class="slide-number">5 / 18</span>
+            <h1>👤 Choix Technologique : Active Directory</h1>
+
+            <h2>⚖️ Comparaison Options</h2>
+            <table>
+                <tr>
+                    <th>Critère</th>
+                    <th>Active Directory</th>
+                    <th>FreeIPA</th>
+                    <th>LDAP Simple</th>
+                </tr>
+                <tr>
+                    <td><strong>Coût</strong></td>
+                    <td>€1500-2000</td>
+                    <td>✅ Gratuit</td>
+                    <td>✅ Gratuit</td>
+                </tr>
+                <tr>
+                    <td><strong>Intégration Windows</strong></td>
+                    <td>✅✅ Native</td>
+                    <td>Moyen</td>
+                    <td>❌ Non</td>
+                </tr>
+                <tr>
+                    <td><strong>Multi-site</strong></td>
+                    <td>✅✅ Natif</td>
+                    <td>OK</td>
+                    <td>❌ Complexe</td>
+                </tr>
+                <tr>
+                    <td><strong>Audit Compliance</strong></td>
+                    <td>✅✅ Excellent</td>
+                    <td>Moyen</td>
+                    <td>❌ Faible</td>
+                </tr>
+            </table>
+
+            <h2>✅ Recommandation : Active Directory</h2>
+            <h3>📝 Justification</h3>
+            <div class="info-card">
+                <ol>
+                    <li><strong>Infrastructure Windows existante</strong> → 100% compatibilité</li>
+                    <li><strong>Multi-site natif</strong> → Réplication automatique Lyon/Marseille</li>
+                    <li><strong>Gestion groupes</strong> → Permissions par rôle, audit trail</li>
+                    <li><strong>GPO puissantes</strong> → Configuration centralisée sécurité</li>
+                    <li><strong>Compliance</strong> → Secteurs défense/médical exigent audit fort</li>
+                    <li><strong>TCO acceptable</strong> → ~€1500-2000 pour infrastructure 5 ans</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- SLIDE 6 : PROXMOX VE -->
+        <div class="slide">
+            <span class="slide-number">6 / 18</span>
+            <h1>🖥️ Virtualisation : Proxmox VE</h1>
+
+            <h2>⚖️ Pourquoi Proxmox VE ?</h2>
+            <table>
+                <tr>
+                    <th>Critère</th>
+                    <th>Proxmox VE</th>
+                    <th>Hyper-V</th>
+                    <th>VMware ESXi</th>
+                </tr>
+                <tr>
+                    <td>Coût</td>
+                    <td><span class="tag success">✅ Gratuit</span></td>
+                    <td>Inclus Server</td>
+                    <td>❌ Très coûteux</td>
+                </tr>
+                <tr>
+                    <td>Facilité</td>
+                    <td>✅ Web UI simple</td>
+                    <td>Complexe</td>
+                    <td>Moyen</td>
+                </tr>
+                <tr>
+                    <td>HA/Clustering</td>
+                    <td>✅ Natif</td>
+                    <td>✅ Oui</td>
+                    <td>✅ Oui</td>
+                </tr>
+                <tr>
+                    <td>Support PME</td>
+                    <td>✅ Communauté</td>
+                    <td>Moyen</td>
+                    <td>❌ Coûteux</td>
+                </tr>
+            </table>
+
+            <h2>⚙️ Configuration Recommandée</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">💻</span>
+                    <strong>CPU</strong><br>
+                    Intel Xeon E5 v3+<br>(8 cores min)
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🧠</span>
+                    <strong>RAM</strong><br>
+                    32-64 GB DDR4 ECC
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">💾</span>
+                    <strong>Stockage</strong><br>
+                    2× SSD 1TB RAID-1<br>+ 4× HDD 4TB RAID-6
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔌</span>
+                    <strong>Réseau</strong><br>
+                    2× 1Gbps
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">⚡</span>
+                    <strong>Alimentation</strong><br>
+                    UPS 3kVA
+                </div>
+            </div>
+
+            <h3>🖥️ VMs Hébergées</h3>
+            <table>
+                <tr>
+                    <th>VM</th>
+                    <th>Ressources</th>
+                    <th>Fonction</th>
+                </tr>
+                <tr>
+                    <td>VM1: Domain Controller</td>
+                    <td>2 cores, 4GB</td>
+                    <td>Gestion identités</td>
+                </tr>
+                <tr>
+                    <td>VM2: File Server</td>
+                    <td>4 cores, 8GB, 200GB</td>
+                    <td>Partages départements</td>
+                </tr>
+                <tr>
+                    <td>VM3: PostgreSQL</td>
+                    <td>4 cores, 8GB, 100GB</td>
+                    <td>Base données</td>
+                </tr>
+                <tr>
+                    <td>VM4: App Server</td>
+                    <td>2 cores, 4GB, 50GB</td>
+                    <td>Applications futures</td>
+                </tr>
+                <tr>
+                    <td>VM5: Zabbix</td>
+                    <td>2 cores, 4GB, 100GB</td>
+                    <td>Monitoring</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SLIDE 7 : FILE SERVER -->
+        <div class="slide">
+            <span class="slide-number">7 / 18</span>
+            <h1>📁 Services de Fichiers & Data</h1>
+
+            <h2>🗂️ File Server - Partages par Département</h2>
+            <table>
+                <tr>
+                    <th>Partage</th>
+                    <th>Permissions</th>
+                    <th>Données</th>
+                </tr>
+                <tr>
+                    <td>📦 \Logistics (15 GB)</td>
+                    <td>GRP_Logistics</td>
+                    <td>Factures, POs, tracking</td>
+                </tr>
+                <tr>
+                    <td>💼 \Sales (12 GB)</td>
+                    <td>GRP_Sales, Exec (Read)</td>
+                    <td>Contacts, devis, contrats</td>
+                </tr>
+                <tr>
+                    <td>💰 \Finance (8 GB)</td>
+                    <td>GRP_Finance, Exec (Read)</td>
+                    <td>Bilans, trésorerie (chiffré)</td>
+                </tr>
+                <tr>
+                    <td>👔 \Executive (3 GB)</td>
+                    <td>GRP_Executives</td>
+                    <td>Plans stratégiques (audité)</td>
+                </tr>
+                <tr>
+                    <td>🌐 \Shared (5 GB)</td>
+                    <td>Tous (Read)</td>
+                    <td>Procédures, formulaires</td>
+                </tr>
+            </table>
+
+            <h2>🔄 Réplication DFS (Marseille)</h2>
+            <div class="info-card">
+                <ul>
+                    <li>Données répliquées: Logistics, Sales, Shared</li>
+                    <li>Cache local Marseille (accès rapide)</li>
+                    <li>Fréquence RDC: horaire</li>
+                    <li>Bande passante: Throttle 2Mbps (respect WAN)</li>
+                </ul>
+            </div>
+
+            <h2>💾 Stratégie de Sauvegarde 3-2-1</h2>
+            <div class="code-block">
+3 Copies: Snapshot (6h) + Backup complet (30j) + Archive (90j)
+2 Medias: SSD local (rapide) + HDD RAID-6 (capacité)
+1 Offsite: Stockage géographique séparé
+
+RTO: 4 heures max
+RPO: 1 heure (données ≤ 1h pertes)
+            </div>
+        </div>
+
+        <!-- SLIDE 8 : BASE DE DONNÉES -->
+        <div class="slide">
+            <span class="slide-number">8 / 18</span>
+            <h1>🗄️ Base de Données & Sécurité</h1>
+
+            <h2>💾 Backup Automatisé</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">📅</span>
+                    <strong>pg_dump Complet</strong><br>
+                    Quotidien 01h00 UTC<br>(30j rétention)
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">📼</span>
+                    <strong>WAL Archives</strong><br>
+                    Streaming continu<br>→ RAID-6
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔄</span>
+                    <strong>Restore</strong><br>
+                    RTO 1h<br>RPO 1h
+                </div>
+            </div>
+
+            <h2>🔒 Sécurité Données</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">✅</span>
+                    <strong>Authentification</strong><br>
+                    Centralisée AD
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔐</span>
+                    <strong>Encryption</strong><br>
+                    BitLocker Finance/Executive
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">📝</span>
+                    <strong>Audit Trail</strong><br>
+                    Tous accès loggés
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🛡️</span>
+                    <strong>Firewall</strong><br>
+                    Ports spécifiques
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🦠</span>
+                    <strong>Anti-malware</strong><br>
+                    Windows Defender + GPO
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9 : CONNECTIVITÉ VPN -->
+        <div class="slide">
+            <span class="slide-number">9 / 18</span>
+            <h1>🔐 Connectivité & VPN</h1>
+
+            <h2>🏢 Site-to-Site VPN (Lyon ↔ Marseille)</h2>
+
+            <h2>👤 Remote Access VPN (Agents Distants)</h2>
+            <table>
+                <tr>
+                    <th>Paramètre</th>
+                    <th>Configuration</th>
+                </tr>
+                <tr>
+                    <td>Protocole</td>
+                    <td>OpenVPN (SSL/TLS)</td>
+                </tr>
+                <tr>
+                    <td>VPN Server</td>
+                    <td>Gateway Lyon (192.168.1.254)</td>
+                </tr>
+                <tr>
+                    <td>Port</td>
+                    <td>1194 UDP</td>
+                </tr>
+                <tr>
+                    <td>Clients</td>
+                    <td>20 agents commerciaux</td>
+                </tr>
+                <tr>
+                    <td>Authentification</td>
+                    <td>Certificats + AD credentials</td>
+                </tr>
+                <tr>
+                    <td>Encryption</td>
+                    <td>AES-256 + TLS 1.3</td>
+                </tr>
+            </table>
+
+            <h2>🛡️ Sécurité VPN</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">🔑</span>
+                    <strong>Multi-factor</strong><br>
+                    Certificat + AD
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🌐</span>
+                    <strong>DNS</strong><br>
+                    Forcé via VPN
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">⚠️</span>
+                    <strong>Kill-switch</strong><br>
+                    Déco si VPN down
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🚫</span>
+                    <strong>Split-tunnel</strong><br>
+                    Disabled (tout via VPN)
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10 : MONITORING -->
+        <div class="slide">
+            <span class="slide-number">10 / 18</span>
+            <h1>📊 Monitoring & Supervision - Zabbix</h1>
+
+            <h2>📈 Métriques Surveillées</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">🖥️</span>
+                    <strong>Infrastructure</strong><br>
+                    CPU, Memory, Disk, Network
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">⚙️</span>
+                    <strong>Services</strong><br>
+                    AD, File Server, PostgreSQL, VPN
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔒</span>
+                    <strong>Sécurité</strong><br>
+                    Failed logins, Access denied
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">💾</span>
+                    <strong>Backups</strong><br>
+                    Job completion status
+                </div>
+            </div>
+
+            <h2>🚨 Stratégie d'Alertes</h2>
+            <table>
+                <tr>
+                    <th>Level</th>
+                    <th>Seuil</th>
+                    <th>Channel</th>
+                    <th>Fréquence</th>
+                </tr>
+                <tr>
+                    <td><span class="tag" style="background: #ffc107;">⚠️ WARNING</span></td>
+                    <td>70-80%</td>
+                    <td>Email IT team</td>
+                    <td>15 min</td>
+                </tr>
+                <tr>
+                    <td><span class="tag warning">🔴 CRITICAL</span></td>
+                    <td>80-95%</td>
+                    <td>Email + SMS</td>
+                    <td>5 min</td>
+                </tr>
+                <tr>
+                    <td><span class="tag warning">🚨 EMERGENCY</span></td>
+                    <td>&gt;95%</td>
+                    <td>SMS + Phone call</td>
+                    <td>Continu</td>
+                </tr>
+            </table>
+
+            <h3>🔍 Métriques Détaillées</h3>
+            <div class="info-card">
+                <strong>Infrastructure:</strong>
+                <ul>
+                    <li>CPU usage (alerte &gt;80%)</li>
+                    <li>Memory usage (alerte &gt;85%)</li>
+                    <li>Disk space (alerte &gt;85%, critique &gt;95%)</li>
+                    <li>Network interfaces status</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <strong>Services Critiques:</strong>
+                <ul>
+                    <li>Active Directory replication (lag &gt;30min)</li>
+                    <li>File Server availability (response &lt;100ms)</li>
+                    <li>PostgreSQL connections & queries</li>
+                    <li>VPN site-to-site status</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 11 : BCP/DRP -->
+        <div class="slide">
+            <span class="slide-number">11 / 18</span>
+            <h1>🛡️ Business Continuity & Disaster Recovery</h1>
+
+            <h2>📋 Business Continuity Plan</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">⏱️</span>
+                    <strong>RTO</strong><br>
+                    ≤ 4 heures
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">📅</span>
+                    <strong>RPO</strong><br>
+                    ≤ 1 heure
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔄</span>
+                    <strong>Failover</strong><br>
+                    Marseille = site secondaire
+                </div>
+            </div>
+
+            <h3>💾 Sauvegarde 3-2-1</h3>
+            <div class="info-card">
+                <ul>
+                    <li><strong>3 Copies</strong>: Snapshots (6h) + Backups (30j) + Archive (90j)</li>
+                    <li><strong>2 Medias</strong>: SSD (rapide) + HDD (capacité)</li>
+                    <li><strong>1 Offsite</strong>: Cloud ou site physique séparé</li>
+                </ul>
+            </div>
+
+            <h2>🚨 Disaster Recovery Plan</h2>
+            <h3>Scenarios & Temps de Récupération</h3>
+            <table>
+                <tr>
+                    <th>Incident</th>
+                    <th>Solution</th>
+                    <th>Temps</th>
+                </tr>
+                <tr>
+                    <td>💾 Disque plein</td>
+                    <td>Snapshot restore</td>
+                    <td>5 min</td>
+                </tr>
+                <tr>
+                    <td>🖥️ VM down</td>
+                    <td>Snapshot instant recovery</td>
+                    <td>5 min</td>
+                </tr>
+                <tr>
+                    <td>💔 Données corrompues</td>
+                    <td>Backup restore</td>
+                    <td>1h</td>
+                </tr>
+                <tr>
+                    <td>🏢 Site complet down</td>
+                    <td>Failover Marseille</td>
+                    <td>4h</td>
+                </tr>
+                <tr>
+                    <td>🌪️ Data center indisponible</td>
+                    <td>Cloud/offsite recovery</td>
+                    <td>24h</td>
+                </tr>
+            </table>
+
+            <h3>🎯 Exercices de Récupération</h3>
+            <div class="info-card">
+                <ul>
+                    <li>Fréquence: 2×/année (simulations)</li>
+                    <li>Scope: Test complet vs test partiel alterné</li>
+                    <li>Documentation: Tous résultats enregistrés</li>
+                    <li>Amélioration: Corrections appliquées suite drill</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 12 : AUTOMATISATION -->
+        <div class="slide">
+            <span class="slide-number">12 / 18</span>
+            <h1>🤖 Automatisation Administrative</h1>
+
+            <h2>1️⃣ Priorité 1 : Création Utilisateurs AD</h2>
+            <div class="info-card">
+                <h3>🎯 Objectif</h3>
+                <p>Réduire temps onboarding <span class="highlight">2h → 10 min</span></p>
+
+                <h3>⚙️ Processus Automatisé</h3>
+                <div class="code-block">
+Import CSV: Nom, Prénom, Département, Rôle
+    ↓
+Script PowerShell:
+├── Créer compte AD automatiquement
+├── Ajouter groupes (match départements)
+├── Créer home directory + partages
+├── Définir permissions (hérité groupes)
+└── Envoyer credentials email template
+    ↓
+Total: ~5-10 min avec validation
+                </div>
+
+                <h3>📊 Impact</h3>
+                <p><span class="tag success">90% réduction</span> du travail manuel</p>
+                <p><span class="tag success">Gain productivité</span> significatif IT team</p>
+            </div>
+
+            <h2>2️⃣ Priorité 2 : Monitoring Disque & Alertes</h2>
+            <div class="info-card">
+                <h3>🎯 Objectif</h3>
+                <p>Prévention "disque plein" incidents</p>
+
+                <h3>⚙️ Processus</h3>
+                <ul>
+                    <li>Script daily (bash/Python)</li>
+                    <li>Vérification tous disques: &lt;65% OK, 65-85% WARNING, &gt;85% CRITICAL</li>
+                    <li>Email IT team si &gt;85%</li>
+                    <li>Notification Zabbix</li>
+                    <li>Scheduling: Tous les jours 06h00</li>
+                </ul>
+
+                <h3>📊 Impact</h3>
+                <p><span class="tag success">Prévention proactive</span> des incidents</p>
+                <p><span class="tag success">Disponibilité maximale</span> système</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 13 : ÉQUIPE IT -->
+        <div class="slide">
+            <span class="slide-number">13 / 18</span>
+            <h1>👥 Structure Organisationnelle & Rôles</h1>
+
+            <h2>🏢 Équipe IT Future</h2>
+            <h3>Structure Recommandée (3-4 FTE)</h3>
+            <div class="code-block">
+├── IT Director (1) 
+│   → Stratégie, budgets, vendor management
+│
+├── System Administrator (1-2)
+│   ├── Infra management (Proxmox, AD, File Server)
+│   ├── VPN & Sécurité réseau
+│   ├── Monitoring & Alertes
+│   └── Backup & Disaster Recovery
+│
+├── Application Support (1)
+│   ├── Database administration
+│   ├── CRM/ERP support (futur)
+│   └── User support niveau 2-3
+│
+└── IT Support Desk (0-1 partagé)
+    └── User support niveau 1
+            </div>
+
+            <h2>🔧 Responsabilités System Admin</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="emoji">🚨</span>
+                    <strong>On-call 24/7</strong><br>
+                    Incidents critiques
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔧</span>
+                    <strong>Maintenance</strong><br>
+                    Patches, updates
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">📈</span>
+                    <strong>Capacity Planning</strong><br>
+                    Upgrades
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">🔒</span>
+                    <strong>Security</strong><br>
+                    Hardening
+                </div>
+                <div class="feature-item">
+                    <span class="emoji">📝</span>
+                    <strong>Compliance</strong><br>
+                    Reporting
+                </div>
+            </div>
+
+            <h2>✅ Infrastructure pour 85 users</h2>
+            <p><span class="tag success">✅ Scalable</span> vers 150-200 users</p>
+            <p><span class="tag success">✅ Maintenable</span> par petite équipe</p>
+            <p><span class="tag success">✅ Documented</span> et reproductible</p>
+        </div>
+
+        <!-- SLIDE 14 : RISQUES -->
+        <div class="slide">
+            <span class="slide-number">14 / 18</span>
+            <h1>⚠️ Risques Identifiés & Mitigation</h1>
+
+            <h2>🎯 Matrice des Risques</h2>
+            <table style="font-size: 0.9em;">
+                <tr>
+                    <th>Risque</th>
+                    <th>Impact</th>
+                    <th>Probabilité</th>
+                    <th>Mitigation</th>
+                </tr>
+                <tr>
+                    <td>💔 Perte données</td>
+                    <td><span class="tag warning">Critique</span></td>
+                    <td>Moyen</td>
+                    <td>Backup 3-2-1, restore tests</td>
+                </tr>
+                <tr>
+                    <td>🏢 Indisponibilité site</td>
+                    <td><span class="tag warning">Critique</span></td>
+                    <td>Bas</td>
+                    <td>Failover Marseille, HA</td>
+                </tr>
+                <tr>
+                    <td>🔓 Breach sécurité</td>
+                    <td><span class="tag warning">Critique</span></td>
+                    <td>Moyen</td>
+                    <td>AD audit, firewall, anti-malware</td>
+                </tr>
+                <tr>
+                    <td>🔄 Réplication AD lag</td>
+                    <td>Moyen</td>
+                    <td>Bas</td>
+                    <td>Monitoring, alertes, doc</td>
+                </tr>
+                <tr>
+                    <td>💾 Disque plein</td>
+                    <td>Moyen</td>
+                    <td>Moyen</td>
+                    <td>Script auto-monitoring</td>
+                </tr>
+                <tr>
+                    <td>🔐 VPN down</td>
+                    <td>Moyen</td>
+                    <td>Bas</td>
+                    <td>Failover secondaire</td>
+                </tr>
+                <tr>
+                    <td>🖥️ Hyperviseur down</td>
+                    <td>Moyen</td>
+                    <td>Très bas</td>
+                    <td>RAID hardware, UPS</td>
+                </tr>
+                <tr>
+                    <td>⚙️ Configuration error</td>
+                    <td>Moyen</td>
+                    <td>Moyen</td>
+                    <td>Doc, snapshots avant changes</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SLIDE 18 : CONCLUSION -->
+        <div class="slide">
+            <span class="slide-number">18 / 18</span>
+            <h1>🎬 Conclusion & Prochaines Étapes</h1>
+
+            <h2>✅ Recommandation Exécutive</h2>
+            <div class="info-card" style="border-left-color: #51cf66;">
+                <h3>✅ Architecture Approuvée pour Implémentation</h3>
+                <p>Architecture <span class="highlight">centralisée, sécurisée, scalable</span> proposée répond à tous critères :</p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <span class="emoji">🔒</span>
+                        <strong>Sécurité</strong><br>
+                        AD audit trail + firewall + VPN chiffré
+                    </div>
+                    <div class="feature-item">
+                        <span class="emoji">⏱️</span>
+                        <strong>Continuité</strong><br>
+                        Multi-site failover + backup 3-2-1
+                    </div>
+                    <div class="feature-item">
+                        <span class="emoji">📈</span>
+                        <strong>Scalabilité</strong><br>
+                        AD + Proxmox gérent 500+ users
+                    </div>
+                    <div class="feature-item">
+                        <span class="emoji">💰</span>
+                        <strong>Budget</strong><br>
+                        €30-47k acceptable PME €48M CA
+                    </div>
+                </div>
+            </div>
+
+            <h2>🚀 Avantages Business Attendus</h2>
+            <table>
+                <tr>
+                    <th>Période</th>
+                    <th>Avantages</th>
+                </tr>
+                <tr>
+                    <td><strong>📅 Court terme (3-6 mois)</strong></td>
+                    <td>
+                        ✅ Réduction 60% incidents gestion accès<br>
+                        ✅ Onboarding utilisateur: 2h → 10 min<br>
+                        ✅ Conformité réglementaire: audit trail complet
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>📈 Moyen terme (6-18 mois)</strong></td>
+                    <td>
+                        ✅ Intégration CRM possible<br>
+                        ✅ Automatisation IT tasks<br>
+                        ✅ Prévention incidents proactive
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>🎯 Long terme (18+ mois)</strong></td>
+                    <td>
+                        ✅ Infrastructure cloud-ready<br>
+                        ✅ Réduction TCO opérationnel<br>
+                        ✅ Support croissance 500+ users
+                    </td>
+                </tr>
+            </table>
+
+            <h2>📋 Prochaines Étapes - Cette Semaine</h2>
+            <div class="code-block">
+□ Validation direction sur architecture
+□ Approbation budget + timeline
+□ Désignation Project Manager côté client
+
+Semaine Prochaine:
+□ Finalisation rapport détaillé
+□ Appels d'offres matériel Proxmox
+□ Planning démarrage Phase II
+            </div>
+
+            <h2>📞 Contact</h2>
+            <p><strong>Project Manager</strong>: GINEPRO</p>
+            <p><strong>Client Contact</strong>: Jean Thalor - Director IS Nova Syndicate</p>
+            <p style="margin-top: 40px; font-size: 1.8em; text-align: center; color: #667eea;">
+                <strong>Questions ? 👋</strong>
+            </p>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Précédent</button>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">18</span>
+            </span>
+            <div class="export-buttons">
+                <button onclick="printPresentation()">🖨️ Imprimer / PDF</button>
+                <button onclick="downloadHTML()">💾 Télécharger HTML</button>
+            </div>
+            <button id="nextBtn" onclick="changeSlide(1)">Suivant →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        // Generate Table of Contents
+        function generateTOC() {
+            const slides = document.querySelectorAll('.slide');
+            const tocList = document.getElementById('tocList');
+            tocList.innerHTML = '';
+
+            slides.forEach((slide, index) => {
+                const h1 = slide.querySelector('h1');
+                if (h1) {
+                    const li = document.createElement('li');
+                    li.textContent = `${index + 1}. ${h1.textContent}`;
+                    li.onclick = () => {
+                        currentSlide = index + 1;
+                        showSlide(currentSlide);
+                        toggleTOC();
+                    };
+                    tocList.appendChild(li);
+                }
+            });
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+
+            if (n > totalSlides) { currentSlide = totalSlides; }
+            if (n < 1) { currentSlide = 1; }
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+
+            // Update slide counter
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+
+            // Update progress bar
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        function toggleTOC() {
+            const toc = document.getElementById('toc');
+            toc.classList.toggle('active');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        function printPresentation() {
+            window.print();
+        }
+
+        function downloadHTML() {
+            const html = document.documentElement.outerHTML;
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Nova-Syndicate-Phase1-Presentation-Premium.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'Escape') {
+                const toc = document.getElementById('toc');
+                if (toc.classList.contains('active')) {
+                    toc.classList.remove('active');
+                }
+            }
+        });
+
+        // Initialize
+        generateTOC();
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
