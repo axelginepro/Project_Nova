@@ -454,6 +454,20 @@
             font-size: 0.95em;
             border: none;
         }
+
+        /* Hover effet pour le tableau de l'équipe */
+        .team-table td {
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .team-table td:hover {
+            background-color: rgba(0, 0, 0, 0.6) !important;
+            color: white !important;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -522,28 +536,27 @@
     <div class="presentation-container">
         <!-- SLIDE 1 : TITRE (avec fond violet) -->
         <div class="slide title-slide active">
-            <h1>🚀 Architecture Proposée</h1>
-            <h2>Nova Syndicate</h2>
+            <h1>🚀 Nova Syndicate</h1>
+            <h2>Architecture Proposée</h2>
             <h2 style="font-size: 1.3em; color: #e0e0e0;">Infrastructure IT Moderne & Sécurisée</h2>
             
             <div style="margin-top: 60px; z-index: 1;">
                 <p style="font-size: 1.2em; margin-bottom: 15px;">Consulting Team: Jedha Session 14</p>
-                <table style="margin: 0 auto; width: auto; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                <table style="margin: 0 auto; width: auto; background: rgba(255,255,255,0.1); border-radius: 10px;" class="team-table">
                     <tr>
                         <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Alexandre</td>
-                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Sébastien</td>
-                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Solène</td>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Audrey</td>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Axel</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Audrey</td>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Sébastien</td>
+                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Solène</td>
                         <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Valentin</td>
-                        <td style="padding: 8px 20px; border: none; color: #e0e0e0;">Axel</td>
                     </tr>
                 </table>
             </div>
             
             <p style="margin-top: 40px; z-index: 1;">Décembre 2025</p>
-            <p style="margin-top: 20px; font-size: 0.95em; z-index: 1;">✅ Conformité | ⚡ Performance | 💎 Fiabilité</p>
         </div>
 
         <!-- SLIDE 2 : CONTEXTE (fond blanc) -->
