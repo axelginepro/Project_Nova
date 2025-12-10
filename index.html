@@ -376,6 +376,14 @@
             display: block;
         }
 
+        .info-box {
+            background: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
         @media (max-width: 768px) {
             .slide {
                 padding: 40px 30px;
@@ -620,7 +628,7 @@
                     <tr>
                         <td><strong>⚡ Disponibilité</strong></td>
                         <td>SPOF multiples</td>
-                        <td>Cluster HA, RTO 4h</td>
+                        <td>Réplication multi-sites, RTO 4h</td>
                     </tr>
                     <tr>
                         <td><strong>🌐 Connectivité</strong></td>
@@ -630,7 +638,7 @@
                     <tr>
                         <td><strong>📈 Scalabilité</strong></td>
                         <td>Infrastructure figée</td>
-                        <td>Virtualisation Hyper-V, ajout rapide</td>
+                        <td>Virtualisation, ajout rapide ressources</td>
                     </tr>
                 </tbody>
             </table>
@@ -657,9 +665,9 @@
                         <td>Windows Server 2022, GPO, DNS</td>
                     </tr>
                     <tr>
-                        <td><strong>🖥️ Hyper-V Cluster</strong></td>
-                        <td>Virtualisation, haute disponibilité, migration à chaud</td>
-                        <td>Windows Server 2022, Storage Spaces Direct</td>
+                        <td><strong>🖥️ Hyper-V</strong></td>
+                        <td>Virtualisation, provisioning rapide, snapshots</td>
+                        <td>Windows Server 2022 Hyper-V</td>
                     </tr>
                     <tr>
                         <td><strong>📁 File Server</strong></td>
@@ -679,15 +687,15 @@
                     <tr>
                         <td><strong>🛡️ BCP/DRP</strong></td>
                         <td>Continuité service, plan reprise activité</td>
-                        <td>RTO 4h, RPO 1h, site de secours</td>
+                        <td>RTO 4h, RPO 1h, réplication Marseille</td>
                     </tr>
                 </tbody>
             </table>
 
             <h2>🌐 Topologie Réseau</h2>
             <ul style="font-size: 1.05em;">
-                <li><strong>Lyon (HQ)</strong> : DC principal, Hyper-V cluster 3 nœuds, File Server principal</li>
-                <li><strong>Marseille</strong> : DC secondaire, File Server répliqué, PostgreSQL standby</li>
+                <li><strong>Lyon (HQ)</strong> : DC principal, Hyper-V (4+ VMs), File Server principal, PostgreSQL Primary</li>
+                <li><strong>Marseille</strong> : DC secondaire, Hyper-V backup, File Server répliqué, PostgreSQL Standby</li>
                 <li><strong>Sites distants</strong> : Accès VPN Remote Access, cache local DFS</li>
                 <li><strong>Interconnexions</strong> : VPN Site-to-Site IPsec AES-256 entre Lyon ↔ Marseille</li>
             </ul>
@@ -752,57 +760,108 @@
             </ul>
         </div>
 
-        <!-- SLIDE 6 : HYPER-V -->
+        <!-- SLIDE 6 : HYPER-V (OPTION 1 - MINIMALISTE) -->
         <div class="slide">
             <span class="slide-number">6 / 12</span>
-            <h1>🖥️ Hyper-V Cluster (Virtualisation)</h1>
-            
+            <h1>🖥️ Hyper-V (Virtualisation)</h1>
+
             <h2>🎯 Objectifs</h2>
             <ul>
-                <li><strong>Consolidation</strong> : Réduction serveurs physiques, économies (électricité, espace, maintenance)</li>
-                <li><strong>Haute disponibilité (HA)</strong> : Tolérance panne matérielle, migration VM à chaud</li>
-                <li><strong>Flexibilité</strong> : Déploiement rapide nouvelles VM, snapshots, clonage</li>
+                <li><strong>Virtualisation complète</strong> : Tous les services critiques hébergés sur VMs</li>
+                <li><strong>Provisioning simplifié</strong> : Déploiement nouvelle VM en 15 min (vs semaines serveur physique)</li>
+                <li><strong>Recovery rapide</strong> : Snapshots avant maintenance, restore en < 10 min</li>
+                <li><strong>Scalabilité</strong> : Support croissance future (CRM, ERP, ticketing)</li>
             </ul>
 
-            <h2>🏗️ Configuration Cluster</h2>
+            <h2>🏗️ Solution Retenue</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Paramètre</th>
-                        <th>Valeur</th>
-                        <th>Justification</th>
+                        <th style="width: 30%;">Composant</th>
+                        <th style="width: 35%;">Configuration</th>
+                        <th style="width: 35%;">Justification</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Nœuds</strong></td>
-                        <td>3 serveurs physiques</td>
-                        <td>Quorum majorité (panne 1 nœud = cluster up)</td>
+                        <td><strong>Hyperviseur</strong></td>
+                        <td>Microsoft Hyper-V</td>
+                        <td>Inclus Windows Server (pas de coût licence), intégration AD native</td>
                     </tr>
                     <tr>
-                        <td><strong>Stockage</strong></td>
-                        <td>Storage Spaces Direct (S2D)</td>
-                        <td>SAN software-defined, réplication 3 copies</td>
+                        <td><strong>Serveurs physiques</strong></td>
+                        <td>2 serveurs (Lyon + Marseille)</td>
+                        <td>Répartition géographique, budget limité, simplicité maintenance</td>
                     </tr>
                     <tr>
-                        <td><strong>Réseau</strong></td>
-                        <td>2x 10 Gbps (management + live migration)</td>
-                        <td>Bande passante migration VM sans impact users</td>
+                        <td><strong>VMs essentielles</strong></td>
+                        <td>4 VMs minimum</td>
+                        <td>Conformité exigence cahier des charges</td>
                     </tr>
                     <tr>
-                        <td><strong>Quorum</strong></td>
-                        <td>File Share Witness (Marseille)</td>
-                        <td>Vote externe évite split-brain</td>
+                        <td><strong>Sauvegarde VMs</strong></td>
+                        <td>Veeam Backup (snapshots)</td>
+                        <td>Protection données, restauration rapide</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h2>💡 Capacité Initiale</h2>
+            <h2>💻 VMs Déployées (Minimum)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>VM</th>
+                        <th>Rôle</th>
+                        <th>Site</th>
+                        <th>Ressources</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>VM1 - DC Primary</strong></td>
+                        <td>Domain Controller principal</td>
+                        <td>Lyon</td>
+                        <td>4 vCPU, 8 GB RAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VM2 - File Server</strong></td>
+                        <td>Partages réseau, DFS</td>
+                        <td>Lyon</td>
+                        <td>4 vCPU, 16 GB RAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VM3 - PostgreSQL</strong></td>
+                        <td>Base de données production</td>
+                        <td>Lyon</td>
+                        <td>8 vCPU, 32 GB RAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VM4 - App Server</strong></td>
+                        <td>Futur CRM/ERP/Ticketing</td>
+                        <td>Lyon</td>
+                        <td>4 vCPU, 16 GB RAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VM5 - DC Secondary</strong></td>
+                        <td>Réplica AD (DRP)</td>
+                        <td>Marseille</td>
+                        <td>4 vCPU, 8 GB RAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VM6 - PG Standby</strong></td>
+                        <td>Réplica PostgreSQL (DRP)</td>
+                        <td>Marseille</td>
+                        <td>8 vCPU, 32 GB RAM</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>🚀 Bénéfices</h2>
             <ul>
-                <li><strong>CPU</strong> : 96 vCPU total (32/nœud)</li>
-                <li><strong>RAM</strong> : 384 GB total (128 GB/nœud)</li>
-                <li><strong>Stockage</strong> : 20 TB utilisable (après RAID et réplication)</li>
-                <li><strong>VMs hébergées</strong> : ~25 VM (mix small/medium/large)</li>
+                <li><strong>Coût</strong> : Réduction achat serveurs physiques, économies énergie</li>
+                <li><strong>Agilité</strong> : Déploiement nouveau service en minutes</li>
+                <li><strong>Résilience</strong> : Snapshots quotidiens, restauration rapide si incident</li>
+                <li><strong>Maintenance simplifiée</strong> : Migration VM entre Lyon/Marseille si besoin</li>
             </ul>
         </div>
 
@@ -856,7 +915,7 @@
                 <li><strong>3 copies</strong> : Données prod + backup local + backup distant</li>
                 <li><strong>2 supports</strong> : Disque (rapide) + bande LTO-9 (archivage)</li>
                 <li><strong>1 copie off-site</strong> : Marseille (évite sinistre Lyon)</li>
-                <li><strong>Rétention</strong> : 7 daily, 4 weekly, 12 monthly</li>
+                <li><strong>Rétention</strong> : 7 daily, 4 weekly, 12 monthly (GFS standard)</li>
                 <li><strong>Tests restore</strong> : Mensuel, vérifie intégrité backups</li>
             </ul>
         </div>
@@ -869,9 +928,9 @@
             <h2>🎯 Objectifs</h2>
             <ul>
                 <li><strong>Fiabilité</strong> : ACID, pas de perte données</li>
-                <li><strong>Performance</strong> : Réponse < 100ms, support 500+ users simultanés</li>
+                <li><strong>Performance</strong> : Réponse < 100ms, support 85 users + applications futures</li>
                 <li><strong>Sauvegarde</strong> : RPO 1h (perte max 1h données)</li>
-                <li><strong>Haute disponibilité</strong> : Basculement auto si panne primaire</li>
+                <li><strong>Haute disponibilité</strong> : Basculement Marseille si panne Lyon</li>
             </ul>
 
             <h2>🏗️ Architecture</h2>
@@ -887,22 +946,22 @@
                     <tr>
                         <td><strong>Version</strong></td>
                         <td>PostgreSQL 16</td>
-                        <td>Dernière stable, perf optimales, sécurité</td>
+                        <td>Dernière stable, open-source, performances optimales</td>
                     </tr>
                     <tr>
-                        <td><strong>Primaire</strong></td>
-                        <td>VM Lyon (8 vCPU, 32 GB RAM)</td>
-                        <td>Serveur production, écritures/lectures</td>
+                        <td><strong>Primary (Lyon)</strong></td>
+                        <td>VM (8 vCPU, 32 GB RAM)</td>
+                        <td>Serveur production, lectures + écritures</td>
                     </tr>
                     <tr>
-                        <td><strong>Standby</strong></td>
-                        <td>VM Marseille (8 vCPU, 32 GB RAM)</td>
-                        <td>Réplication streaming, lecture seule</td>
+                        <td><strong>Standby (Marseille)</strong></td>
+                        <td>VM (8 vCPU, 32 GB RAM)</td>
+                        <td>Réplication streaming, lecture seule + failover</td>
                     </tr>
                     <tr>
                         <td><strong>Réplication</strong></td>
                         <td>Streaming asynchrone</td>
-                        <td>Latence faible, balance perf/dispo</td>
+                        <td>Latence faible, balance perf/disponibilité</td>
                     </tr>
                     <tr>
                         <td><strong>Backup</strong></td>
@@ -912,12 +971,12 @@
                 </tbody>
             </table>
 
-            <h2>⚡ Performance & Tuning</h2>
+            <h2>⚡ Caractéristiques Clés</h2>
             <ul>
-                <li><strong>Stockage</strong> : SSD NVMe (IOPS élevés)</li>
-                <li><strong>Connexions</strong> : Pgpool-II (load balancing lectures)</li>
-                <li><strong>Monitoring</strong> : Prometheus + Grafana (alertes lenteurs)</li>
-                <li><strong>Vacuum</strong> : Auto-vacuum configuré (évite bloat)</li>
+                <li><strong>Stockage</strong> : SSD NVMe pour IOPS élevés (bases de données)</li>
+                <li><strong>Failover</strong> : Promotion automatique Standby → Primary en < 2min si panne Lyon</li>
+                <li><strong>Monitoring</strong> : Prometheus + Grafana (alertes lag réplication, lenteurs)</li>
+                <li><strong>Open-source</strong> : Pas de coût licence, communauté active, conformité exigence PDF</li>
             </ul>
         </div>
 
@@ -929,7 +988,7 @@
             <h2>🎯 Objectifs</h2>
             <ul>
                 <li><strong>Site-to-Site</strong> : Lyon ↔ Marseille transparent (comme LAN unique)</li>
-                <li><strong>Remote Access</strong> : Employés distants accèdent ressources internes</li>
+                <li><strong>Remote Access</strong> : 20 agents distants accèdent ressources internes en sécurité</li>
                 <li><strong>Chiffrement fort</strong> : Protection données sensibles (conformité secteurs régulés)</li>
             </ul>
 
@@ -961,17 +1020,17 @@
 
             <h2>🛡️ Sécurisation</h2>
             <ul>
-                <li><strong>Firewalls</strong> : pfSense (open-source, auditable)</li>
-                <li><strong>Perfect Forward Secrecy (PFS)</strong> : Renouvellement clés auto</li>
-                <li><strong>Split tunneling désactivé</strong> : Tout trafic passe par VPN</li>
+                <li><strong>Firewalls</strong> : pfSense (open-source, auditable, conforme contraintes budget)</li>
+                <li><strong>Perfect Forward Secrecy (PFS)</strong> : Renouvellement clés automatique</li>
+                <li><strong>Split tunneling désactivé</strong> : Tout trafic passe par VPN (sécurité maximale)</li>
                 <li><strong>Logs centralisés</strong> : Audit connexions (qui, quand, IP source)</li>
             </ul>
 
             <h2>📊 Dimensionnement</h2>
             <ul>
-                <li><strong>Bande passante</strong> : 1 Gbps Lyon-Marseille (tunnel IPsec)</li>
-                <li><strong>Utilisateurs VPN</strong> : Jusqu'à 50 simultanés</li>
-                <li><strong>Latence</strong> : < 20ms Lyon ↔ Marseille</li>
+                <li><strong>Utilisateurs VPN</strong> : 20 agents distants + support 50 utilisateurs simultanés (marge)</li>
+                <li><strong>Bande passante</strong> : 100 Mbps minimum (Lyon-Marseille tunnel IPsec)</li>
+                <li><strong>Latence</strong> : < 30ms Lyon ↔ Marseille acceptable</li>
             </ul>
         </div>
 
@@ -979,7 +1038,7 @@
         <div class="slide">
             <span class="slide-number">10 / 12</span>
             <h1>🛡️ BCP / DRP (Continuité & Reprise)</h1>
-            
+
             <h2>🎯 Objectifs</h2>
             <ul>
                 <li><strong>Business Continuity Plan (BCP)</strong> : Maintien services critiques pendant incident</li>
@@ -1020,14 +1079,14 @@
                         <td><strong>Hyper-V VMs</strong></td>
                         <td>4h</td>
                         <td>24h</td>
-                        <td>Live migration + backup daily</td>
+                        <td>Réplication VM + backup daily</td>
                     </tr>
                 </tbody>
             </table>
 
             <h2>🔥 Scénarios Couverts</h2>
             <ul>
-                <li><strong>Panne matérielle</strong> : HA cluster (migration auto VM)</li>
+                <li><strong>Panne serveur</strong> : Basculement VMs sur serveur Marseille</li>
                 <li><strong>Ransomware</strong> : Backups immutables (Veeam hardened repo)</li>
                 <li><strong>Sinistre site Lyon</strong> : Bascule Marseille (DC, PostgreSQL standby, DFS)</li>
                 <li><strong>Corruption données</strong> : Restore PITR (PostgreSQL) ou snapshot (fichiers)</li>
@@ -1048,7 +1107,7 @@
             
             <h2>✅ Livrables</h2>
             <ul style="font-size: 1.15em; line-height: 2;">
-                <li>🏗️ Infrastructure moderne & virtualisée (Hyper-V Cluster)</li>
+                <li>🏗️ Infrastructure moderne & virtualisée (Hyper-V 4+ VMs)</li>
                 <li>👤 Active Directory fonctionnel (SSO, GPO, 2 DC)</li>
                 <li>📁 Stockage centralisé sécurisé (DFS, stratégie 3-2-1)</li>
                 <li>🗄️ Base de données haute disponibilité (PostgreSQL répliqué)</li>
@@ -1059,17 +1118,17 @@
             <h2>🚀 Bénéfices Immédiats</h2>
             <ul style="font-size: 1.1em;">
                 <li><strong>Conformité</strong> : Base solide pour certifications (ISO 27001, HDS)</li>
-                <li><strong>Fiabilité</strong> : Tolérance aux pannes, fin SPOF critiques</li>
+                <li><strong>Fiabilité</strong> : Tolérance aux pannes, réplication multi-sites</li>
                 <li><strong>Sécurité</strong> : Authentification forte, chiffrement, audit</li>
-                <li><strong>Scalabilité</strong> : Ajout capacités rapide (VM, stockage)</li>
+                <li><strong>Scalabilité</strong> : Support croissance (CRM, ERP, ticketing)</li>
             </ul>
 
             <h2>🔮 Prochaines Étapes</h2>
             <ul>
                 <li>🔍 <strong>Monitoring avancé</strong> : Prometheus/Grafana, alertes proactives</li>
-                <li>🌐 <strong>Services applicatifs</strong> : Mail Exchange, SharePoint, ERP</li>
+                <li>🤖 <strong>Automatisation</strong> : Scripts création users, alertes disque (PowerShell/Python)</li>
                 <li>🎓 <strong>Formation équipe</strong> : Hyper-V, PostgreSQL, pfSense</li>
-                <li>📜 <strong>Documentation</strong> : Architecture, runbooks, procédures</li>
+                <li>📜 <strong>Documentation</strong> : Architecture, runbooks, procédures maintenance</li>
             </ul>
         </div>
 
@@ -1086,7 +1145,6 @@
                         <li><strong>vCPU</strong> : Virtual CPU (processeur virtuel)</li>
                         <li><strong>HA</strong> : High Availability (haute disponibilité)</li>
                         <li><strong>SPOF</strong> : Single Point of Failure</li>
-                        <li><strong>S2D</strong> : Storage Spaces Direct</li>
                     </ul>
                 </div>
 
@@ -1142,7 +1200,7 @@
                         <li><strong>DRP</strong> : Disaster Recovery Plan</li>
                         <li><strong>RTO</strong> : Recovery Time Objective</li>
                         <li><strong>RPO</strong> : Recovery Point Objective</li>
-                        <li><strong>3-2-1</strong> : Règle sauvegarde (3 copies, 2 supports, 1 off-site)</li>
+                        <li><strong>GFS</strong> : Grandfather-Father-Son (rétention backup)</li>
                     </ul>
                 </div>
 
