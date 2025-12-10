@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Syndicate - Phase I : Architecture Proposée</title>
+    <title>Nova Syndicate - Architecture Proposée</title>
     <style>
         * {
             margin: 0;
@@ -266,6 +266,29 @@
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
         }
 
+        /* BOUTON PLEIN ÉCRAN (FIXE) */
+        .fullscreen-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
         /* PANNEAU SOMMAIRE */
         .sommaire-panel {
             position: fixed;
@@ -353,34 +376,6 @@
             display: block;
         }
 
-        .fullscreen-btn {
-            position: absolute;
-            top: 20px;
-            right: 100px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .fullscreen-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        .slide.title-slide .fullscreen-btn {
-            display: block;
-        }
-
-        .slide:not(.title-slide) .fullscreen-btn {
-            display: none;
-        }
-
         @media (max-width: 768px) {
             .slide {
                 padding: 40px 30px;
@@ -404,6 +399,12 @@
             .sommaire-btn {
                 top: 15px;
                 left: 15px;
+                padding: 10px 20px;
+            }
+
+            .fullscreen-btn {
+                top: 15px;
+                right: 15px;
                 padding: 10px 20px;
             }
 
@@ -443,18 +444,14 @@
             font-size: 0.95em;
             border: none;
         }
-
-        .sommaire-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 30px;
-        }
     </style>
 </head>
 <body>
     <!-- BOUTON SOMMAIRE FLOTTANT -->
     <button class="sommaire-btn" onclick="toggleSommaire()">📋 Sommaire</button>
+
+    <!-- BOUTON PLEIN ÉCRAN FLOTTANT -->
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">🖥️ Plein écran</button>
 
     <!-- OVERLAY (fond sombre quand sommaire ouvert) -->
     <div class="overlay" id="overlay" onclick="toggleSommaire()"></div>
@@ -468,50 +465,46 @@
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(1)">
             <span class="item-number">2</span>
-            <span class="item-title">📋 Sommaire</span>
+            <span class="item-title">📊 Contexte</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(2)">
             <span class="item-number">3</span>
-            <span class="item-title">📊 Contexte</span>
+            <span class="item-title">🎯 Objectifs</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(3)">
             <span class="item-number">4</span>
-            <span class="item-title">🎯 Objectifs</span>
+            <span class="item-title">🏗️ Architecture Globale</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(4)">
             <span class="item-number">5</span>
-            <span class="item-title">🏗️ Architecture Globale</span>
+            <span class="item-title">👤 Active Directory</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(5)">
             <span class="item-number">6</span>
-            <span class="item-title">👤 Active Directory</span>
+            <span class="item-title">🖥️ Hyper-V</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(6)">
             <span class="item-number">7</span>
-            <span class="item-title">🖥️ Hyper-V</span>
+            <span class="item-title">📁 File Server</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(7)">
             <span class="item-number">8</span>
-            <span class="item-title">📁 File Server</span>
+            <span class="item-title">🗄️ PostgreSQL</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(8)">
             <span class="item-number">9</span>
-            <span class="item-title">🗄️ PostgreSQL</span>
+            <span class="item-title">🔐 VPN</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(9)">
             <span class="item-number">10</span>
-            <span class="item-title">🔐 VPN</span>
+            <span class="item-title">🛡️ BCP/DRP</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(10)">
             <span class="item-number">11</span>
-            <span class="item-title">🛡️ BCP/DRP</span>
+            <span class="item-title">🎬 Conclusion</span>
         </div>
         <div class="sommaire-item" onclick="goToSlideFromSommaire(11)">
             <span class="item-number">12</span>
-            <span class="item-title">🎬 Conclusion</span>
-        </div>
-        <div class="sommaire-item" onclick="goToSlideFromSommaire(12)">
-            <span class="item-number">13</span>
             <span class="item-title">📖 Lexique</span>
         </div>
     </div>
@@ -519,7 +512,6 @@
     <div class="presentation-container">
         <!-- SLIDE 1 : TITRE (avec fond violet) -->
         <div class="slide title-slide active">
-            <button class="fullscreen-btn" onclick="toggleFullscreen()">🖥️ Plein écran</button>
             <h1>🚀 Architecture Proposée</h1>
             <h2>Nova Syndicate</h2>
             <h2 style="font-size: 1.3em; color: #e0e0e0;">Infrastructure IT Moderne & Sécurisée</h2>
@@ -544,61 +536,9 @@
             <p style="margin-top: 20px; font-size: 0.95em; z-index: 1;">✅ Conformité | ⚡ Performance | 💎 Fiabilité</p>
         </div>
 
-        <!-- SLIDE 2 : SOMMAIRE -->
+        <!-- SLIDE 2 : CONTEXTE (fond blanc) -->
         <div class="slide">
-            <span class="slide-number">2 / 13</span>
-            <h1>📋 Sommaire</h1>
-            <div class="sommaire-grid">
-                <div class="sommaire-item" onclick="goToSlide(2)" style="cursor: pointer;">
-                    <h3>📊 Contexte</h3>
-                    <p>Situation actuelle & problématiques</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(3)" style="cursor: pointer;">
-                    <h3>🎯 Objectifs</h3>
-                    <p>Vision & bénéfices attendus</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(4)" style="cursor: pointer;">
-                    <h3>🏗️ Architecture Globale</h3>
-                    <p>Vue d'ensemble des services</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(5)" style="cursor: pointer;">
-                    <h3>👤 Active Directory</h3>
-                    <p>Gestion des identités</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(6)" style="cursor: pointer;">
-                    <h3>🖥️ Hyper-V</h3>
-                    <p>Virtualisation & haute disponibilité</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(7)" style="cursor: pointer;">
-                    <h3>📁 File Server</h3>
-                    <p>Stockage & sauvegarde</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(8)" style="cursor: pointer;">
-                    <h3>🗄️ PostgreSQL</h3>
-                    <p>Base de données</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(9)" style="cursor: pointer;">
-                    <h3>🔐 VPN</h3>
-                    <p>Interconnexion sécurisée</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(10)" style="cursor: pointer;">
-                    <h3>🛡️ BCP/DRP</h3>
-                    <p>Continuité & reprise</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(11)" style="cursor: pointer;">
-                    <h3>🎬 Conclusion</h3>
-                    <p>Synthèse & prochaines étapes</p>
-                </div>
-                <div class="sommaire-item" onclick="goToSlide(12)" style="cursor: pointer;">
-                    <h3>📖 Lexique</h3>
-                    <p>Acronymes & définitions</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 3 : CONTEXTE (fond blanc) -->
-        <div class="slide">
-            <span class="slide-number">3 / 13</span>
+            <span class="slide-number">2 / 12</span>
             <h1>📊 Contexte & Problématique</h1>
             
             <h2>🏢 Situation Actuelle</h2>
@@ -645,10 +585,10 @@
             </table>
         </div>
 
-        <!-- SLIDE 4 : OBJECTIFS -->
+        <!-- SLIDE 3 : OBJECTIFS -->
         <div class="slide">
-            <span class="slide-number">4 / 13</span>
-            <h1>🎯 Objectifs de la Phase I</h1>
+            <span class="slide-number">3 / 12</span>
+            <h1>🎯 Objectifs</h1>
             
             <h2>🎓 Vision Stratégique</h2>
             <ul>
@@ -663,7 +603,7 @@
                     <tr>
                         <th>Dimension</th>
                         <th>Avant</th>
-                        <th>Après Phase I</th>
+                        <th>Après</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -696,10 +636,10 @@
             </table>
         </div>
 
-        <!-- SLIDE 5 : ARCHITECTURE GLOBALE -->
+        <!-- SLIDE 4 : ARCHITECTURE GLOBALE -->
         <div class="slide">
-            <span class="slide-number">5 / 13</span>
-            <h1>🏗️ Architecture Globale - Phase I</h1>
+            <span class="slide-number">4 / 12</span>
+            <h1>🏗️ Architecture Globale</h1>
             
             <h2>🎯 6 Services Fondamentaux</h2>
             <table>
@@ -753,9 +693,9 @@
             </ul>
         </div>
 
-        <!-- SLIDE 6 : ACTIVE DIRECTORY -->
+        <!-- SLIDE 5 : ACTIVE DIRECTORY -->
         <div class="slide">
-            <span class="slide-number">6 / 13</span>
+            <span class="slide-number">5 / 12</span>
             <h1>👤 Active Directory (AD DS)</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -812,9 +752,9 @@
             </ul>
         </div>
 
-        <!-- SLIDE 7 : HYPER-V -->
+        <!-- SLIDE 6 : HYPER-V -->
         <div class="slide">
-            <span class="slide-number">7 / 13</span>
+            <span class="slide-number">6 / 12</span>
             <h1>🖥️ Hyper-V Cluster (Virtualisation)</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -866,9 +806,9 @@
             </ul>
         </div>
 
-        <!-- SLIDE 8 : FILE SERVER -->
+        <!-- SLIDE 7 : FILE SERVER -->
         <div class="slide">
-            <span class="slide-number">8 / 13</span>
+            <span class="slide-number">7 / 12</span>
             <h1>📁 File Server & Sauvegarde</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -921,9 +861,9 @@
             </ul>
         </div>
 
-        <!-- SLIDE 9 : POSTGRESQL -->
+        <!-- SLIDE 8 : POSTGRESQL -->
         <div class="slide">
-            <span class="slide-number">9 / 13</span>
+            <span class="slide-number">8 / 12</span>
             <h1>🗄️ PostgreSQL (Base de Données)</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -981,9 +921,9 @@
             </ul>
         </div>
 
-        <!-- SLIDE 10 : VPN -->
+        <!-- SLIDE 9 : VPN -->
         <div class="slide">
-            <span class="slide-number">10 / 13</span>
+            <span class="slide-number">9 / 12</span>
             <h1>🔐 VPN (Interconnexion Sécurisée)</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -1035,9 +975,9 @@
             </ul>
         </div>
 
-        <!-- SLIDE 11 : BCP/DRP -->
+        <!-- SLIDE 10 : BCP/DRP -->
         <div class="slide">
-            <span class="slide-number">11 / 13</span>
+            <span class="slide-number">10 / 12</span>
             <h1>🛡️ BCP / DRP (Continuité & Reprise)</h1>
             
             <h2>🎯 Objectifs</h2>
@@ -1101,12 +1041,12 @@
             </ul>
         </div>
 
-        <!-- SLIDE 12 : CONCLUSION -->
+        <!-- SLIDE 11 : CONCLUSION -->
         <div class="slide">
-            <span class="slide-number">12 / 13</span>
-            <h1>🎬 Conclusion Phase I</h1>
+            <span class="slide-number">11 / 12</span>
+            <h1>🎬 Conclusion</h1>
             
-            <h2>✅ Livrables Phase I</h2>
+            <h2>✅ Livrables</h2>
             <ul style="font-size: 1.15em; line-height: 2;">
                 <li>🏗️ Infrastructure moderne & virtualisée (Hyper-V Cluster)</li>
                 <li>👤 Active Directory fonctionnel (SSO, GPO, 2 DC)</li>
@@ -1124,7 +1064,7 @@
                 <li><strong>Scalabilité</strong> : Ajout capacités rapide (VM, stockage)</li>
             </ul>
 
-            <h2>🔮 Prochaines Étapes (Phase II)</h2>
+            <h2>🔮 Prochaines Étapes</h2>
             <ul>
                 <li>🔍 <strong>Monitoring avancé</strong> : Prometheus/Grafana, alertes proactives</li>
                 <li>🌐 <strong>Services applicatifs</strong> : Mail Exchange, SharePoint, ERP</li>
@@ -1133,9 +1073,9 @@
             </ul>
         </div>
 
-        <!-- SLIDE 13 : LEXIQUE -->
+        <!-- SLIDE 12 : LEXIQUE -->
         <div class="slide">
-            <span class="slide-number">13 / 13</span>
+            <span class="slide-number">12 / 12</span>
             <h1>📖 Lexique IT</h1>
             
             <div class="lexique-container">
@@ -1258,7 +1198,7 @@
         function goToSlideFromSommaire(slideIndex) {
             currentSlide = slideIndex;
             showSlide(currentSlide);
-            toggleSommaire(); // Ferme le sommaire après navigation
+            toggleSommaire();
         }
 
         function updateControls() {
