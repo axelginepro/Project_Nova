@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 3 - Nova Syndicate</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📸</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #e7f9f5 0%, #d4f1f4 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #17a2b8;
+            margin-bottom: 50px;
+        }
+
+        .intro-section h3 {
+            color: #17a2b8;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .intro-section p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .intro-section ul {
+            margin-left: 25px;
+            color: #555;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .intro-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            color: #17a2b8;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #17a2b8;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-subtitle {
+            color: #333;
+            font-size: 1.3em;
+            margin: 30px 0 20px 0;
+            font-weight: bold;
+        }
+
+        /* CARTES LIVRABLES */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .deliverable-card {
+            background: linear-gradient(135deg, #e7f9f5 0%, #d4f1f4 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #17a2b8;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .deliverable-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(23, 162, 184, 0.3);
+        }
+
+        .deliverable-card h3 {
+            color: #17a2b8;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .deliverable-card p {
+            color: #555;
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+
+        /* CARTES CRITÈRES */
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .criteria-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #17a2b8;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .criteria-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #20c997 0%, #17a2b8 100%);
+        }
+
+        .criteria-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(23, 162, 184, 0.3);
+            border-color: #20c997;
+        }
+
+        .criteria-card h3 {
+            color: #333;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-top: 10px;
+        }
+
+        .criteria-card p {
+            color: #555;
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+
+        .criteria-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* SCREENSHOTS */
+        .screenshots-section {
+            margin-top: 40px;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .screenshot-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .screenshot-item h4 {
+            color: #17a2b8;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .screenshot-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-image:hover {
+            transform: scale(1.02);
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.1em;
+            border: 2px dashed #ccc;
+            cursor: zoom-in;
+        }
+
+        .screenshot-caption {
+            margin-top: 15px;
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* BOUTON SOMMAIRE */
+        .sommaire-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sommaire-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        /* BOUTON PLEIN ÉCRAN */
+        .fullscreen-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        /* PANNEAU SOMMAIRE */
+        .sommaire-panel {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: left 0.4s ease;
+            overflow-y: auto;
+            padding: 80px 20px 20px 20px;
+        }
+
+        .sommaire-panel.open {
+            left: 0;
+        }
+
+        .sommaire-panel h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .sommaire-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .sommaire-item:hover {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba235 100%);
+            transform: translateX(10px);
+            box-shadow: 0 3px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .sommaire-item.active-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .sommaire-item .item-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .sommaire-item.active-item .item-number {
+            background: white;
+            color: #667eea;
+        }
+
+        .sommaire-item .item-title {
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        /* OVERLAY */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        /* BOUTONS PHASES */
+        .phase-buttons {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .phase-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .phase-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6);
+        }
+
+        .phase-btn.phase1 {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        .phase-btn.phase1:hover {
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6);
+        }
+
+        .phase-btn.phase2 {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .phase-btn.phase2:hover {
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6);
+        }
+
+        /* ZOOM IMAGE MODAL */
+        .image-zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            cursor: zoom-out;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .image-zoom-modal.active {
+            display: flex;
+        }
+
+        .image-zoom-modal img {
+            max-width: 95%;
+            max-height: 95vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .image-zoom-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .image-zoom-close:hover {
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            margin-top: 40px;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .deliverables-grid,
+            .criteria-grid,
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .sommaire-btn, .fullscreen-btn {
+                top: 15px;
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .sommaire-btn {
+                left: 15px;
+            }
+
+            .fullscreen-btn {
+                right: 15px;
+            }
+
+            .phase-buttons {
+                top: 70px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="sommaire-btn" onclick="toggleSommaire()">📋 Sommaire</button>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">🖥️ Plein écran</button>
+
+    <!-- BOUTONS PHASES -->
+    <div class="phase-buttons">
+        <a href="index.html" class="phase-btn phase1">📸 Phase 1</a>
+        <a href="phase2.html" class="phase-btn phase2">📸 Phase 2</a>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleSommaire()"></div>
+
+    <nav class="sommaire-panel" id="sommairePanel">
+        <h2>📋 Navigation Phase 3</h2>
+        <a href="index.html" class="sommaire-item">
+            <span class="item-number">1</span>
+            <span class="item-title">🏠 Présentation principale</span>
+        </a>
+        <a href="phase2.html" class="sommaire-item">
+            <span class="item-number">2</span>
+            <span class="item-title">📸 Phase 2</span>
+        </a>
+        <div class="sommaire-item active-item">
+            <span class="item-number">3</span>
+            <span class="item-title">📸 Phase 3 (actuelle)</span>
+        </div>
+    </nav>
+
+    <!-- MODAL ZOOM IMAGE -->
+    <div class="image-zoom-modal" id="imageZoomModal" onclick="closeZoom()">
+        <span class="image-zoom-close" onclick="closeZoom()">×</span>
+        <img id="zoomedImage" src="" alt="Image agrandie">
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Phase III - Nova Syndicate</h1>
+            <p>Améliorer et renforcer le système</p>
+        </div>
+
+        <div class="content">
+            <!-- SECTION INTRODUCTION -->
+            <div class="intro-section">
+                <h3>🎯 Objectif de la Phase III</h3>
+                <p>
+                    Une fois votre infrastructure prête, vous devez l'améliorer pour accroître 
+                    la <strong>résilience</strong>, la <strong>visibilité</strong> et l'<strong>efficacité</strong> du système.
+                </p>
+                <p><strong>Ce que vous devez mettre en place :</strong></p>
+                <ul>
+                    <li>📋 Produire <strong>deux documents</strong> : Plan de continuité des activités (BCP) et Plan de reprise après sinistre (DRP)</li>
+                    <li>📊 Mettre en place un <strong>outil de surveillance</strong> (Zabbix, Centreon, Prometheus/Grafana)</li>
+                    <li>🤖 Rédiger au moins <strong>un script d'automatisation</strong> (création utilisateurs, alertes disque, etc.)</li>
+                </ul>
+            </div>
+
+            <!-- SECTION LIVRABLES -->
+            <div class="section">
+                <h2 class="section-title">✍️ Livrables</h2>
+                <p style="font-size: 1.1em; color: #555; margin-bottom: 20px;">
+                    Ce que vous devez livrer pour valider la Phase III :
+                </p>
+
+                <div class="deliverables-grid">
+                    <div class="deliverable-card">
+                        <h3>📝 Rapport d'amélioration</h3>
+                        <p>
+                            Un bref rapport expliquant ce que vous avez ajouté et pourquoi. 
+                            Décrivez les améliorations apportées et leur impact sur la résilience du système.
+                        </p>
+                    </div>
+
+                    <div class="deliverable-card">
+                        <h3>🛡️ BCP & DRP</h3>
+                        <p>
+                            Plan de continuité des activités (BCP) et Plan de reprise d'activité (DRP) 
+                            détaillés avec procédures, RTO/RPO, et matrice des risques.
+                        </p>
+                    </div>
+
+                    <div class="deliverable-card">
+                        <h3>📊 Surveillance</h3>
+                        <p>
+                            Captures d'écran ou configurations de l'outil de surveillance 
+                            montrant les métriques suivies et les alertes configurées.
+                        </p>
+                    </div>
+
+                    <div class="deliverable-card">
+                        <h3>🤖 Scripts</h3>
+                        <p>
+                            Scripts fonctionnels avec des commentaires clairs expliquant 
+                            leur fonctionnement et leur utilité dans l'infrastructure.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION CAPTURES D'ÉCRAN -->
+            <div class="section screenshots-section">
+                <h2 class="section-subtitle">📸 Captures d'écran du projet</h2>
+                <p style="font-size: 1em; color: #666; margin-bottom: 20px;">
+                    Cliquez sur les images pour les agrandir
+                </p>
+
+                <div class="screenshot-grid">
+                    <div class="screenshot-item">
+                        <h4>📊 Dashboard Monitoring</h4>
+                        <img id="screenshot1" class="screenshot-image" src="screenshot-monitoring-dashboard.png" 
+                             alt="Monitoring Dashboard" onclick="openZoom(this.src)"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="screenshot-placeholder" style="display: none;">
+                            📷 screenshot-monitoring-dashboard.png
+                        </div>
+                        <p class="screenshot-caption">
+                            Dashboard principal de surveillance avec métriques en temps réel
+                        </p>
+                    </div>
+
+                    <div class="screenshot-item">
+                        <h4>🔔 Alertes & Notifications</h4>
+                        <img id="screenshot2" class="screenshot-image" src="screenshot-alerts.png" 
+                             alt="Alertes" onclick="openZoom(this.src)"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="screenshot-placeholder" style="display: none;">
+                            📷 screenshot-alerts.png
+                        </div>
+                        <p class="screenshot-caption">
+                            Configuration des alertes et système de notification
+                        </p>
+                    </div>
+
+                    <div class="screenshot-item">
+                        <h4>📈 Métriques Système</h4>
+                        <img id="screenshot3" class="screenshot-image" src="screenshot-metrics.png" 
+                             alt="Métriques" onclick="openZoom(this.src)"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="screenshot-placeholder" style="display: none;">
+                            📷 screenshot-metrics.png
+                        </div>
+                        <p class="screenshot-caption">
+                            Graphiques des performances CPU, RAM, Disque et Réseau
+                        </p>
+                    </div>
+
+                    <div class="screenshot-item">
+                        <h4>🤖 Scripts d'automatisation</h4>
+                        <img id="screenshot4" class="screenshot-image" src="screenshot-scripts.png" 
+                             alt="Scripts" onclick="openZoom(this.src)"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="screenshot-placeholder" style="display: none;">
+                            📷 screenshot-scripts.png
+                        </div>
+                        <p class="screenshot-caption">
+                            Exemples de scripts PowerShell/Bash avec documentation
+                        </p>
+                    </div>
+
+                    <div class="screenshot-item">
+                        <h4>🛡️ Plan BCP/DRP</h4>
+                        <img id="screenshot5" class="screenshot-image" src="screenshot-bcp-drp.png" 
+                             alt="BCP DRP" onclick="openZoom(this.src)"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="screenshot-placeholder" style="display: none;">
+                            📷 screenshot-bcp-drp.png
+                        </div>
+                        <p class="screenshot-caption">
+                            Documents BCP/DRP avec matrice des risques et procédures
+                        </p>
+                    </div>
+
+                    <div class="screenshot-item">
+                        <h4>🔄 Tests de Basculement</h4>
+                        <img id="screenshot6" class="screenshot-image" src="screenshot-failover-test.png" 
+                             alt="Failover Test" onclick="openZoom(this.src)"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="screenshot-placeholder" style="display: none;">
+                            📷 screenshot-failover-test.png
+                        </div>
+                        <p class="screenshot-caption">
+                            Résultats des tests de basculement et temps de reprise
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION CRITÈRES D'ÉVALUATION -->
+            <div class="section">
+                <h2 class="section-title">💯 Critères d'évaluation</h2>
+                <p style="font-size: 1.1em; color: #555; margin-bottom: 20px;">
+                    Votre projet sera évalué selon les critères suivants :
+                </p>
+
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <div class="criteria-icon">🛡️</div>
+                        <h3>Continuité de service</h3>
+                        <p>
+                            Les améliorations proposées renforcent l'efficacité et la résilience du système, 
+                            grâce à une matrice des risques et un plan de continuité d'activité adaptés 
+                            aux besoins de l'entreprise.
+                        </p>
+                    </div>
+
+                    <div class="criteria-card">
+                        <div class="criteria-icon">📊</div>
+                        <h3>Efficacité du suivi</h3>
+                        <p>
+                            L'outil et les données surveillées correspondent aux attentes du SLA 
+                            et aux besoins opérationnels. Métriques pertinentes, alertes configurées 
+                            et dashboards exploitables.
+                        </p>
+                    </div>
+
+                    <div class="criteria-card">
+                        <div class="criteria-icon">⚡</div>
+                        <h3>Gestion des incidents</h3>
+                        <p>
+                            Votre approche réduit les interruptions de service et favorise une reprise rapide. 
+                            Procédures claires, temps de réponse optimisés et automatisation des alertes.
+                        </p>
+                    </div>
+
+                    <div class="criteria-card">
+                        <div class="criteria-icon">🤖</div>
+                        <h3>Automatisation</h3>
+                        <p>
+                            Vos choix de script répondent pleinement à l'étude de cas et optimisent 
+                            clairement les opérations du système. Code propre, documenté et réutilisable.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="index.html" class="back-button">← Retour à la présentation</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSommaire() {
+            const panel = document.getElementById('sommairePanel');
+            const overlay = document.getElementById('overlay');
+            panel.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error('Erreur plein écran:', err);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Fonction zoom image
+        function openZoom(src) {
+            const modal = document.getElementById('imageZoomModal');
+            const zoomedImg = document.getElementById('zoomedImage');
+            zoomedImg.src = src;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeZoom() {
+            const modal = document.getElementById('imageZoomModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Fermer avec Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeZoom();
+            }
+        });
+    </script>
+</body>
+</html>

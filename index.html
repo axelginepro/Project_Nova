@@ -467,7 +467,42 @@
             cursor: pointer;
         }
 
-    </style>
+    
+        /* BOUTONS PHASES (NOUVEAUX) */
+        .phase-buttons {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .phase-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            justify-content: center;
+        }
+
+        .phase-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6);
+        }
+
+</style>
 </head>
 <body>
     <header>
@@ -487,7 +522,18 @@
         >
             🖥️ Plein écran
         </button>
-    </header>
+    
+        <!-- BOUTONS PHASES -->
+        <div class="phase-buttons">
+            <a href="phase2.html" class="phase-btn" >
+                📸 Phase 2
+            </a>
+            <a href="phase3.html" class="phase-btn" >
+                📸 Phase 3
+            </a>
+        </div>
+
+</header>
 
     <div
         class="overlay"
