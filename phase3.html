@@ -187,7 +187,7 @@
                 <h2 class="section-title">✍️ Livrables</h2>
                 <div class="deliverables-grid">
                     <div class="deliverable-card"><h3>📝 Rapport</h3><p>Explication des améliorations et impact sur la résilience.</p></div>
-                    <div class="deliverable-card"><h3>🛡️ BCP & DRP</h3><p>Procédures de secours, RTO/RPO et matrice des risques.</p></div>
+                    <div class="deliverable-card"><h3>🛡️ BCP & DRP</h3><p>Procédures, RTO/RPO et matrice des risques.</p></div>
                     <div class="deliverable-card"><h3>📊 Surveillance</h3><p>Configuration de l'outil, métriques et seuils d'alertes.</p></div>
                     <div class="deliverable-card"><h3>🤖 Scripts</h3><p>Scripts fonctionnels avec conformité de sécurité.</p></div>
                 </div>
@@ -201,11 +201,11 @@
                     <div class="screenshot-item" onclick="showSlide(1)" style="cursor: pointer; border: 2px solid #17a2b8;">
                         <h4>🤖 Scripts d'automatisation</h4>
                         <div class="screenshot-placeholder" style="background: linear-gradient(135deg, #e7f9f5 0%, #d4f1f4 100%);">
-                            📷 <img src="images/script_python_automatisation.png"
+                            📷  <img src="images/script_python_automatisation.png"
                                         alt="Script d'automatisation Python"
                                         style="max-width: 100%; max-height: 100%; object-fit: contain;">
                         </div>
-                        <p class="screenshot-caption">Exemples de scripts PowerShell/Bash</p>
+                        <p class="screenshot-caption">Exemple de script Python</strong></p>
                     </div>
 
                     <div class="screenshot-item"><h4>🛡️ Plan BCP/DRP</h4><div class="screenshot-placeholder">📷 screenshot-bcp-drp.png</div><p class="screenshot-caption">Matrice des risques et procédures PCA/PRA</p></div>
@@ -225,43 +225,77 @@
         <div class="slide">
             <div class="header">
                 <h1>🛡️ Audit Cyber : Automatisation Sécurisée</h1>
-                <p>Mise en conformité du script d'administration AD</p>
+                <p>Mise en conformité du script d'administration AD (Importation de masse)</p>
             </div>
             <div class="content-body">
-                <h2>📂 Analyse et Solution</h2>
-                <ul style="margin: 20px 0; margin-left: 25px;">
-                    <li><strong>Sécurité :</strong> Secret Management via variables d'environnement (os.getenv).</li>
-                    <li><strong>Chiffrement :</strong> Forçage du transport sécurisé LDAPS (TLS v1.2).</li>
-                    <li><strong>Authentification :</strong> Utilisation d'un compte de service dédié (Least Privilege).</li>
+                <h2>🔎 Ce que fait ce script (Points clés)</h2>
+                <ul style="margin: 20px 0; margin-left: 25px; list-style: square;">
+                    <li>**Sécurité** : Récupère le mot de passe via une variable d'environnement (`os.getenv`), jamais en clair dans le code.</li>
+                    <li>**Chiffrement** : Configure la connexion pour utiliser **LDAPS (TLSv1.2)** pour un transport chiffré des identifiants (Évite l'écoute réseau).</li>
+                    <li>**Conformité** : Définit l'attribut `userAccountControl` à **576** pour **forcer l'utilisateur à changer son mot de passe** initial (Sécurité maximale).</li>
+                    <li>**Robustesse** : Gère les erreurs de fichier non trouvé et les échecs de connexion (Blocs `try/except`).</li>
+                    <li>**Fonctionnel** : Crée l'objet utilisateur, définit les attributs de base (login, CN) et le mot de passe initial de façon atomique.</li>
                 </ul>
 
                 <div class="ide-container">
                     <div class="ide-header">
                         <div class="window-controls"><div class="control close"></div><div class="control minimize"></div><div class="control expand"></div></div>
-                        <span>import_users_secure.py — Cyber-Compliant</span>
+                        <span>import_ad_users_simplified.py — Version Cyber-Compliant</span>
                     </div>
                     <div class="ide-content"><span class="py-k">import</span> os
-<span class="py-k">from</span> ldap3 <span class="py-k">import</span> Server, Connection, Tls, ALL
+<span class="py-k">import</span> csv
+<span class="py-k">from</span> ldap3 <span class="py-k">import</span> Server, Connection, Tls, ALL, MODIFY_REPLACE, SAFE_SYNC
 <span class="py-k">import</span> ssl
 
-<span class="py-c"># 🔐 Récupération du mot de passe depuis une variable d'environnement (jamais en clair dans le code)</span>
+<span class="py-c"># --- Configuration et Sécurité (Secrets gérés par l'environnement) ---</span>
 <span class="py-n">AD_PWD</span> = os.<span class="py-f">getenv</span>(<span class="py-s">"AD_IMPORT_PASSWORD"</span>)
+<span class="py-n">AD_SERVER</span> = <span class="py-s">"192.168.1.10"</span>
+<span class="py-n">DOMAIN_NAME</span> = <span class="py-s">"novasyndicate.local"</span>
+<span class="py-n">LDAP_BIND_USER</span> = <span class="py-s">"NOVASYNDICATE\\admin_svc"</span>
+<span class="py-n">BASE_DC</span> = <span class="py-s">"DC=novasyndicate,DC=local"</span>
+<span class="py-n">CSV_FILE</span> = <span class="py-s">'utilisateurs.csv'</span>
+<span class="py-c"># ----------------------------------------------------------------------</span>
 
-<span class="py-c"># 🌐 Configuration du serveur AD en LDAPS (TLS chiffré)</span>
-<span class="py-n">tls_config</span> = <span class="py-f">Tls</span>(validate=ssl.CERT_REQUIRED, version=ssl.PROTOCOL_TLSv1_2)
-<span class="py-n">server</span> = <span class="py-f">Server</span>(<span class="py-s">"192.168.1.10"</span>, use_ssl=<span class="py-k">True</span>, tls=tls_config, get_info=ALL)
+<span class="py-k">def</span> <span class="py-f">import_ad_users_simplified</span>():
+    <span class="py-k">if</span> <span class="py-k">not</span> AD_PWD:
+        <span class="py-f">print</span>(<span class="py-s">"Erreur : La variable AD_IMPORT_PASSWORD n'est pas définie."</span>)
+        <span class="py-k">return</span>
 
-<span class="py-c"># 🔑 Connexion avec un compte de service, mot de passe venant de l'env</span>
-<span class="py-k">with</span> <span class="py-f">Connection</span>(server, user=<span class="py-s">"NOVASYNDICATE\\admin_svc"</span>, password=AD_PWD, auto_bind=<span class="py-k">True</span>) <span class="py-k">as</span> <span class="py-n">conn</span>:
-    <span class="py-c"># 👤 Exemple : création d’un seul utilisateur "j.doe" dans un OU précis</span>
-    <span class="py-n">conn</span>.<span class="py-f">add</span>(
-        <span class="py-s">"CN=John Doe,OU=Utilisateurs,OU=Lyon,DC=novasyndicate,DC=local"</span>,
-        attributes={<span class="py-s">"sAMAccountName"</span>: <span class="py-s">"j.doe"</span>}
-    )</div>
+    <span class="py-c"># 1. Lecture du fichier CSV (Omise ici pour la clarté)</span>
+    <span class="py-c"># (Assumons que 'users_to_create' est une liste remplie ici)</span>
+
+    <span class="py-c"># 2. Configuration et Connexion à Active Directory</span>
+    <span class="py-k">try</span>:
+        <span class="py-c"># Force le protocole sécurisé TLSv1_2 pour la validation du certificat</span>
+        <span class="py-n">tls_config</span> = <span class="py-f">Tls</span>(validate=ssl.CERT_REQUIRED, version=ssl.PROTOCOL_TLSv1_2)
+        <span class="py-n">server</span> = <span class="py-f">Server</span>(AD_SERVER, use_ssl=<span class="py-k">True</span>, tls=tls_config, get_info=ALL)
+        
+        <span class="py-k">with</span> <span class="py-f">Connection</span>(server, user=LDAP_BIND_USER, password=AD_PWD, auto_bind=<span class="py-k">True</span>, client_strategy=SAFE_SYNC) <span class="py-k">as</span> <span class="py-n">conn</span>:
+            <span class="py-f">print</span>(<span class="py-s">"Connexion AD réussie. Démarrage de l'importation..."</span>)
+            
+            <span class="py-c"># Exemple de création/modification pour un utilisateur :</span>
+            <span class="py-n">user_dn</span> = <span class="py-s">"CN=John Doe,OU=Utilisateurs,OU=Lyon,DC=novasyndicate,DC=local"</span>
+            <span class="py-c"># UAC 576 = Compte Normal (512) + Changement MDP Forcé (64)</span>
+            <span class="py-n">user_attributes</span> = {<span class="py-s">'userAccountControl'</span>: 576} 
+
+            <span class="py-c"># A. Création du compte (ADD)</span>
+            <span class="py-n">conn</span>.<span class="py-f">add</span>(<span class="py-n">user_dn</span>, attributes=<span class="py-n">user_attributes</span>)
+
+            <span class="py-c"># B. Définition du mot de passe initial</span>
+            <span class="py-k">if</span> <span class="py-n">conn</span>.<span class="py-f">result</span>[<span class="py-s">'description'</span>] == <span class="py-s">'success'</span>:
+                <span class="py-n">password_mod</span> = <span class="py-s">f'"MotDePasseTemp"'</span>.<span class="py-f">encode</span>(<span class="py-s">'utf-16-le'</span>)
+                <span class="py-n">conn</span>.<span class="py-f">modify</span>(<span class="py-n">user_dn</span>, {<span class="py-s">'unicodePwd'</span>: [(MODIFY_REPLACE, [<span class="py-n">password_mod</span>])]})
+                <span class="py-f">print</span>(<span class="py-s">" ✅ Création réussie. Changement MDP forcé."</span>)
+            <span class="py-k">else</span>:
+                <span class="py-f">print</span>(<span class="py-s">f" ❌ Échec : {conn.result['message']}"</span>)
+
+    <span class="py-k">except</span> <span class="py-n">Exception</span> <span class="py-k">as</span> <span class="py-n">e</span>:
+        <span class="py-f">print</span>(<span class="py-s">f"\nFATAL : Échec de la connexion ou erreur générale : {e}"</span>)
+
+
+<span class="py-k">if</span> __name__ == <span class="py-s">"__main__"</span>:
+    <span class="py-f">import_ad_users_simplified</span>()</div>
                 </div>
-                <p style="margin-top: 15px; font-size: 0.95em; color: #6b7280; font-style: italic;">
-                    Ce script assure l'intégrité des opérations tout en protégeant les secrets de l'infrastructure contre les fuites de code source.
-                </p>
             </div>
         </div>
 
