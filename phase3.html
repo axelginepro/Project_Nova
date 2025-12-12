@@ -6,27 +6,32 @@
     <title>Phase 3 - Nova Syndicate</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
     <style>
-        /* STYLE GLOBAL COHÉRENT AVEC INDEX.HTML */
+        /* =========================================
+           STYLE GLOBAL & TYPOGRAPHIE (TAILLE AUGMENTÉE)
+           ========================================= */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Fond Violet Nova */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 40px 20px;
+            /* AUGMENTATION DE LA TAILLE DE BASE */
+            font-size: 18px; 
         }
 
-        /* CONTENEUR SCALABLE (1400px) */
+        /* CONTENEUR PRINCIPAL */
         .presentation-container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1600px; /* Plus large pour accueillir le gros texte */
             height: auto; 
+            min-height: 85vh; /* Force une bonne hauteur */
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             position: relative;
             display: flex;
@@ -37,7 +42,8 @@
             display: none;
             width: 100%;
             height: auto;
-            animation: fadeIn 0.6s ease-in-out;
+            flex-grow: 1;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         .slide.active {
@@ -45,56 +51,114 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* EN-TÊTE */
+        /* EN-TÊTE (COULEUR PHASE 3 : CYAN/BLEU) */
         .header {
-            background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
             color: white;
-            padding: 40px;
+            padding: 50px; /* Plus de padding */
             text-align: center;
         }
-        .header h1 { font-size: 3em; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+        .header h1 { 
+            font-size: 3.5em; /* Titre plus gros */
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.3); 
+        }
+        .header p {
+            font-size: 1.4em; /* Sous-titre plus gros */
+            opacity: 0.95;
+        }
 
         /* CORPS DU CONTENU */
         .content-body {
-            padding: 40px 60px;
+            padding: 50px 80px;
+            font-size: 1.1em; /* Texte courant plus gros */
+            color: #333;
+            line-height: 1.6;
         }
 
-        .section-title { color: #17a2b8; font-size: 2.2em; margin-bottom: 25px; border-bottom: 4px solid #17a2b8; padding-bottom: 10px; }
-        .intro-section { background: #e7f9f5; padding: 30px; border-radius: 15px; border-left: 5px solid #17a2b8; margin-bottom: 40px; }
+        /* TITRES DE SECTIONS */
+        .section-title { 
+            color: #17a2b8; /* Cyan Phase 3 */
+            font-size: 2.4em; 
+            margin-bottom: 35px; 
+            border-bottom: 5px solid #17a2b8; 
+            padding-bottom: 15px; 
+            font-weight: 700;
+        }
 
-        /* GRILLES */
-        .deliverables-grid, .criteria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .deliverable-card, .criteria-card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .deliverable-card h3, .criteria-card h3 { color: #17a2b8; margin-bottom: 15px; }
+        /* INTRO BOX */
+        .intro-section { 
+            background: #e0f7fa; /* Fond Cyan très clair */
+            padding: 40px; 
+            border-radius: 15px; 
+            border-left: 8px solid #17a2b8; 
+            margin-bottom: 50px; 
+        }
+        .intro-section h3 { font-size: 1.6em; margin-bottom: 15px; color: #006064; }
+        .intro-section li { margin-bottom: 10px; font-size: 1.1em; }
+
+        /* GRILLES (LIVRABLES & CRITÈRES) */
+        .deliverables-grid, .criteria-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Cartes plus larges */
+            gap: 30px; 
+            margin-bottom: 50px; 
+        }
+        
+        .deliverable-card, .criteria-card { 
+            background: white; 
+            padding: 30px; /* Padding augmenté */
+            border-radius: 15px; 
+            border: 1px solid #e0e0e0; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+            transition: transform 0.3s;
+        }
+        .deliverable-card:hover, .criteria-card:hover { transform: translateY(-5px); }
+
+        .deliverable-card h3, .criteria-card h3 { 
+            color: #17a2b8; 
+            font-size: 1.5em; 
+            margin-bottom: 15px; 
+        }
+        .deliverable-card p, .criteria-card p { font-size: 1.1em; color: #555; }
 
         /* SCREENSHOTS GRID */
         .screenshot-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin: 30px 0;
+            gap: 35px;
+            margin: 40px 0;
         }
         .screenshot-item {
             background: white;
             border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             border: 1px solid #e0e0e0;
             transition: all 0.3s ease;
         }
         .screenshot-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
-        .screenshot-item h4 { color: #17a2b8; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px;}
+        .screenshot-item h4 { 
+            color: #17a2b8; 
+            font-size: 1.3em; 
+            margin-bottom: 20px; 
+            padding-bottom: 10px; 
+            border-bottom: 2px solid #eee; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
         
         .screenshot-placeholder {
             width: 100%;
-            height: 220px;
+            height: 250px; /* Image plus haute */
             background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
             border-radius: 10px;
             display: flex;
@@ -103,47 +167,106 @@
             justify-content: center;
             color: #999;
             border: 2px dashed #ccc;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
         }
-        .screenshot-caption { font-size: 0.9em; color: #666; font-style: italic; text-align: center; }
+        .screenshot-caption { font-size: 1em; color: #666; font-style: italic; text-align: center; }
 
-        /* STYLE IDE SCRIPT */
-        .ide-container { margin: 20px 0; background: #0f172a; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .ide-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: #1e293b; color: #9ca3af; }
-        .window-controls { display: flex; gap: 6px; }
-        .control { width: 10px; height: 10px; border-radius: 50%; }
+        /* STYLE IDE SCRIPT (CODE) */
+        .ide-container { 
+            margin: 30px 0; 
+            background: #0f172a; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4); 
+            font-size: 1.1rem; /* Code plus gros */
+        }
+        .ide-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 25px; background: #1e293b; color: #9ca3af; font-size: 1rem;}
+        .window-controls { display: flex; gap: 8px; }
+        .control { width: 12px; height: 12px; border-radius: 50%; }
         .close { background: #ef4444; } .minimize { background: #f59e0b; } .expand { background: #22c55e; }
-        .ide-content { padding: 25px; line-height: 1.6; white-space: pre; background: #020617; color: #e5e7eb; overflow-x: auto; font-family: 'Consolas', monospace; }
+        .ide-content { padding: 30px; line-height: 1.7; white-space: pre; background: #020617; color: #e5e7eb; overflow-x: auto; font-family: 'Consolas', 'Monaco', monospace; }
         .py-k { color: #93c5fd; } .py-c { color: #9ca3af; font-style: italic; } .py-s { color: #f97316; } .py-f { color: #a5b4fc; } .py-n { color: #e5e7eb; }
 
-        /* BOUTONS INTERFACE FIXES */
-        .sommaire-btn, .fullscreen-btn { position: fixed; top: 30px; background: #17a2b8; color: white; border: none; padding: 15px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        /* BOUTONS NAVIGATION INTERFACE */
+        .sommaire-btn, .fullscreen-btn { 
+            position: fixed; 
+            top: 30px; 
+            background: #17a2b8; /* Cyan Phase 3 */
+            color: white; 
+            border: none; 
+            padding: 15px 30px; /* Boutons plus gros */
+            font-size: 1.1em;
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            z-index: 1000; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25); 
+            transition: transform 0.2s;
+        }
         .sommaire-btn { left: 30px; } .fullscreen-btn { right: 30px; }
-        .phase-buttons { position: fixed; top: 90px; right: 30px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-        .phase-btn { background: #ffc107; color: #333; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .phase-btn.p2 { background: #28a745; color: white; }
+        .sommaire-btn:hover, .fullscreen-btn:hover { transform: scale(1.05); }
+
+        .phase-buttons { position: fixed; top: 100px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .phase-btn { 
+            background: #ffc107; 
+            color: #333; 
+            padding: 15px 25px; /* Boutons Phase plus gros */
+            font-size: 1em;
+            border-radius: 12px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            text-align: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
+        }
+        .phase-btn.p2 { background: #28a745; color: white; } /* Vert Phase 2 */
 
         /* BARRE DE NAVIGATION BAS */
         .controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 60px;
-            background: #f8f9fa;
+            padding: 30px 80px;
+            background: #f1f3f5;
             border-top: 2px solid #e0e0e0;
             margin-top: auto; 
         }
-        .nav-btn { padding: 15px 40px; font-size: 1.1em; border: none; border-radius: 10px; cursor: pointer; background: #17a2b8; color: white; font-weight: bold; }
-        .nav-btn:disabled { background: #ccc; }
-        .progress-bar { height: 8px; background: #e0e0e0; border-radius: 10px; overflow: hidden; flex-grow: 1; margin: 0 30px; }
+        .nav-btn { 
+            padding: 18px 50px; /* Gros boutons navigation */
+            font-size: 1.3em; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            background: #17a2b8; /* Cyan */
+            color: white; 
+            font-weight: bold; 
+            transition: background 0.3s;
+        }
+        .nav-btn:hover { background: #138496; }
+        .nav-btn:disabled { background: #ccc; cursor: not-allowed; }
+        
+        .progress-bar { height: 12px; background: #e0e0e0; border-radius: 10px; overflow: hidden; flex-grow: 1; margin: 0 40px; }
         .progress-fill { height: 100%; background: #17a2b8; transition: width 0.4s ease; }
 
         /* PANNEAU SOMMAIRE */
-        .sommaire-panel { position: fixed; top: 0; left: -350px; width: 350px; height: 100vh; background: white; z-index: 999; transition: left 0.4s ease; padding: 100px 25px; box-shadow: 5px 0 25px rgba(0,0,0,0.2); }
+        .sommaire-panel { position: fixed; top: 0; left: -400px; width: 400px; height: 100vh; background: white; z-index: 999; transition: left 0.4s ease; padding: 120px 30px; box-shadow: 10px 0 40px rgba(0,0,0,0.3); }
         .sommaire-panel.open { left: 0; }
-        .sommaire-item { padding: 15px; margin: 10px 0; background: #f8f9ff; border-left: 4px solid #17a2b8; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .sommaire-panel h2 { color: #17a2b8; margin-bottom: 30px; font-size: 2em; }
+        .sommaire-item { 
+            padding: 20px; 
+            margin: 15px 0; 
+            background: #f0fbfc; /* Cyan très clair */
+            border-left: 6px solid #17a2b8; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 1.2em;
+            transition: background 0.3s;
+        }
+        .sommaire-item:hover { background: #e0f7fa; }
         .sommaire-item.active-item { background: #17a2b8; color: white; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; display: none; }
+        
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 998; display: none; }
         .overlay.show { display: block; }
     </style>
 </head>
@@ -200,12 +323,12 @@
                     
                     <div class="screenshot-item" onclick="showSlide(1)" style="cursor: pointer; border: 2px solid #17a2b8;">
                         <h4>🤖 Scripts d'automatisation</h4>
-                        <div class="screenshot-placeholder" style="background: linear-gradient(135deg, #e7f9f5 0%, #d4f1f4 100%);">
+                        <div class="screenshot-placeholder" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);">
                             📷  <img src="images/script_python_automatisation.png"
                                         alt="Script d'automatisation Python"
                                         style="max-width: 100%; max-height: 100%; object-fit: contain;">
                         </div>
-                        <p class="screenshot-caption">Exemple de script Python</strong></p>
+                        <p class="screenshot-caption">Exemple de script Python</p>
                     </div>
 
                     <div class="screenshot-item"><h4>🛡️ Plan BCP/DRP</h4><div class="screenshot-placeholder">📷 screenshot-bcp-drp.png</div><p class="screenshot-caption">Matrice des risques et procédures PCA/PRA</p></div>
@@ -230,11 +353,11 @@
             <div class="content-body">
                 <h2>🔎 Ce que fait ce script (Points clés)</h2>
                 <ul style="margin: 20px 0; margin-left: 25px; list-style: square;">
-                    <li>**Sécurité** : Récupère le mot de passe via une variable d'environnement (`os.getenv`), jamais en clair dans le code.</li>
-                    <li>**Chiffrement** : Configure la connexion pour utiliser **LDAPS (TLSv1.2)** pour un transport chiffré des identifiants (Évite l'écoute réseau).</li>
-                    <li>**Conformité** : Définit l'attribut `userAccountControl` à **576** pour **forcer l'utilisateur à changer son mot de passe** initial (Sécurité maximale).</li>
-                    <li>**Robustesse** : Gère les erreurs de fichier non trouvé et les échecs de connexion (Blocs `try/except`).</li>
-                    <li>**Fonctionnel** : Crée l'objet utilisateur, définit les attributs de base (login, CN) et le mot de passe initial de façon atomique.</li>
+                    <li><strong>Sécurité</strong> : Récupère le mot de passe via une variable d'environnement (<code>os.getenv</code>), jamais en clair dans le code.</li>
+                    <li><strong>Chiffrement</strong> : Configure la connexion pour utiliser <strong>LDAPS (TLSv1.2)</strong> pour un transport chiffré des identifiants (Évite l'écoute réseau).</li>
+                    <li><strong>Conformité</strong> : Définit l'attribut <code>userAccountControl</code> à <strong>576</strong> pour <strong>forcer l'utilisateur à changer son mot de passe</strong> initial (Sécurité maximale).</li>
+                    <li><strong>Robustesse</strong> : Gère les erreurs de fichier non trouvé et les échecs de connexion (Blocs <code>try/except</code>).</li>
+                    <li><strong>Fonctionnel</strong> : Crée l'objet utilisateur, définit les attributs de base (login, CN) et le mot de passe initial de façon atomique.</li>
                 </ul>
 
                 <div class="ide-container">
@@ -306,58 +429,6 @@
         </div>
     </main>
 
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const progressFill = document.getElementById('progressFill');
-        const sommaireItems = document.querySelectorAll('.sommaire-item');
-
-        function showSlide(n) {
-            slides.forEach(s => s.classList.remove('active'));
-            slides[n].classList.add('active');
-            currentSlide = n;
-
-            document.getElementById('prevBtn').disabled = (n === 0);
-            document.getElementById('nextBtn').disabled = (n === slides.length - 1);
-            
-            progressFill.style.width = ((n + 1) / slides.length * 100) + '%';
-
-            sommaireItems.forEach((item, i) => {
-                item.classList.toggle('active-item', i === n);
-            });
-
-            window.scrollTo(0, 0); 
-        }
-
-        function changeSlide(step) {
-            let next = currentSlide + step;
-            if (next >= 0 && next < slides.length) showSlide(next);
-        }
-
-        function goToSlideFromSommaire(n) {
-            showSlide(n);
-            toggleSommaire();
-        }
-
-        function toggleSommaire() {
-            document.getElementById('sommairePanel').classList.toggle('open');
-            document.getElementById('overlay').classList.toggle('show');
-        }
-
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-            else document.exitFullscreen();
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "ArrowRight") {
-                changeSlide(1);
-            } else if (e.key === "ArrowLeft") {
-                changeSlide(-1);
-            }
-        });
-
-        showSlide(0);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

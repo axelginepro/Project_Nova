@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -743,45 +744,6 @@
         </div>
     </div>
 
-    <script>
-        function toggleSommaire() {
-            const panel = document.getElementById('sommairePanel');
-            const overlay = document.getElementById('overlay');
-            panel.classList.toggle('open');
-            overlay.classList.toggle('show');
-        }
-
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
-                    console.error('Erreur plein écran:', err);
-                });
-            } else {
-                document.exitFullscreen();
-            }
-        }
-
-        // Fonction zoom image
-        function openZoom(src) {
-            const modal = document.getElementById('imageZoomModal');
-            const zoomedImg = document.getElementById('zoomedImage');
-            zoomedImg.src = src;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeZoom() {
-            const modal = document.getElementById('imageZoomModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Fermer avec Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeZoom();
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
