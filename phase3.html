@@ -1,490 +1,368 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Phase 3 - Nova Syndicate</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
-    <style>
-        /* =========================================
-           STYLE GLOBAL & TYPOGRAPHIE
-           ========================================= */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* FOND GLOBAL NOVA (VIOLET) - Identique Index */
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            font-size: 16px; 
-        }
-
-        /* CONTENEUR PRINCIPAL */
-        .presentation-container {
-            width: 100%; 
-            max-width: 1200px; /* Largeur corrigée */
-            height: auto;
-            min-height: 600px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .slide {
-            display: none;
-            width: 100%;
-            height: auto;
-            flex-grow: 1;
-            animation: fadeIn 0.5s ease-in-out;
-            padding-bottom: 20px;
-        }
-
-        .slide.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* EN-TÊTE SPECIFIQUE PHASE 3 (CYAN) 
-           Seul l'en-tête change de couleur pour indiquer la section */
-        .header {
-            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        .header h1 { 
-            font-size: 2.5em; 
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.2); 
-        }
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.95;
-        }
-
-        /* CORPS DU CONTENU */
-        .content-body {
-            padding: 30px 50px;
-            font-size: 1em;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        /* TITRES DE SECTIONS (Couleur Phase 3) */
-        .section-title { 
-            color: #17a2b8; 
-            font-size: 1.8em; 
-            margin-bottom: 25px; 
-            border-bottom: 3px solid #17a2b8; 
-            padding-bottom: 10px; 
-            font-weight: 700;
-        }
-
-        /* INTRO BOX */
-        .intro-section { 
-            background: #e0f7fa; 
-            padding: 25px; 
-            border-radius: 15px; 
-            border-left: 6px solid #17a2b8; 
-            margin-bottom: 30px; 
-        }
-        .intro-section h3 { font-size: 1.3em; margin-bottom: 10px; color: #006064; }
-        .intro-section li { margin-bottom: 5px; font-size: 1em; }
-
-        /* GRILLES */
-        .deliverables-grid, .criteria-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 20px; 
-            margin-bottom: 30px; 
-        }
-        
-        .deliverable-card, .criteria-card { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 12px; 
-            border: 1px solid #e0e0e0; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
-            transition: transform 0.3s;
-        }
-        .deliverable-card:hover, .criteria-card:hover { transform: translateY(-5px); }
-
-        .deliverable-card h3, .criteria-card h3 { 
-            color: #17a2b8; 
-            font-size: 1.2em; 
-            margin-bottom: 10px; 
-        }
-        .deliverable-card p, .criteria-card p { font-size: 0.95em; color: #555; }
-
-        /* SCREENSHOTS GRID */
-        .screenshot-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        .screenshot-item {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
-        }
-        .screenshot-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-        }
-        .screenshot-item h4 { 
-            color: #17a2b8; 
-            font-size: 1.1em; 
-            margin-bottom: 15px; 
-            padding-bottom: 8px; 
-            border-bottom: 2px solid #eee; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px;
-        }
-        
-        .screenshot-placeholder {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            border: 2px dashed #ccc;
-            margin-bottom: 10px;
-            font-size: 1em;
-            overflow: hidden;
-        }
-        .screenshot-placeholder img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .screenshot-caption { font-size: 0.9em; color: #666; font-style: italic; text-align: center; }
-
-        /* IDE STYLE */
-        .ide-container { margin: 20px 0; background: #0f172a; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-size: 0.95rem; }
-        .ide-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: #1e293b; color: #9ca3af; font-size: 0.9rem;}
-        .window-controls { display: flex; gap: 6px; }
-        .control { width: 10px; height: 10px; border-radius: 50%; }
-        .close { background: #ef4444; } .minimize { background: #f59e0b; } .expand { background: #22c55e; }
-        .ide-content { padding: 20px; line-height: 1.5; white-space: pre; background: #020617; color: #e5e7eb; overflow-x: auto; font-family: 'Consolas', 'Monaco', monospace; }
-        .py-k { color: #93c5fd; } .py-c { color: #9ca3af; font-style: italic; } .py-s { color: #f97316; } .py-f { color: #a5b4fc; } .py-n { color: #e5e7eb; }
-
-        /* --- BOUTONS IDENTIQUES A INDEX.HTML --- */
-
-        /* Boutons fixes (Sommaire / Plein écran) - RETOUR AU STYLE VIOLET */
-        .sommaire-btn, .fullscreen-btn { 
-            position: fixed; 
-            top: 30px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Le gradient Violet original */
-            color: white; 
-            border: none; 
-            padding: 15px 25px; /* Taille originale */
-            border-radius: 10px; 
-            cursor: pointer; 
-            font-size: 1em;
-            font-weight: bold; 
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); /* L'ombre originale */
-            z-index: 1000; 
-            transition: all 0.3s ease;
-        }
-        .sommaire-btn { left: 30px; } .fullscreen-btn { right: 30px; }
-        .sommaire-btn:hover, .fullscreen-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6); }
-
-        /* Boutons de Phase (Lien vers les autres pages) */
-        .phase-buttons { position: fixed; top: 90px; right: 30px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-        .phase-btn { 
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%); /* Style par défaut Vert */
-            color: white; 
-            border: none; 
-            padding: 12px 20px; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            font-size: 0.95em; 
-            font-weight: bold; 
-            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4); 
-            transition: all 0.3s ease; 
-            text-decoration: none; 
-            display: flex; align-items: center; gap: 8px; justify-content: center;
-        }
-        .phase-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6); }
-        
-        .phase-btn.p1 { background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); box-shadow: 0 5px 20px rgba(255, 193, 7, 0.4); color: #333; }
-        .phase-btn.p1:hover { box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6); }
-
-        /* Navigation Bas (Suivant/Précédent) - RETOUR AU STYLE VIOLET */
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 60px; /* Padding original */
-            background: #f8f9fa;
-            border-top: 2px solid #e0e0e0;
-            margin-top: auto; 
-        }
-        .nav-btn { 
-            padding: 15px 40px; /* Taille originale */
-            font-size: 1.1em; 
-            border: none; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            background: #667eea; /* Couleur Violet original */
-            color: white; 
-            font-weight: bold; 
-            transition: all 0.3s ease;
-        }
-        .nav-btn:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
-        .nav-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
-        
-        /* Barre de progression (Reste en Cyan car c'est la couleur de la phase 3) */
-        .progress-bar { height: 8px; background: #e0e0e0; border-radius: 10px; overflow: hidden; flex-grow: 1; margin: 0 30px; }
-        .progress-fill { height: 100%; background: #17a2b8; transition: width 0.4s ease; }
-
-        /* Panneau Sommaire */
-        .sommaire-panel { position: fixed; top: 0; left: -350px; width: 350px; height: 100vh; background: white; z-index: 999; transition: left 0.4s ease; padding: 100px 30px; box-shadow: 5px 0 25px rgba(0,0,0,0.3); }
-        .sommaire-panel.open { left: 0; }
-        .sommaire-panel h2 { color: #17a2b8; margin-bottom: 25px; font-size: 1.8em; border-bottom: 2px solid #eee; padding-bottom: 10px;}
-        .sommaire-item { 
-            padding: 15px; 
-            margin: 10px 0; 
-            background: #f0fbfc; 
-            border-left: 5px solid #17a2b8; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            font-size: 1.1em;
-            transition: background 0.3s;
-        }
-        .sommaire-item:hover { background: #e0f7fa; }
-        .sommaire-item.active-item { background: #17a2b8; color: white; }
-        
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; display: none; }
-        .overlay.show { display: block; }
-    </style>
-</head>
-<body>
-
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>"
+    />
+    <link rel="stylesheet" href="style-phase3.css">
+  </head>
+  <body>
     <button class="sommaire-btn" onclick="toggleSommaire()">📋 Sommaire</button>
-    <button class="fullscreen-btn" onclick="toggleFullscreen()">🖥️ Plein écran</button>
-    
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">
+      🖥️ Plein écran
+    </button>
+
     <div class="phase-buttons">
-        <a href="index.html" class="phase-btn p1">🏠 Phase 1</a>
-        <a href="phase2.html" class="phase-btn p2">📸 Phase 2</a>
+      <a href="index.html" class="phase-btn p1">🏠 Phase 1</a>
+      <a href="phase2.html" class="phase-btn p2">📸 Phase 2</a>
     </div>
 
     <div class="overlay" id="overlay" onclick="toggleSommaire()"></div>
 
     <nav class="sommaire-panel" id="sommairePanel">
-        <h2>🚀 Navigation</h2>
-        <div class="sommaire-item" onclick="goToSlideFromSommaire(0)">1. Présentation Phase III</div>
-        <div class="sommaire-item" onclick="goToSlideFromSommaire(1)">2. Audit du Scripting</div>
+      <h2>🚀 Navigation</h2>
+      <div class="sommaire-item" onclick="goToSlideFromSommaire(0)">
+        1. Présentation Phase III
+      </div>
+      <div class="sommaire-item" onclick="goToSlideFromSommaire(1)">
+        2. Audit du Scripting
+      </div>
     </nav>
 
     <main class="presentation-container">
-        
-        <div class="slide active">
-            <div class="header">
-                <h1>🚀 Phase III - Nova Syndicate</h1>
-                <p>Améliorer et renforcer le système</p>
-            </div>
-            <div class="content-body">
-                <div class="intro-section">
-                    <h3>🎯 Objectif de la Phase III</h3>
-                    <p>Une fois votre infrastructure prête, vous devez l'améliorer pour accroître la <strong>résilience</strong>, la <strong>visibilité</strong> et l'<strong>efficacité</strong> du système.</p>
-                    <p style="margin-top: 15px;"><strong>Mise en oeuvre :</strong></p>
-                    <ul style="margin-left: 25px; margin-top: 10px;">
-                        <li>📋 Plans de Continuité (BCP) et de Reprise (DRP).</li>
-                        <li>📊 Surveillance proactive (Zabbix, Prometheus, Grafana).</li>
-                        <li>🤖 Scripting d'automatisation des processus sécurisé.</li>
-                    </ul>
-                </div>
-
-                <h2 class="section-title">✍️ Livrables</h2>
-                <div class="deliverables-grid">
-                    <div class="deliverable-card"><h3>📝 Rapport</h3><p>Explication des améliorations et impact sur la résilience.</p></div>
-                    <div class="deliverable-card"><h3>🛡️ BCP & DRP</h3><p>Procédures, RTO/RPO et matrice des risques.</p></div>
-                    <div class="deliverable-card"><h3>📊 Surveillance</h3><p>Configuration de l'outil, métriques et seuils d'alertes.</p></div>
-                    <div class="deliverable-card"><h3>🤖 Scripts</h3><p>Scripts fonctionnels avec conformité de sécurité.</p></div>
-                </div>
-
-                <h2 class="section-title">📸 Captures d'écran du projet</h2>
-                <div class="screenshot-grid">
-                    <div class="screenshot-item"><h4>📊 Dashboard Monitoring</h4><div class="screenshot-placeholder">📷 screenshot-monitoring-dashboard.png</div><p class="screenshot-caption">Dashboard principal avec métriques en temps réel</p></div>
-                    <div class="screenshot-item"><h4>🔔 Alertes & Notifications</h4><div class="screenshot-placeholder">📷 screenshot-alerts.png</div><p class="screenshot-caption">Configuration des seuils et notifications</p></div>
-                    <div class="screenshot-item"><h4>📈 Métriques Système</h4><div class="screenshot-placeholder">📷 screenshot-metrics.png</div><p class="screenshot-caption">Graphiques CPU, RAM, Disque et Réseau</p></div>
-                    
-                    <div class="screenshot-item" onclick="showSlide(1)" style="cursor: pointer; border: 2px solid #17a2b8;">
-                        <h4>🤖 Scripts d'automatisation</h4>
-                        <div class="screenshot-placeholder" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);">
-                            📷  <img src="images/script_python_automatisation.png"
-                                            alt="Script d'automatisation Python"
-                                            style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                        </div>
-                        <p class="screenshot-caption">Exemple de script Python</p>
-                    </div>
-
-                    <div class="screenshot-item"><h4>🛡️ Plan BCP/DRP</h4><div class="screenshot-placeholder">📷 screenshot-bcp-drp.png</div><p class="screenshot-caption">Matrice des risques et procédures PCA/PRA</p></div>
-                    <div class="screenshot-item"><h4>🔄 Tests de Basculement</h4><div class="screenshot-placeholder">📷 screenshot-failover-test.png</div><p class="screenshot-caption">Résultats des simulations et temps de reprise</p></div>
-                </div>
-
-                <h2 class="section-title">💯 Critères d'évaluation</h2>
-                <div class="criteria-grid">
-                    <div class="criteria-card"><h3>🛡️ Continuité</h3><p>Robustesse face aux scénarios de crises.</p></div>
-                    <div class="criteria-card"><h3>📊 Suivi</h3><p>Efficacité du monitoring par rapport au SLA.</p></div>
-                    <div class="criteria-card"><h3>⚡ Incidents</h3><p>Réduction prouvée de l'interruption de service.</p></div>
-                    <div class="criteria-card"><h3>🤖 Auto</h3><p>Sécurité et qualité du code d'automatisation.</p></div>
-                </div>
-            </div>
+      <div class="slide active">
+        <div class="header">
+          <h1>🚀 Phase III - Nova Syndicate</h1>
+          <p>Améliorer et renforcer le système</p>
         </div>
+        <div class="content-body">
+          <div class="intro-section">
+            <h3>🎯 Objectif de la Phase III</h3>
+            <p>
+              Une fois votre infrastructure prête, vous devez l'améliorer pour
+              accroître la <strong>résilience</strong>, la
+              <strong>visibilité</strong> et l'<strong>efficacité</strong> du
+              système.
+            </p>
+            <p style="margin-top: 15px"><strong>Mise en oeuvre :</strong></p>
+            <ul style="margin-left: 25px; margin-top: 10px">
+              <li>📋 Plans de Continuité (BCP) et de Reprise (DRP).</li>
+              <li>📊 Surveillance proactive (Zabbix, Prometheus, Grafana).</li>
+              <li>🤖 Scripting d'automatisation des processus sécurisé.</li>
+            </ul>
+          </div>
 
-        <div class="slide">
-            <div class="header">
-                <h1>🛡️ Audit Cyber : Automatisation Sécurisée</h1>
-                <p>Mise en conformité du script d'administration AD (Importation de masse)</p>
+          <h2 class="section-title">✍️ Livrables</h2>
+          <div class="deliverables-grid">
+            <div class="deliverable-card">
+              <h3>📝 Rapport</h3>
+              <p>Explication des améliorations et impact sur la résilience.</p>
             </div>
-            <div class="content-body">
-                <h2>🔎 Ce que fait ce script (Points clés)</h2>
-                <ul style="margin: 20px 0; margin-left: 25px; list-style: square;">
-                    <li><strong>Sécurité</strong> : Récupère le mot de passe via une variable d'environnement (<code>os.getenv</code>), jamais en clair dans le code.</li>
-                    <li><strong>Chiffrement</strong> : Configure la connexion pour utiliser <strong>LDAPS (TLSv1.2)</strong> pour un transport chiffré des identifiants (Évite l'écoute réseau).</li>
-                    <li><strong>Conformité</strong> : Définit l'attribut <code>userAccountControl</code> à <strong>576</strong> pour <strong>forcer l'utilisateur à changer son mot de passe</strong> initial (Sécurité maximale).</li>
-                    <li><strong>Robustesse</strong> : Gère les erreurs de fichier non trouvé et les échecs de connexion (Blocs <code>try/except</code>).</li>
-                    <li><strong>Fonctionnel</strong> : Crée l'objet utilisateur, définit les attributs de base (login, CN) et le mot de passe initial de façon atomique.</li>
-                </ul>
-
-                <div class="ide-container">
-                    <div class="ide-header">
-                        <div class="window-controls"><div class="control close"></div><div class="control minimize"></div><div class="control expand"></div></div>
-                        <span>import_ad_users_simplified.py — Version Cyber-Compliant</span>
-                    </div>
-                    <div class="ide-content"><span class="py-k">import</span> os
-<span class="py-k">import</span> csv
-<span class="py-k">from</span> ldap3 <span class="py-k">import</span> Server, Connection, Tls, ALL, MODIFY_REPLACE, SAFE_SYNC
-<span class="py-k">import</span> ssl
-
-<span class="py-c"># --- Configuration et Sécurité (Secrets gérés par l'environnement) ---</span>
-<span class="py-n">AD_PWD</span> = os.<span class="py-f">getenv</span>(<span class="py-s">"AD_IMPORT_PASSWORD"</span>)
-<span class="py-n">AD_SERVER</span> = <span class="py-s">"192.168.1.10"</span>
-<span class="py-n">DOMAIN_NAME</span> = <span class="py-s">"novasyndicate.local"</span>
-<span class="py-n">LDAP_BIND_USER</span> = <span class="py-s">"NOVASYNDICATE\\admin_svc"</span>
-<span class="py-n">BASE_DC</span> = <span class="py-s">"DC=novasyndicate,DC=local"</span>
-<span class="py-n">CSV_FILE</span> = <span class="py-s">'utilisateurs.csv'</span>
-<span class="py-c"># ----------------------------------------------------------------------</span>
-
-<span class="py-k">def</span> <span class="py-f">import_ad_users_simplified</span>():
-    <span class="py-k">if</span> <span class="py-k">not</span> AD_PWD:
-        <span class="py-f">print</span>(<span class="py-s">"Erreur : La variable AD_IMPORT_PASSWORD n'est pas définie."</span>)
-        <span class="py-k">return</span>
-
-    <span class="py-c"># 1. Lecture du fichier CSV (Omise ici pour la clarté)</span>
-    <span class="py-c"># (Assumons que 'users_to_create' est une liste remplie ici)</span>
-
-    <span class="py-c"># 2. Configuration et Connexion à Active Directory</span>
-    <span class="py-k">try</span>:
-        <span class="py-c"># Force le protocole sécurisé TLSv1_2 pour la validation du certificat</span>
-        <span class="py-n">tls_config</span> = <span class="py-f">Tls</span>(validate=ssl.CERT_REQUIRED, version=ssl.PROTOCOL_TLSv1_2)
-        <span class="py-n">server</span> = <span class="py-f">Server</span>(AD_SERVER, use_ssl=<span class="py-k">True</span>, tls=tls_config, get_info=ALL)
-        
-        <span class="py-k">with</span> <span class="py-f">Connection</span>(server, user=LDAP_BIND_USER, password=AD_PWD, auto_bind=<span class="py-k">True</span>, client_strategy=SAFE_SYNC) <span class="py-k">as</span> <span class="py-n">conn</span>:
-            <span class="py-f">print</span>(<span class="py-s">"Connexion AD réussie. Démarrage de l'importation..."</span>)
-            
-            <span class="py-c"># Exemple de création/modification pour un utilisateur :</span>
-            <span class="py-n">user_dn</span> = <span class="py-s">"CN=John Doe,OU=Utilisateurs,OU=Lyon,DC=novasyndicate,DC=local"</span>
-            <span class="py-c"># UAC 576 = Compte Normal (512) + Changement MDP Forcé (64)</span>
-            <span class="py-n">user_attributes</span> = {<span class="py-s">'userAccountControl'</span>: 576} 
-
-            <span class="py-c"># A. Création du compte (ADD)</span>
-            <span class="py-n">conn</span>.<span class="py-f">add</span>(<span class="py-n">user_dn</span>, attributes=<span class="py-n">user_attributes</span>)
-
-            <span class="py-c"># B. Définition du mot de passe initial</span>
-            <span class="py-k">if</span> <span class="py-n">conn</span>.<span class="py-f">result</span>[<span class="py-s">'description'</span>] == <span class="py-s">'success'</span>:
-                <span class="py-n">password_mod</span> = <span class="py-s">f'"MotDePasseTemp"'</span>.<span class="py-f">encode</span>(<span class="py-s">'utf-16-le'</span>)
-                <span class="py-n">conn</span>.<span class="py-f">modify</span>(<span class="py-n">user_dn</span>, {<span class="py-s">'unicodePwd'</span>: [(MODIFY_REPLACE, [<span class="py-n">password_mod</span>])]})
-                <span class="py-f">print</span>(<span class="py-s">" ✅ Création réussie. Changement MDP forcé."</span>)
-            <span class="py-k">else</span>:
-                <span class="py-f">print</span>(<span class="py-s">f" ❌ Échec : {conn.result['message']}"</span>)
-
-    <span class="py-k">except</span> <span class="py-n">Exception</span> <span class="py-k">as</span> <span class="py-n">e</span>:
-        <span class="py-f">print</span>(<span class="py-s">f"\nFATAL : Échec de la connexion ou erreur générale : {e}"</span>)
-
-
-<span class="py-k">if</span> __name__ == <span class="py-s">"__main__"</span>:
-    <span class="py-f">import_ad_users_simplified</span>()</div>
-                </div>
+            <div class="deliverable-card">
+              <h3>🛡️ BCP & DRP</h3>
+              <p>Procédures, RTO/RPO et matrice des risques.</p>
             </div>
-        </div>
+            <div class="deliverable-card">
+              <h3>📊 Surveillance</h3>
+              <p>Configuration de l'outil, métriques et seuils d'alertes.</p>
+            </div>
+            <div class="deliverable-card">
+              <h3>🤖 Scripts</h3>
+              <p>Scripts fonctionnels avec conformité de sécurité.</p>
+            </div>
+          </div>
 
-        <div class="controls">
-            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Précédent</button>
-            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant →</button>
+          <h2 class="section-title">📸 Captures d'écran du projet</h2>
+          <div class="screenshot-grid">
+            <div class="screenshot-item">
+              <h4>📊 Dashboard Monitoring</h4>
+              <div class="screenshot-placeholder">
+                📷 screenshot-monitoring-dashboard.png
+              </div>
+              <p class="screenshot-caption">
+                Dashboard principal avec métriques en temps réel
+              </p>
+            </div>
+            <div class="screenshot-item">
+              <h4>🔔 Alertes & Notifications</h4>
+              <div class="screenshot-placeholder">📷 screenshot-alerts.png</div>
+              <p class="screenshot-caption">
+                Configuration des seuils et notifications
+              </p>
+            </div>
+            <div class="screenshot-item">
+              <h4>📈 Métriques Système</h4>
+              <div class="screenshot-placeholder">
+                📷 screenshot-metrics.png
+              </div>
+              <p class="screenshot-caption">
+                Graphiques CPU, RAM, Disque et Réseau
+              </p>
+            </div>
+
+            <div
+              class="screenshot-item"
+              onclick="showSlide(1)"
+              style="cursor: pointer; border: 2px solid #17a2b8"
+            >
+              <h4>🤖 Scripts d'automatisation</h4>
+              <div
+                class="screenshot-placeholder"
+                style="
+                  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+                "
+              >
+                📷
+                <img
+                  src="images/script_python_automatisation.png"
+                  alt="Script d'automatisation Python"
+                  style="max-width: 100%; max-height: 100%; object-fit: contain"
+                />
+              </div>
+              <p class="screenshot-caption">Exemple de script Python</p>
+            </div>
+
+            <div class="screenshot-item">
+              <h4>🛡️ Plan BCP/DRP</h4>
+              <div class="screenshot-placeholder">
+                📷 screenshot-bcp-drp.png
+              </div>
+              <p class="screenshot-caption">
+                Matrice des risques et procédures PCA/PRA
+              </p>
+            </div>
+            <div class="screenshot-item">
+              <h4>🔄 Tests de Basculement</h4>
+              <div class="screenshot-placeholder">
+                📷 screenshot-failover-test.png
+              </div>
+              <p class="screenshot-caption">
+                Résultats des simulations et temps de reprise
+              </p>
+            </div>
+          </div>
+
+          <h2 class="section-title">💯 Critères d'évaluation</h2>
+          <div class="criteria-grid">
+            <div class="criteria-card">
+              <h3>🛡️ Continuité</h3>
+              <p>Robustesse face aux scénarios de crises.</p>
+            </div>
+            <div class="criteria-card">
+              <h3>📊 Suivi</h3>
+              <p>Efficacité du monitoring par rapport au SLA.</p>
+            </div>
+            <div class="criteria-card">
+              <h3>⚡ Incidents</h3>
+              <p>Réduction prouvée de l'interruption de service.</p>
+            </div>
+            <div class="criteria-card">
+              <h3>🤖 Auto</h3>
+              <p>Sécurité et qualité du code d'automatisation.</p>
+            </div>
+          </div>
         </div>
+      </div>
+
+
+
+      <!-- SLIDE 2 - Audit du Script d'Automatisation -->
+      <div class="slide">
+        <div class="header">
+          <h1>🛡️ Audit Cyber : Automatisation Sécurisée</h1>
+          <p>
+            Mise en conformité du script d'administration AD (Importation de
+            masse)
+          </p>
+        </div>
+        <div class="content-body">
+          <h2>🔎 Ce que fait ce script (Points clés)</h2>
+          <ul style="margin: 20px 0; margin-left: 25px; list-style: square">
+            <li>
+              <strong>Sécurité</strong> : Récupère le mot de passe via une
+              variable d'environnement (<code>os.getenv</code>), jamais en clair
+              dans le code.
+            </li>
+            <li>
+              <strong>Chiffrement</strong> : Configure la connexion pour
+              utiliser <strong>LDAPS (TLSv1.2)</strong> pour un transport
+              chiffré des identifiants (Évite l'écoute réseau).
+            </li>
+            <li>
+              <strong>Conformité</strong> : Définit l'attribut
+              <code>userAccountControl</code> à <strong>576</strong> pour
+              <strong>forcer l'utilisateur à changer son mot de passe</strong>
+              initial (Sécurité maximale).
+            </li>
+            <li>
+              <strong>Robustesse</strong> : Gère les erreurs de fichier non
+              trouvé et les échecs de connexion (Blocs <code>try/except</code>).
+            </li>
+            <li>
+              <strong>Fonctionnel</strong> : Crée l'objet utilisateur, définit
+              les attributs de base (login, CN) et le mot de passe initial de
+              façon atomique.
+            </li>
+          </ul>
+
+          <div class="ide-container">
+            <div class="ide-header">
+              <div class="window-controls">
+                <div class="control close"></div>
+                <div class="control minimize"></div>
+                <div class="control expand"></div>
+              </div>
+              <span
+                >import_ad_users_simplified.py — Version Cyber-Compliant</span
+              >
+            </div>
+            <div class="ide-content">
+              <span class="py-k">import</span> os
+              <span class="py-k">import</span> csv
+              <span class="py-k">from</span> ldap3
+              <span class="py-k">import</span> Server, Connection, Tls, ALL,
+              MODIFY_REPLACE, SAFE_SYNC <span class="py-k">import</span> ssl
+
+              <span class="py-c"
+                ># --- Configuration et Sécurité (Secrets gérés par
+                l'environnement) ---</span
+              >
+              <span class="py-n">AD_PWD</span> = os.<span class="py-f"
+                >getenv</span
+              >(<span class="py-s">"AD_IMPORT_PASSWORD"</span>)
+              <span class="py-n">AD_SERVER</span> =
+              <span class="py-s">"192.168.1.10"</span>
+              <span class="py-n">DOMAIN_NAME</span> =
+              <span class="py-s">"novasyndicate.local"</span>
+              <span class="py-n">LDAP_BIND_USER</span> =
+              <span class="py-s">"NOVASYNDICATE\\admin_svc"</span>
+              <span class="py-n">BASE_DC</span> =
+              <span class="py-s">"DC=novasyndicate,DC=local"</span>
+              <span class="py-n">CSV_FILE</span> =
+              <span class="py-s">'utilisateurs.csv'</span>
+              <span class="py-c"
+                >#
+                ----------------------------------------------------------------------</span
+              >
+
+              <span class="py-k">def</span>
+              <span class="py-f">import_ad_users_simplified</span>():
+              <span class="py-k">if</span> <span class="py-k">not</span> AD_PWD:
+              <span class="py-f">print</span>(<span class="py-s"
+                >"Erreur : La variable AD_IMPORT_PASSWORD n'est pas
+                définie."</span
+              >)
+              <span class="py-k">return</span>
+
+              <span class="py-c"
+                ># 1. Lecture du fichier CSV (Omise ici pour la clarté)</span
+              >
+              <span class="py-c"
+                ># (Assumons que 'users_to_create' est une liste remplie
+                ici)</span
+              >
+
+              <span class="py-c"
+                ># 2. Configuration et Connexion à Active Directory</span
+              >
+              <span class="py-k">try</span>:
+              <span class="py-c"
+                ># Force le protocole sécurisé TLSv1_2 pour la validation du
+                certificat</span
+              >
+              <span class="py-n">tls_config</span> =
+              <span class="py-f">Tls</span>(validate=ssl.CERT_REQUIRED,
+              version=ssl.PROTOCOL_TLSv1_2) <span class="py-n">server</span> =
+              <span class="py-f">Server</span>(AD_SERVER, use_ssl=<span
+                class="py-k"
+                >True</span
+              >, tls=tls_config, get_info=ALL)
+
+              <span class="py-k">with</span>
+              <span class="py-f">Connection</span>(server, user=LDAP_BIND_USER,
+              password=AD_PWD, auto_bind=<span class="py-k">True</span>,
+              client_strategy=SAFE_SYNC) <span class="py-k">as</span>
+              <span class="py-n">conn</span>:
+              <span class="py-f">print</span>(<span class="py-s"
+                >"Connexion AD réussie. Démarrage de l'importation..."</span
+              >)
+
+              <span class="py-c"
+                ># Exemple de création/modification pour un utilisateur :</span
+              >
+              <span class="py-n">user_dn</span> =
+              <span class="py-s"
+                >"CN=John
+                Doe,OU=Utilisateurs,OU=Lyon,DC=novasyndicate,DC=local"</span
+              >
+              <span class="py-c"
+                ># UAC 576 = Compte Normal (512) + Changement MDP Forcé
+                (64)</span
+              >
+              <span class="py-n">user_attributes</span> = {<span class="py-s"
+                >'userAccountControl'</span
+              >: 576}
+
+              <span class="py-c"># A. Création du compte (ADD)</span>
+              <span class="py-n">conn</span>.<span class="py-f">add</span>(<span
+                class="py-n"
+                >user_dn</span
+              >, attributes=<span class="py-n">user_attributes</span>)
+
+              <span class="py-c"># B. Définition du mot de passe initial</span>
+              <span class="py-k">if</span> <span class="py-n">conn</span>.<span
+                class="py-f"
+                >result</span
+              >[<span class="py-s">'description'</span>] ==
+              <span class="py-s">'success'</span>:
+              <span class="py-n">password_mod</span> =
+              <span class="py-s">f'"MotDePasseTemp"'</span>.<span class="py-f"
+                >encode</span
+              >(<span class="py-s">'utf-16-le'</span>)
+              <span class="py-n">conn</span>.<span class="py-f">modify</span
+              >(<span class="py-n">user_dn</span>, {<span class="py-s"
+                >'unicodePwd'</span
+              >: [(MODIFY_REPLACE, [<span class="py-n">password_mod</span>])]})
+              <span class="py-f">print</span>(<span class="py-s"
+                >" ✅ Création réussie. Changement MDP forcé."</span
+              >) <span class="py-k">else</span>:
+              <span class="py-f">print</span>(<span class="py-s"
+                >f" ❌ Échec : {conn.result['message']}"</span
+              >)
+
+              <span class="py-k">except</span>
+              <span class="py-n">Exception</span> <span class="py-k">as</span>
+              <span class="py-n">e</span>: <span class="py-f">print</span>(<span
+                class="py-s"
+                >f"\nFATAL : Échec de la connexion ou erreur générale :
+                {e}"</span
+              >)
+
+              <span class="py-k">if</span> __name__ ==
+              <span class="py-s">"__main__"</span>:
+              <span class="py-f">import_ad_users_simplified</span>()
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+          ← Précédent
+        </button>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+          Suivant →
+        </button>
+      </div>
     </main>
 
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const progressFill = document.getElementById('progressFill');
-        const sommaireItems = document.querySelectorAll('.sommaire-item');
-
-        function showSlide(n) {
-            slides.forEach(s => s.classList.remove('active'));
-            slides[n].classList.add('active');
-            currentSlide = n;
-
-            document.getElementById('prevBtn').disabled = (n === 0);
-            document.getElementById('nextBtn').disabled = (n === slides.length - 1);
-            
-            progressFill.style.width = ((n + 1) / slides.length * 100) + '%';
-
-            sommaireItems.forEach((item, i) => {
-                item.classList.toggle('active-item', i === n);
-            });
-
-            window.scrollTo(0, 0); 
-        }
-
-        function changeSlide(step) {
-            let next = currentSlide + step;
-            if (next >= 0 && next < slides.length) showSlide(next);
-        }
-
-        function goToSlideFromSommaire(n) {
-            showSlide(n);
-            toggleSommaire();
-        }
-
-        function toggleSommaire() {
-            document.getElementById('sommairePanel').classList.toggle('open');
-            document.getElementById('overlay').classList.toggle('show');
-        }
-
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-            else document.exitFullscreen();
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "ArrowRight") changeSlide(1);
-            if (e.key === "ArrowLeft") changeSlide(-1);
-        });
-
-        showSlide(0);
-    </script>
-</body>
+     <script src="script.js"></script>
+  </body>
 </html>
