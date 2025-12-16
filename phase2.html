@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,213 +8,143 @@
     <link rel="stylesheet" href="style-phase2.css">
 </head>
 <body>
+
     <button class="sommaire-btn" onclick="toggleSommaire()">📋 Sommaire</button>
     <button class="fullscreen-btn" onclick="toggleFullscreen()">🖥️ Plein écran</button>
-
-    <!-- BOUTONS PHASES -->
+    
     <div class="phase-buttons">
-        <a href="index.html" class="phase-btn phase1">📸 Phase 1</a>
-        <a href="phase3.html" class="phase-btn phase3">📸 Phase 3</a>
+        <a href="index.html" class="phase-btn p1">🏠 Phase 1</a>
+        <a href="phase3.html" class="phase-btn p3">🚀 Phase 3</a>
     </div>
 
     <div class="overlay" id="overlay" onclick="toggleSommaire()"></div>
 
-    <nav class="sommaire-panel" id="sommairePanel">
-        <h2>📋 Navigation Phase 2</h2>
-        <a href="index.html" class="sommaire-item">
-            <span class="item-number">1</span>
-            <span class="item-title">🏠 Présentation principale</span>
-        </a>
-        <div class="sommaire-item active-item">
-            <span class="item-number">2</span>
-            <span class="item-title">📸 Phase 2 (actuelle)</span>
-        </div>
-        <a href="phase3.html" class="sommaire-item">
-            <span class="item-number">3</span>
-            <span class="item-title">📸 Phase 3</span>
-        </a>
-    </nav>
-
-    <!-- MODAL ZOOM IMAGE -->
     <div class="image-zoom-modal" id="imageZoomModal" onclick="closeZoom()">
-        <span class="image-zoom-close" onclick="closeZoom()">×</span>
         <img id="zoomedImage" src="" alt="Image agrandie">
     </div>
 
-    <div class="container">
+    <nav class="sommaire-panel" id="sommairePanel">
+        <h2 style="color: #28a745; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 10px;">📸 Navigation</h2>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(0)">1. Présentation Phase II</div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(1)">2. Livrables</div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(2)">3. Captures d'écran</div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(3)">4. 🎥 Démo Vidéo</div>
+        <div class="sommaire-item" onclick="goToSlideFromSommaire(4)">5. Critères</div>
+    </nav>
+
+    <main class="presentation-container">
+        
         <div class="header">
             <h1>📸 Phase II - Nova Syndicate</h1>
-            <p>Livrables & Critères d'évaluation</p>
+            <p>Conception et déploiement de l'infrastructure</p>
         </div>
 
-        <div class="content">
-            <!-- SECTION LIVRABLES -->
-            <div class="section">
-                <h2 class="section-title">✍️ Livrables</h2>
-                <p style="font-size: 1.1em; color: #555; margin-bottom: 20px;">
-                    Ce que vous devez livrer pour valider la Phase II :
-                </p>
-
-                <div class="deliverables-grid">
-                    <div class="deliverable-card">
-                        <h3>📐 Schéma Architecture</h3>
-                        <p>
-                            Un schéma mis à jour de l'architecture que vous avez construite, 
-                            incluant tous les composants, les flux de données et les interconnexions.
-                        </p>
-                    </div>
-
-                    <div class="deliverable-card">
-                        <h3>📄 Document Technique</h3>
-                        <p>
-                            Un document technique expliquant vos choix de conception, 
-                            les technologies retenues et les justifications techniques.
-                        </p>
-                    </div>
-
-                    <div class="deliverable-card">
-                        <h3>✅ Preuve de Fonctionnement</h3>
-                        <p>
-                            Preuve que votre système fonctionne : captures d'écran, 
-                            logs de tests, démonstrations des fonctionnalités clés.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION CAPTURES D'ÉCRAN -->
-            <div class="section screenshots-section">
-                <h2 class="section-subtitle">📸 Captures d'écran du projet</h2>
-                <p style="font-size: 1em; color: #666; margin-bottom: 20px;">
-                    Cliquez sur les images pour les agrandir
-                </p>
-
-                <div class="screenshot-grid">
-                    <div class="screenshot-item">
-                        <h4>🖥️ Active Directory - Configuration</h4>
-                        <img id="screenshot1" class="screenshot-image" src="screenshot-ad.png" 
-                             alt="Active Directory" onclick="openZoom(this.src)"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="screenshot-placeholder" style="display: none;">
-                            📷 screenshot-ad.png
-                        </div>
-                        <p class="screenshot-caption">
-                            Configuration du contrôleur de domaine principal avec les GPO appliquées
-                        </p>
-                    </div>
-
-                    <div class="screenshot-item">
-                        <h4>🖥️ Hyper-V - Machines Virtuelles</h4>
-                        <img id="screenshot2" class="screenshot-image" src="screenshot-hyperv.png" 
-                             alt="Hyper-V VMs" onclick="openZoom(this.src)"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="screenshot-placeholder" style="display: none;">
-                            📷 screenshot-hyperv.png
-                        </div>
-                        <p class="screenshot-caption">
-                            Vue d'ensemble des machines virtuelles déployées sur Hyper-V
-                        </p>
-                    </div>
-
-                    <div class="screenshot-item">
-                        <h4>🗄️ PostgreSQL - Base de données</h4>
-                        <img id="screenshot3" class="screenshot-image" src="screenshot-postgres.png" 
-                             alt="PostgreSQL" onclick="openZoom(this.src)"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="screenshot-placeholder" style="display: none;">
-                            📷 screenshot-postgres.png
-                        </div>
-                        <p class="screenshot-caption">
-                            Configuration PostgreSQL avec réplication streaming active
-                        </p>
-                    </div>
-
-                    <div class="screenshot-item">
-                        <h4>📁 File Server - Partages réseau</h4>
-                        <img id="screenshot4" class="screenshot-image" src="screenshot-fileserver.png" 
-                             alt="File Server" onclick="openZoom(this.src)"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="screenshot-placeholder" style="display: none;">
-                            📷 screenshot-fileserver.png
-                        </div>
-                        <p class="screenshot-caption">
-                            DFS Namespace et configuration des partages avec permissions AD
-                        </p>
-                    </div>
-
-                    <div class="screenshot-item">
-                        <h4>🔐 VPN - Configuration</h4>
-                        <img id="screenshot5" class="screenshot-image" src="screenshot-vpn.png" 
-                             alt="VPN Config" onclick="openZoom(this.src)"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="screenshot-placeholder" style="display: none;">
-                            📷 screenshot-vpn.png
-                        </div>
-                        <p class="screenshot-caption">
-                            Configuration du VPN Site-to-Site avec IPsec IKEv2
-                        </p>
-                    </div>
-
-                    <div class="screenshot-item">
-                        <h4>📊 Monitoring - Dashboard</h4>
-                        <img id="screenshot6" class="screenshot-image" src="screenshot-monitoring.png" 
-                             alt="Monitoring" onclick="openZoom(this.src)"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="screenshot-placeholder" style="display: none;">
-                            📷 screenshot-monitoring.png
-                        </div>
-                        <p class="screenshot-caption">
-                            Dashboard de supervision avec métriques temps réel
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION CRITÈRES D'ÉVALUATION -->
-            <div class="section">
-                <h2 class="section-title">💯 Critères d'évaluation</h2>
-                <p style="font-size: 1.1em; color: #555; margin-bottom: 20px;">
-                    Votre projet sera évalué selon les critères suivants :
-                </p>
-
-                <div class="criteria-grid">
-                    <div class="criteria-card">
-                        <div class="criteria-icon">🔐</div>
-                        <h3>Mise en œuvre du contrôle d'accès</h3>
-                        <p>
-                            Le système respecte les politiques d'accès définies et garantit 
-                            un accès sécurisé et continu aux ressources. Authentification centralisée, 
-                            gestion des droits et audit des accès.
-                        </p>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-icon">🖥️</div>
-                        <h3>Efficacité de la virtualisation</h3>
-                        <p>
-                            L'architecture virtuelle répond aux besoins d'évolutivité et optimise 
-                            l'utilisation des ressources système. Snapshots, provisioning rapide 
-                            et haute disponibilité.
-                        </p>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-icon">🗄️</div>
-                        <h3>Intégration de la base de données</h3>
-                        <p>
-                            Le serveur de base de données est conforme au cahier des charges, 
-                            sécurisé et optimisé pour les performances. Réplication, sauvegardes 
-                            et procédures de récupération opérationnelles.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="index.html" class="back-button">← Retour à la présentation</a>
+        <div class="slide active">
+            <div style="background: #e8f5e9; padding: 35px; border-radius: 15px; border-left: 8px solid #28a745; margin-bottom: 20px;">
+                <h3 style="color: #1b5e20; margin-bottom: 20px; font-size: 1.5em;">🎯 Objectif de la Phase II</h3>
+                <p style="font-size: 1.2em; line-height: 1.6;">Mettre en place une infrastructure <strong>fonctionnelle</strong> et conforme aux objectifs opérationnels de Nova Syndicate.</p>
+                <ul style="margin-left: 25px; margin-top: 20px; font-size: 1.2em; line-height: 1.8;">
+                    <li>👤 Gestion centralisée des utilisateurs (Active Directory).</li>
+                    <li>📁 Serveur de fichiers sécurisé.</li>
+                    <li>🗄️ Base de données relationnelle (PostgreSQL).</li>
+                    <li>🖥️ Environnement virtualisé (Hyper-V).</li>
+                </ul>
             </div>
         </div>
-    </div>
+
+        <div class="slide">
+            <h1>✍️ Livrables Attendus</h1>
+            <div class="deliverables-grid">
+                <div class="deliverable-card">
+                    <h3>📐 Schéma Architecture</h3>
+                    <p>Schéma mis à jour incluant tous les composants (VMs, Réseau) et les flux de données.</p>
+                </div>
+                <div class="deliverable-card">
+                    <h3>📄 Doc Technique</h3>
+                    <p>Justification des choix technologiques (Hyper-V, PostgreSQL 16, DFS-R, IPsec).</p>
+                </div>
+                <div class="deliverable-card">
+                    <h3>✅ Preuve Fonctionnelle</h3>
+                    <p>Captures d'écran complètes et vidéo de démonstration du cycle de vie utilisateur.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>📸 Captures d'écran</h1>
+            <div class="screenshot-grid">
+                <div class="screenshot-item" onclick="openZoom('screenshot-ad.png')">
+                    <h4>🖥️ Active Directory - Configuration</h4>
+                    <div class="screenshot-placeholder"><img src="screenshot-ad.png" alt="AD" onerror="this.style.display='none'; this.parentNode.innerHTML='📷 AD'"></div>
+                    <p class="screenshot-caption">Configuration du contrôleur de domaine principal avec les GPO appliquées</p>
+                </div>
+                <div class="screenshot-item" onclick="openZoom('screenshot-hyperv.png')">
+                    <h4>🖥️ Hyper-V - Machines Virtuelles</h4>
+                    <div class="screenshot-placeholder"><img src="screenshot-hyperv.png" alt="HyperV" onerror="this.style.display='none'; this.parentNode.innerHTML='📷 Hyper-V'"></div>
+                    <p class="screenshot-caption">Vue d'ensemble des machines virtuelles déployées sur Hyper-V</p>
+                </div>
+                <div class="screenshot-item" onclick="openZoom('screenshot-postgres.png')">
+                    <h4>🗄️ PostgreSQL - Base de données</h4>
+                    <div class="screenshot-placeholder"><img src="screenshot-postgres.png" alt="SQL" onerror="this.style.display='none'; this.parentNode.innerHTML='📷 PostgreSQL'"></div>
+                    <p class="screenshot-caption">Configuration PostgreSQL avec réplication streaming active</p>
+                </div>
+                <div class="screenshot-item" onclick="openZoom('screenshot-fileserver.png')">
+                    <h4>📁 File Server - Partages réseau</h4>
+                    <div class="screenshot-placeholder"><img src="screenshot-fileserver.png" alt="FS" onerror="this.style.display='none'; this.parentNode.innerHTML='📷 DFS'"></div>
+                    <p class="screenshot-caption">DFS Namespace et configuration des partages avec permissions AD</p>
+                </div>
+                <div class="screenshot-item" onclick="openZoom('screenshot-vpn.png')">
+                    <h4>🔐 VPN - Configuration</h4>
+                    <div class="screenshot-placeholder"><img src="screenshot-vpn.png" alt="VPN" onerror="this.style.display='none'; this.parentNode.innerHTML='📷 VPN'"></div>
+                    <p class="screenshot-caption">Configuration du VPN Site-to-Site avec IPsec IKEv2</p>
+                </div>
+                <div class="screenshot-item" onclick="openZoom('screenshot-monitoring.png')">
+                    <h4>📊 Monitoring - Dashboard</h4>
+                    <div class="screenshot-placeholder"><img src="screenshot-monitoring.png" alt="Mon" onerror="this.style.display='none'; this.parentNode.innerHTML='📷 Monitoring'"></div>
+                    <p class="screenshot-caption">Dashboard de supervision avec métriques temps réel</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" style="background: #2f3640; color: white;">
+            <h1 style="color: #2ecc71; border-color: #2ecc71;">🎥 Preuve de Fonctionnement</h1>
+            <div class="video-container-full">
+                <div class="video-wrapper">
+                    <video controls poster="images/miniature_video.jpg">
+                        <source src="videos/test.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la balise vidéo.
+                    </video>
+                </div>
+                <div class="video-caption">
+                    <strong>🎬 Scénario de test :</strong> Création User AD ➔ Login Client ➔ Test Permissions Fichiers ➔ Requête SQL.
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>💯 Critères d'évaluation</h1>
+            <div class="criteria-grid">
+                <div class="criteria-card">
+                    <h3>🔐 Mise en œuvre du contrôle d'accès</h3>
+                    <p>Le système respecte les politiques d'accès définies et garantit un accès sécurisé et continu aux ressources. Authentification centralisée, gestion des droits et audit des accès.</p>
+                </div>
+                <div class="criteria-card">
+                    <h3>🖥️ Efficacité de la virtualisation</h3>
+                    <p>L'architecture virtuelle répond aux besoins d'évolutivité et optimise l'utilisation des ressources système. Snapshots, provisioning rapide et haute disponibilité.</p>
+                </div>
+                <div class="criteria-card">
+                    <h3>🗄️ Intégration de la base de données</h3>
+                    <p>Le serveur de base de données est conforme au cahier des charges, sécurisé et optimisé pour les performances. Réplication, sauvegardes et procédures de récupération.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Précédent</button>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Suivant →</button>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
